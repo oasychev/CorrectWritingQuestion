@@ -215,7 +215,7 @@ class qtype_correctwriting_test_mistake_descriptions extends PHPUnit_Framework_T
                 4 => 'sum',
                 5 => 'number2'
             ),
-            'int a = 54 + 23',
+            'int a = 54 + 23 ;',
             array(3 => 5, 5 => 3)
         );
 
@@ -240,7 +240,7 @@ class qtype_correctwriting_test_mistake_descriptions extends PHPUnit_Framework_T
                 4 => 'sum',
                 5 => 'number2'
             ),
-            'int a = 54 + 23',
+            'int a = 54 + 23 ;',
             array(3 => 5, 5 => 3)
         );
 

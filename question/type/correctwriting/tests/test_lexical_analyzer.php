@@ -75,7 +75,8 @@ class qtype_correctwriting_lexical_analyzer_test extends PHPUnit_Framework_TestC
 		$result=$analyzer2->result_pairs(); // array of resultstringpairs
 		$this->assertTrue(count($result[0]->matches()->matchedpairs)==1);
 		$this->assertTrue($result[0]->matches()->mistakeweight==1);
-		$this->assertTrue($result[0]->matches()->matchedpairs[0]->editops=='mmmmmdm');
+        $ops = $result[0]->matches()->matchedpairs[0]->operations;
+		$this->assertTrue($ops == 'mmmmmim', var_export($ops, true));
 	}
 
 	//опечатка - вставка
@@ -97,7 +98,8 @@ class qtype_correctwriting_lexical_analyzer_test extends PHPUnit_Framework_TestC
 		$result=$analyzer2->result_pairs(); // array of resultstringpairs
 		$this->assertTrue(count($result[0]->matches()->matchedpairs)==1);
 		$this->assertTrue(count($result[0]->matches()->mistakeweight)==1);
-		$this->assertTrue($result[0]->matches()->matchedpairs[0]->editops=='mmmmmmim');
+        $ops = $result[0]->matches()->matchedpairs[0]->operations;
+        $this->assertTrue($ops == 'mmmmmmdm', var_export($ops, true));
 	}
 
 	//опечатка - замена
@@ -119,7 +121,8 @@ class qtype_correctwriting_lexical_analyzer_test extends PHPUnit_Framework_TestC
 		$result=$analyzer2->result_pairs(); // array of resultstringpairs
 		$this->assertTrue(count($result[0]->matches()->matchedpairs)==1);
 		$this->assertTrue(count($result[0]->matches()->mistakeweight)==1);
-		$this->assertTrue($result[0]->matches()->matchedpairs[0]->editops=='mmmmmrm');
+        $ops = $result[0]->matches()->matchedpairs[0]->operations;
+        $this->assertTrue($ops == 'mmmmmrm', var_export($ops, true));
 	}
 
 	//опечатка - несколько операций
@@ -127,7 +130,7 @@ class qtype_correctwriting_lexical_analyzer_test extends PHPUnit_Framework_TestC
 		$language2 = new block_formal_langs_language_c_language();
 		$question = new qtype_correctwriting_question();
 		$question->usecase = true;
-		$question->lexicalerrorthreshold = 0.1;
+		$question->lexicalerrorthreshold = 0.5;
 		$question->lexicalerrorweight = 0.1;
 		$question->usedlanguage = $language2;
 		$question->movedmistakeweight = 0.1;
@@ -141,7 +144,8 @@ class qtype_correctwriting_lexical_analyzer_test extends PHPUnit_Framework_TestC
 		$result=$analyzer2->result_pairs(); // array of resultstringpairs
 		$this->assertTrue(count($result[0]->matches()->matchedpairs)==1);
 		$this->assertTrue(count($result[0]->matches()->mistakeweight)==1);
-		$this->assertTrue($result[0]->matches()->matchedpairs[0]->editops=='mrmmmdm');
+        $ops = $result[0]->matches()->matchedpairs[0]->operations;
+        $this->assertTrue($ops == 'mrmmmim', var_export($ops, true));
 	}
 
 	//опечатка - транспозиция
@@ -163,8 +167,9 @@ class qtype_correctwriting_lexical_analyzer_test extends PHPUnit_Framework_TestC
 		$result=$analyzer2->result_pairs(); // array of resultstringpairs
 		$this->assertTrue(count($result[0]->matches()->matchedpairs)==1);
 		$this->assertTrue(count($result[0]->matches()->mistakeweight)==1);
-		$this->assertTrue($result[0]->matches()->matchedpairs[0]->editops=='mmmmmimd');
-	}
+        $ops = $result[0]->matches()->matchedpairs[0]->operations;
+        $this->assertTrue($ops == 'mmmmmt', var_export($ops, true));
+    }
 
 	//1 пара
 	public function test_lexical_analyzer2() {
