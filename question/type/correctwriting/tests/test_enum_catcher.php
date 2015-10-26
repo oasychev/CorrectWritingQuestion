@@ -305,12 +305,13 @@ class qtype_correctwriting_enum_catcher_test extends PHPUnit_Framework_TestCase 
         $tree = $correct->syntaxtree;
         $temp = new qtype_correctwriting_enum_catcher($tree);
         $expected_result = [array()];
-         $expected_result[0][] = array(0,0);
+        $expected_result[0][] = array(0,0);
         $expected_result[0][] = array(2,2);
         $expected_result[0][] = array(4,4);
         $expected_result[0][] = array(6,6);
         $expected_result[0][] = array(8,8);
         $error_string = 'Error enumeration catcher found!Sequence of assign.';
+        $this->assertEquals(5, count($temp->getEnums()[0]));
         $this->assertEquals($expected_result[0][0], $temp->getEnums()[0][0], $error_string);
         $this->assertEquals($expected_result[0][1], $temp->getEnums()[0][1], $error_string);
         $this->assertEquals($expected_result[0][2], $temp->getEnums()[0][2], $error_string);
