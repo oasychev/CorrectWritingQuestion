@@ -332,13 +332,14 @@ class qtype_correctwriting_enum_catcher_test extends PHPUnit_Framework_TestCase 
         $temp = new qtype_correctwriting_enum_catcher($tree);
         $expected_result = [array(), array(), array(), array()];
         $expected_result[0][] = array(2,4);
-        $expected_result[0][] = array(6,6);
-        $expected_result[2][] = array(2,2);
-        $expected_result[2][] = array(4,4);
-        $expected_result[3][] = array(2,6);
-        $expected_result[3][] = array(8,8);
-        $expected_result[1][] = array(2,8);
-        $expected_result[1][] = array(10,10);
+        $expected_result[0][] = array(6,10);
+        $expected_result[1][] = array(2,2);
+        $expected_result[1][] = array(4,4);
+        $expected_result[3][] = array(6,6);
+        $expected_result[3][] = array(8,10);
+        $expected_result[2][] = array(8,8);
+        $expected_result[2][] = array(10,10);
+
         $error_string = 'Error enumeration catcher found!Bit operators.';
         $this->assertEquals($expected_result[1][0], $temp->getEnums()[1][0], $error_string);
         $this->assertEquals($expected_result[1][1], $temp->getEnums()[1][1], $error_string);
