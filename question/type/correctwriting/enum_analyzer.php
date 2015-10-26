@@ -682,11 +682,13 @@ class  qtype_correctwriting_enum_analyzer extends qtype_correctwriting_abstract_
         foreach ($allfindorders as $currentorder) {
             // Change enumeration elements order.
             $currentstringpair = null;
-			$currentstringpair = clone $this->basestringpair;
-            $currentstringpair->set_enum_correct_string(clone $currentstringpair->correctstring());
-			$this->change_enum_order($currentstringpair, $enumchangeorder, $includedenums, $currentorder);
+            $currentstringpair = clone $this->basestringpair;
+            $this->change_enum_order($currentstringpair, $enumchangeorder, $includedenums, $currentorder);
             // Find LCS of correct and corrected answers.
+            $currentstringpair->enum_correct_string()->stream = null;
+            $this->basestringpair->correctedstring()->stream = null;
             $currentcorrectstream = $currentstringpair->enum_correct_string()->stream;
+            $correctedstream =  $this->basestringpair->correctedstring()->stream;
             $lcsarray = qtype_correctwriting_sequence_analyzer::lcs($currentcorrectstream, $correctedstream, $options);
             // If lcs exist keep it's length...
             // Else length is zero.
@@ -711,8 +713,8 @@ class  qtype_correctwriting_enum_analyzer extends qtype_correctwriting_abstract_
        }
        // If maximal LCS length is equal zero array of pair must be empty.
        if ($maxlcslength === 0) {
-           $this->resultstringpairs = array($this->basestringpair);
-		   $this->resultmistakes = array();
+           $this->resultstringpairs = array();
+           $this->bypass();
        }
     }
     /**
