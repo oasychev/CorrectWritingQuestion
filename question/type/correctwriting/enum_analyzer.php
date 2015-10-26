@@ -715,7 +715,25 @@ class  qtype_correctwriting_enum_analyzer extends qtype_correctwriting_abstract_
 		   $this->resultmistakes = array();
        }
     }
+    /**
+     * Fill resultstringpairs with a string pair, that simulates work of this analyzer allowing subsequent analyzers to work.
+     *
+     * You are normally would overload this, starting overload with parent function call, then add you work.
+     * Don't actually analyze something, no mistakes generated: just fill necessary fields in string pair.
+     */
+    protected function bypass() {
+        if ($this->basestringpair !== null) {
+            $this->resultstringpairs[] = clone $this->basestringpair; //Clone string pair for future use.
+            $tokens = $this->resultstringpairs[0]->correctstring()->stream->tokens;
+            foreach ($tokens as $token) {
+                $indexesintable[] = $token->token_index();
+            }
+            $this->resultstringpairs[0]->set_enum_correct_to_correct($indexesintable);
 
+            $this->resultstringpairs[0]->set_enum_correct_string(clone $this->resultstringpairs[0]->correctstring());
+            $this->resultmistakes = array();
+        }
+    }
 		/**
 		* If this analyzer requires some other ones to work, not bypass - return an array of such analyzers names.
 		*/
