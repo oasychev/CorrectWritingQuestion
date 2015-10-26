@@ -292,7 +292,6 @@ class  qtype_correctwriting_enum_analyzer extends qtype_correctwriting_abstract_
         return $enumorders;
     }
 
-     
     /**
      * Returns fitness as aggregate measure of how students response fits this particular answer - i.e. more fitness = less mistakes.
      * Used to choose best matched answer.
@@ -301,9 +300,9 @@ class  qtype_correctwriting_enum_analyzer extends qtype_correctwriting_abstract_
      * Each analyzer will calculate fitness only for it's own mistakes, ignoring mistakes from other analyzers.
      * @param array of qtype_correctwriting_response_mistake child classes $mistakes Mistakes to calculate fitness from, can be empty array.
      */
-	public function fitness($mistakes) {
-			return 0;
-	}
+    public function fitness($mistakes) {
+        return 0;
+    }
     /**
      * Function to find orders of all enumerations in corrected answer.
      * @param array $correctanswer - correct answer
@@ -577,11 +576,11 @@ class  qtype_correctwriting_enum_analyzer extends qtype_correctwriting_abstract_
                 array_pop($enumschangecorrectstring);
             }
         }
-        // Change table indexes for tokens in correct answer.       
+        // Change table indexes for tokens in correct answer.
         $indexesintable = array();
-        foreach ($tokens as $token) {       
-            $indexesintable[] = $token->token_index();      
-        }       
+        foreach ($tokens as $token) {
+            $indexesintable[] = $token->token_index();
+        }
         $stringpair->set_enum_correct_to_correct($indexesintable);
         // Change correctstring.
         $stringpair->correctstring()->stream->tokens = $tokens;
@@ -637,7 +636,7 @@ class  qtype_correctwriting_enum_analyzer extends qtype_correctwriting_abstract_
      * @param qtype_correctwriting_string_pair - pair of answers.
      */
     protected function analyze() {
-		global $CFG;
+        global $CFG;
         $maxlcslength = 0; // Current maximal LCS length.
         $allfindorders = array(); // All find enumeration orders.
         $enumchangeorder = array(); // Enumeration change order.
@@ -649,7 +648,7 @@ class  qtype_correctwriting_enum_analyzer extends qtype_correctwriting_abstract_
         $currentorder = array(); // Current order of enumerations elements.
         $currentstringpair = 0; // Current string pair with current order of enumeration.
         $currentcorrectstream = $this->basestringpair->correctstring()->stream; // Stream of correct answer with current...
-                                                                           // ...enumerations elements order.
+                                                                                // ...enumerations elements order.
         $lcsarray = array(); // Array of finded LCS for current enuerations elements order.
         $correctedstream =  $this->basestringpair->correctedstring()->stream; // Stream of corrected answer.
         $options = new block_formal_langs_comparing_options(); // Options needed to find lcs.
@@ -670,11 +669,11 @@ class  qtype_correctwriting_enum_analyzer extends qtype_correctwriting_abstract_
         $includedenums = $forstd->includedenums;
         // Find expected orders for all enumeration.
         $allfindorders = $this->find_all_enum_orders_in_corrected_string($correcttokens, $correctedtokens, $enumdescription);
-		if (count($allfindorders) > $CFG->qtype_correctwriting_maxorderscount) {
-			array_splice($allfindorders,-0,count($allfindorders) - $CFG->qtype_correctwriting_maxorderscount); 
-		}
+        if (count($allfindorders) > $CFG->qtype_correctwriting_maxorderscount) {
+            array_splice($allfindorders,-0,count($allfindorders) - $CFG->qtype_correctwriting_maxorderscount);
+        }
         foreach ($allfindorders as $currentorder) {
-        	// Change enumeration elements order.
+            // Change enumeration elements order.
             $currentstringpair = null;
 			$currentstringpair = clone $this->basestringpair;
             $currentstringpair->set_enum_correct_string(clone $currentstringpair->correctstring());
@@ -694,15 +693,15 @@ class  qtype_correctwriting_enum_analyzer extends qtype_correctwriting_abstract_
             // ... and add string pair to array.
             if ($maxlcslength === $count) {
                 $this->resultstringpairs[] = $currentstringpair;
-		   		$this->resultmistakes[] = true; 
+                $this->resultmistakes[] = true;
             } else if ($maxlcslength < $count) {
                 $maxlcslength = $count;
                 $this->resultstringpairs = array();
-		   		$this->resultmistakes = array(); 
-		   		$this->resultmistakes[] = true; 
+                $this->resultmistakes = array();
+                $this->resultmistakes[] = true;
                 $this->resultstringpairs[] = $currentstringpair;
             }
-       }  
+       }
        // If maximal LCS length is equal zero array of pair must be empty.
        if ($maxlcslength === 0) {
            $this->resultstringpairs = array($this->basestringpair);
@@ -745,7 +744,7 @@ class enum_element {
     }
 
     /**
-    *  Function return number of first element's token  
+    *  Function return number of first element's token
     * @return integer - number of first element's token
     */
     public function begin() {
@@ -753,7 +752,7 @@ class enum_element {
     }
 
     /**
-    *  Function return number of last element's token  
+    *  Function return number of last element's token
     * @return integer - number of last element's token
     */
     public function end() {
