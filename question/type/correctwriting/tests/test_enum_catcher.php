@@ -766,21 +766,22 @@ class qtype_correctwriting_enum_catcher_test extends PHPUnit_Framework_TestCase 
     }
 
     /**
-     *  Test for find enumerations in sequence of assign with definition.
+     *  Test for find enumerations in sequence of assign.
      *  Enumeration from a to k.
      */
-    public function test_sequence_of_assign_with_definition() {
+    public function test_sequence_of_assign_definition()
+    {
         $lang = new block_formal_langs_language_cpp_parseable_language();
         $string = 'int t = a = b = c = k = 5 ;';
         $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_processed_string');
         $tree = $correct->syntaxtree;
         $temp = new qtype_correctwriting_enum_catcher($tree);
         $expected_result = [array()];
-        $expected_result[0][] = array(3,3);
-        $expected_result[0][] = array(5,5);
-        $expected_result[0][] = array(7,7);
-        $expected_result[0][] = array(9,9);
-        $error_string = 'Error enumeration catcher found!Sequence of assign with definition.';
+        $expected_result[0][] = array(3, 3);
+        $expected_result[0][] = array(5, 5);
+        $expected_result[0][] = array(7, 7);
+        $expected_result[0][] = array(9, 9);
+        $error_string = 'Error enumeration catcher found!Sequence of assign.';
         $this->assertEquals($expected_result[0][0], $temp->getEnums()[0][0], $error_string);
         $this->assertEquals($expected_result[0][1], $temp->getEnums()[0][1], $error_string);
         $this->assertEquals($expected_result[0][2], $temp->getEnums()[0][2], $error_string);
