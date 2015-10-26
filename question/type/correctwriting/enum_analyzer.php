@@ -34,10 +34,10 @@ class  qtype_correctwriting_enum_analyzer extends qtype_correctwriting_abstract_
      * @param array $enumdescription enumerations description
      */
     public function get_enum_change_order($enumdescription) {
-        $enum1; // Description of enumeration-one.
-        $enum2; // Description of enumeration-two.
-        $enum1number; // Number of enumeration-one.
-        $enum2number; // Number of enumeration-two.
+        $enum1 = -1; // Description of enumeration-one.
+        $enum2 = -1; // Description of enumeration-two.
+        $enum1number = 0; // Number of enumeration-one.
+        $enum2number = 0; // Number of enumeration-two.
         $changeorderincludedenums = new stdClass();
         // Add fields to stdClass object.
         $changeorderincludedenums->order = array(); // Enumerations change order.
