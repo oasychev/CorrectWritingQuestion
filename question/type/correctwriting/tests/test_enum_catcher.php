@@ -33,7 +33,7 @@ class qtype_correctwriting_enum_catcher_test extends PHPUnit_Framework_TestCase 
     public function test_definition() {
         $lang = new block_formal_langs_language_cpp_parseable_language();
         $string = 'int k = j / h + t + o - r ; bool g = kill = live ;';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
+        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_processed_string');
         $tree = $correct->syntaxtree;
         $temp = new qtype_correctwriting_enum_catcher($tree);
         $expected_result = [array()];
@@ -54,7 +54,7 @@ class qtype_correctwriting_enum_catcher_test extends PHPUnit_Framework_TestCase 
     public function test_sequence_of_mod() {
         $lang = new block_formal_langs_language_cpp_parseable_language();
         $string = 'k = j % h % t % o % r ;';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
+        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_processed_string');
         $tree = $correct->syntaxtree;
         $temp = new qtype_correctwriting_enum_catcher($tree);
         $expected_result = [array()];
@@ -78,7 +78,7 @@ class qtype_correctwriting_enum_catcher_test extends PHPUnit_Framework_TestCase 
     public function test_sequence_of_plus_with_multiple() {
         $lang = new block_formal_langs_language_cpp_parseable_language();
         $string = 'k = ( j + h + t + o + r ) * f ;';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
+        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_processed_string');
         $tree = $correct->syntaxtree;
         $temp = new qtype_correctwriting_enum_catcher($tree);
         $expected_result = [array(),array()];
@@ -107,7 +107,7 @@ class qtype_correctwriting_enum_catcher_test extends PHPUnit_Framework_TestCase 
     public function test_sequence_of_plus_and_multiple() {
         $lang = new block_formal_langs_language_cpp_parseable_language();
         $string = 'k = ( j * h + t * o + r ) * f ;';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
+        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_processed_string');
         $tree = $correct->syntaxtree;
         $temp = new qtype_correctwriting_enum_catcher($tree);
         $expected_result = [array(),array(),array(),array()];
@@ -140,7 +140,7 @@ class qtype_correctwriting_enum_catcher_test extends PHPUnit_Framework_TestCase 
     public function test_sequence_of_plus_and_multiple_with_type_casting() {
         $lang = new block_formal_langs_language_cpp_parseable_language();
         $string = 'k = (int)( j * h + t * o + r ) * f ;';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
+        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_processed_string');
         $tree = $correct->syntaxtree;
         $temp = new qtype_correctwriting_enum_catcher($tree);
         $expected_result = [array(),array(),array(),array()];
@@ -174,7 +174,7 @@ class qtype_correctwriting_enum_catcher_test extends PHPUnit_Framework_TestCase 
     public function test_sequence_of_plus_and_multiple_mod_and_div() {
         $lang = new block_formal_langs_language_cpp_parseable_language();
         $string = 'k = ( j * h + t / o / r ) % f % g ;';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
+        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_processed_string');
         $tree = $correct->syntaxtree;
         $temp = new qtype_correctwriting_enum_catcher($tree);
         $expected_result = [array(),array(),array(),array()];
@@ -205,7 +205,7 @@ class qtype_correctwriting_enum_catcher_test extends PHPUnit_Framework_TestCase 
     public function test_sequence_of_sub() {
         $lang = new block_formal_langs_language_cpp_parseable_language();
         $string = 'k = j - h - t - o - r ;';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
+        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_processed_string');
         $tree = $correct->syntaxtree;
         $temp = new qtype_correctwriting_enum_catcher($tree);
         $expected_result = [array()];
@@ -228,7 +228,7 @@ class qtype_correctwriting_enum_catcher_test extends PHPUnit_Framework_TestCase 
     public function test_sequence_of_div() {
         $lang = new block_formal_langs_language_cpp_parseable_language();
         $string = 'k = j / h / t / o / r ;';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
+        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_processed_string');
         $tree = $correct->syntaxtree;
         $temp = new qtype_correctwriting_enum_catcher($tree);
         $expected_result = [array()];
@@ -251,7 +251,7 @@ class qtype_correctwriting_enum_catcher_test extends PHPUnit_Framework_TestCase 
     public function testsequence_of_plus() {
         $lang = new block_formal_langs_language_cpp_parseable_language();
         $string = 'k = j + h + t + o + r ;';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
+        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_processed_string');
         $tree = $correct->syntaxtree;
         $temp = new qtype_correctwriting_enum_catcher($tree);
         $expected_result = [array()];
@@ -276,7 +276,7 @@ class qtype_correctwriting_enum_catcher_test extends PHPUnit_Framework_TestCase 
     public function test_sequence_of_mul() {
         $lang = new block_formal_langs_language_cpp_parseable_language();
         $string = 'k = j * h * t * o * r ;';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
+        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_processed_string');
         $tree = $correct->syntaxtree;
         $temp = new qtype_correctwriting_enum_catcher($tree);
         $expected_result = [array()];
@@ -301,7 +301,7 @@ class qtype_correctwriting_enum_catcher_test extends PHPUnit_Framework_TestCase 
     public function test_sequence_of_assign() {
         $lang = new block_formal_langs_language_cpp_parseable_language();
         $string = 'k = j = h = t = o = r ;';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
+        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_processed_string');
         $tree = $correct->syntaxtree;
         $temp = new qtype_correctwriting_enum_catcher($tree);
         $expected_result = [array()];
@@ -326,7 +326,7 @@ class qtype_correctwriting_enum_catcher_test extends PHPUnit_Framework_TestCase 
     public function test_bit_operations() {
         $lang = new block_formal_langs_language_cpp_parseable_language();
         $string = 'k = j & h | t ^ o & r ;';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
+        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_processed_string');
         $tree = $correct->syntaxtree;
         $temp = new qtype_correctwriting_enum_catcher($tree);
         $expected_result = [array(), array(), array(), array()];
@@ -357,7 +357,7 @@ class qtype_correctwriting_enum_catcher_test extends PHPUnit_Framework_TestCase 
     public function test_definition_variables_and_pointers() {
         $lang = new block_formal_langs_language_cpp_parseable_language();
         $string = 'int * k , j , *h;';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
+        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_processed_string');
         $tree = $correct->syntaxtree;
         $temp = new qtype_correctwriting_enum_catcher($tree);
         $expected_result = [array()];
@@ -377,7 +377,7 @@ class qtype_correctwriting_enum_catcher_test extends PHPUnit_Framework_TestCase 
     public function test_definition_variables_and_pointers_with_assign() {
         $lang = new block_formal_langs_language_cpp_parseable_language();
         $string = 'int * k , j , *h=z=e;';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
+        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_processed_string');
         $tree = $correct->syntaxtree;
         $temp = new qtype_correctwriting_enum_catcher($tree);
         $expected_result = [array()];
@@ -398,7 +398,7 @@ class qtype_correctwriting_enum_catcher_test extends PHPUnit_Framework_TestCase 
     public function test_definition_variables() {
         $lang = new block_formal_langs_language_cpp_parseable_language();
         $string = 'int k , j , h;';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
+        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_processed_string');
         $tree = $correct->syntaxtree;
         $temp = new qtype_correctwriting_enum_catcher($tree);
         $expected_result = [array()];
@@ -419,7 +419,7 @@ class qtype_correctwriting_enum_catcher_test extends PHPUnit_Framework_TestCase 
     public function test_definition_variables_with_assign() {
         $lang = new block_formal_langs_language_cpp_parseable_language();
         $string = 'int k=2 , j=u , h;';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
+        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_processed_string');
         $tree = $correct->syntaxtree;
         $temp = new qtype_correctwriting_enum_catcher($tree);
         $expected_result = [array()];
@@ -440,7 +440,7 @@ class qtype_correctwriting_enum_catcher_test extends PHPUnit_Framework_TestCase 
     public function test_definition_variables_with_assign_heavy() {
         $lang = new block_formal_langs_language_cpp_parseable_language();
         $string = 'int k=2 , j=k , h;';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
+        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_processed_string');
         $tree = $correct->syntaxtree;
         $temp = new qtype_correctwriting_enum_catcher($tree);
         $expected_result = [array()];
@@ -461,7 +461,7 @@ class qtype_correctwriting_enum_catcher_test extends PHPUnit_Framework_TestCase 
     public function test_definition_array() {
         $lang = new block_formal_langs_language_cpp_parseable_language();
         $string = 'int k [ 5 ] = { 1 , 2 , 4 , 3 , 0 } ;';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
+        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_processed_string');
         $tree = $correct->syntaxtree;
         $temp = new qtype_correctwriting_enum_catcher($tree);
         $expected_result = [];
@@ -476,7 +476,7 @@ class qtype_correctwriting_enum_catcher_test extends PHPUnit_Framework_TestCase 
     public function test_definition_enum() {
         $lang = new block_formal_langs_language_cpp_parseable_language();
         $string = 'enum types { Int , Char , Double , Float } ;';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
+        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_processed_string');
         $tree = $correct->syntaxtree;
         $temp = new qtype_correctwriting_enum_catcher($tree);
         $expected_result = [array()];
@@ -499,7 +499,7 @@ class qtype_correctwriting_enum_catcher_test extends PHPUnit_Framework_TestCase 
     public function test_definition_enum_with_assign() {
         $lang = new block_formal_langs_language_cpp_parseable_language();
         $string = 'enum suit { Int = 1 , Float } ;';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
+        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_processed_string');
         $tree = $correct->syntaxtree;
         $temp = new qtype_correctwriting_enum_catcher($tree);
         $expected_result = [array()];
@@ -518,7 +518,7 @@ class qtype_correctwriting_enum_catcher_test extends PHPUnit_Framework_TestCase 
     public function test_definition_struct() {
         $lang = new block_formal_langs_language_cpp_parseable_language();
         $string = 'struct suit { int a ; char * b ; float k ; } ;';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
+        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_processed_string');
         $tree = $correct->syntaxtree;
         $temp = new qtype_correctwriting_enum_catcher($tree);
         $expected_result = [array()];
@@ -539,7 +539,7 @@ class qtype_correctwriting_enum_catcher_test extends PHPUnit_Framework_TestCase 
     public function test_logical_operators() {
         $lang = new block_formal_langs_language_cpp_parseable_language();
         $string = 'k = j == h && t != o && r  || f ;';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
+        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_processed_string');
         $tree = $correct->syntaxtree;
         $temp = new qtype_correctwriting_enum_catcher($tree);
         $expected_result = [array(),array(),array(),array()];
@@ -573,7 +573,7 @@ class qtype_correctwriting_enum_catcher_test extends PHPUnit_Framework_TestCase 
     public function test_logical_operators_and_brackets() {
         $lang = new block_formal_langs_language_cpp_parseable_language();
         $string = 'k = j == h && (t != o && r  || f );';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
+        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_processed_string');
         $tree = $correct->syntaxtree;
         $temp = new qtype_correctwriting_enum_catcher($tree);
         $expected_result = [array(),array(),array(),array(),array()];
@@ -608,7 +608,7 @@ class qtype_correctwriting_enum_catcher_test extends PHPUnit_Framework_TestCase 
     public function test_use_shortform_plus() {
         $lang = new block_formal_langs_language_cpp_parseable_language();
         $string = 'k += j + h - (3 - o + r  * f );';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
+        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_processed_string');
         $tree = $correct->syntaxtree;
         $temp = new qtype_correctwriting_enum_catcher($tree);
         $expected_result = [array(),array(),array()];
@@ -635,7 +635,7 @@ class qtype_correctwriting_enum_catcher_test extends PHPUnit_Framework_TestCase 
     public function test_use_shortform_sub() {
         $lang = new block_formal_langs_language_cpp_parseable_language();
         $string = 'k -= j + h - (3 - o + r  * f );';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
+        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_processed_string');
         $tree = $correct->syntaxtree;
         $temp = new qtype_correctwriting_enum_catcher($tree);
         $expected_result = [array(),array(),array()];
@@ -662,7 +662,7 @@ class qtype_correctwriting_enum_catcher_test extends PHPUnit_Framework_TestCase 
     public function test_use_shortform_mul() {
         $lang = new block_formal_langs_language_cpp_parseable_language();
         $string = 'k *= j + h - (3 - o + r  * f );';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
+        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_processed_string');
         $tree = $correct->syntaxtree;
         $temp = new qtype_correctwriting_enum_catcher($tree);
         $expected_result = [array(),array(),array()];
@@ -689,7 +689,7 @@ class qtype_correctwriting_enum_catcher_test extends PHPUnit_Framework_TestCase 
     public function test_use_shortform_div() {
         $lang = new block_formal_langs_language_cpp_parseable_language();
         $string = 'k /= j + h - (3 - o + r  * f );';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
+        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_processed_string');
         $tree = $correct->syntaxtree;
         $temp = new qtype_correctwriting_enum_catcher($tree);
         $expected_result = [array(),array(),array()];
@@ -716,7 +716,7 @@ class qtype_correctwriting_enum_catcher_test extends PHPUnit_Framework_TestCase 
     public function test_use_shortform_inc() {
         $lang = new block_formal_langs_language_cpp_parseable_language();
         $string = 'k = j + h++ - (3 - ++o + r  * f );';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
+        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_processed_string');
         $tree = $correct->syntaxtree;
         $temp = new qtype_correctwriting_enum_catcher($tree);
         $expected_result = [array(),array(),array()];
@@ -743,7 +743,7 @@ class qtype_correctwriting_enum_catcher_test extends PHPUnit_Framework_TestCase 
     public function test_use_shortform_dec() {
         $lang = new block_formal_langs_language_cpp_parseable_language();
         $string = 'k = j + h-- - (3 - --o + r  * f );';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
+        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_processed_string');
         $tree = $correct->syntaxtree;
         $temp = new qtype_correctwriting_enum_catcher($tree);
         $expected_result = [array(),array(),array()];
