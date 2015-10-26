@@ -389,6 +389,13 @@ class  qtype_correctwriting_enum_analyzer extends qtype_correctwriting_abstract_
         $indexesintable = array(); // Array of indexes for correct string's tokens.
         $tokens = $stringpair->correctstring()->stream->tokens; // Array of tokens in correctstring.
         // Fill array to keep enums orders separately.
+        if($enumerations!=null) {
+            foreach ($enumerations as $i=>$enumeration) {
+                foreach ($enumeration as $j=>$element) {
+                    if (!is_array($element)) $enumerations[$i][$j] = clone $enumerations[$i][$j];
+                }
+            }
+        }
         for ($i = 0; $i < count($newenumorder); $i++) {
             // For all enumerations order end by -1 or end of array.
             if ($newenumorder[$i] == -1) {
@@ -582,18 +589,17 @@ class  qtype_correctwriting_enum_analyzer extends qtype_correctwriting_abstract_
             $indexesintable[] = $token->token_index();
         }
         $stringpair->set_enum_correct_to_correct($indexesintable);
-        // Change correctstring.
-        $stringpair->correctstring()->stream->tokens = $tokens;
-        $enumstring = clone($stringpair->correctstring());
+
         foreach ($enumschangecorrectstring as $i) {
+            $enumstring = clone($stringpair->enum_correct_string());
             $tempstringbegin = '';
             $tempstringend = '';
             $position = reset($enumsorders[$i]);
             $position = $enumerations[$i][$position]->begin;
             if ($position !== 0) {
                 $position--;
-                $position = $stringpair->enum_correct_string()->stream->tokens[$position]->position()->colend();
-                $tempstringbegin = $stringpair->enum_correct_string()->string->substring(0, $position + 1);
+                $position = $enumstring->stream->tokens[$position]->position()->colend();
+                $tempstringbegin = $enumstring->string->substring(0, $position + 1);
                 $tempstringbegin = $tempstringbegin.' ';
             } else {
                 $tempstringbegin = '';
@@ -602,8 +608,8 @@ class  qtype_correctwriting_enum_analyzer extends qtype_correctwriting_abstract_
             $position = $enumerations[$i][$position]->end;
             if ($position !== count($tokens) - 1) {
                 $position++;
-                $position= $stringpair->enum_correct_string()->stream->tokens[$position]->position()->colstart();
-                $tempstringend = $stringpair->enum_correct_string()->string->substring($position);
+                $position= $enumstring->stream->tokens[$position]->position()->colstart();
+                $tempstringend = $enumstring->string->substring($position);
             } else {
                 $tempstringend = '';
             }
@@ -613,18 +619,19 @@ class  qtype_correctwriting_enum_analyzer extends qtype_correctwriting_abstract_
                 $tempstringbegin = $tempstringbegin.' ';
             }
             $tempstringbegin = $tempstringbegin.$tempstringend;
-
-
-            // Update correct string.
-            $enumstring->string = new qtype_poasquestion_string($tempstringbegin);
-            // Update enumerations descriptions.
+            // Update enumeration correct string.
+            $enumstring = new qtype_poasquestion_string($tempstringbegin);
+            $enumstring = $this->language->create_from_string($enumstring, 'qtype_correctwriting_processed_string');
+            $enumstring->stream = null;
+            $stringpair->set_enum_correct_string($enumstring);
             $stringpair->enum_correct_string()->enumerations = $enumerations;
             // Update token indexes.
-            $enumstring->stream = null;
-            $enumstring->stream->tokens;
-            $stringpair->set_enum_correct_string($enumstring);
             $stringpair->correctstring()->stream = null;
-            $stringpair->correctstring()->stream->tokens;
+            $stringpair->correctstring()->stream;
+            $stringpair->correctedstring()->stream = null;
+            $stringpair->correctedstring()->stream;
+            $stringpair->enum_correct_string()->stream = null;
+            $stringpair->enum_correct_string()->stream;
         }
     }
 
