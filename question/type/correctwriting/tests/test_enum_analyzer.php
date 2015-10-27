@@ -837,7 +837,7 @@ class qtype_correctwriting_enum_analyzer_test extends PHPUnit_Framework_TestCase
         // Input data.
         $string = 'I see a big group of people , which contains three parts : children , women and men , who was weared in blue ';
         $string = $string.'overall or strange suits with red and green line in front.';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
+        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_processed_string');
         $order = array(0, 1, -1, 1, 0, -1, 1, 2, 0);
         $enumorder = array(0, 1, 2);
         $enumdescription = array();
@@ -848,23 +848,32 @@ class qtype_correctwriting_enum_analyzer_test extends PHPUnit_Framework_TestCase
         $include[] = array(-1);
         $include[] = array(0);
         $include[] = array(0, 1);
-        $correct->enumerations = $enumdescription;
-        $pair = new qtype_correctwriting_string_pair($correct, $correct, null);
+        $pair = new qtype_correctwriting_string_pair(clone $correct, clone $correct, null);
+        $pair->correctstring()->enumerations = $enumdescription;
         // Expected result.
         $string = 'I see a big group of people , which contains three parts : women , men , who was weared in strange suits with';
         $string = $string.' red and green line in front or blue overall and children .';
-        $newcorrect = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
-        $enumdescription = array();
-        $enumdescription[] = array(new enum_element(24, 24), new enum_element(26, 26));
-        $enumdescription[] = array(new enum_element(31, 32), new enum_element(21, 29));
-        $enumdescription[] = array(new enum_element(34, 34), new enum_element(13, 13), new enum_element(15, 32));
+        $newcorrect = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_processed_string');
+        $enumdescription1 = array();
+        $enumdescription1[] = array(new enum_element(24, 24), new enum_element(26, 26));
+        $enumdescription1[] = array(new enum_element(31, 32), new enum_element(21, 29));
+        $enumdescription1[] = array(new enum_element(34, 34), new enum_element(13, 13), new enum_element(15, 32));
         $newcorrect->enumerations = $enumdescription;
-        $newpair = new qtype_correctwriting_string_pair($newcorrect, $correct, null);
+        $newpair = new qtype_correctwriting_string_pair(clone $correct, clone $correct, null);
         $indexesintable = array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 15, 14, 17, 18, 19, 20, 21, 22, 26, 27, 28, 29, 30, 31,
                                 32, 33, 34, 25, 23, 24, 16, 13, 35);
-        $newpair->set_indexes_in_table($indexesintable);
+        $newpair->set_enum_correct_to_correct($indexesintable);
+        $newpair->set_enum_correct_string($newcorrect);
+        $newpair->enum_correct_string()->enumerations = $enumdescription1;
+        $newpair->correctstring()->enumerations = $enumdescription;
+        $newpair->correctstring()->stream = null;
+        $newpair->correctedstring()->stream = null;
+        $newpair->enum_correct_string()->stream = null;
+        $newpair->correctstring()->stream->tokens;
+        $newpair->correctedstring()->stream->tokens;
+
         // Test body.
-        $temp = new qtype_correctwriting_enum_analyzer();
+        $temp = new qtype_correctwriting_enum_analyzer('q',null,$lang);
         $temp->change_enum_order($pair, $enumorder, $include, $order);
         $this->assertEquals($newpair, $pair, 'Error change order found!Matrioska');
     }
