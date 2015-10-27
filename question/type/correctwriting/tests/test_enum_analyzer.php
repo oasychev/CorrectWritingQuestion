@@ -1317,28 +1317,42 @@ class qtype_correctwriting_enum_analyzer_test extends PHPUnit_Framework_TestCase
     // Test for construct, enumeration tokens in wrong order, that take must to keep elements completely.Some LCS.
     public function test__construct_enum_tokens_wrong_order_some_lcs() {
         $lang = new block_formal_langs_language_simple_english;
-        $string = 'e * q b / . ) + ( t ) a -c (';
-        $corrected = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
-        // Expected result.
-        $string = '( b / e ) % ( c - t ) + a . q ';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
-        $enumdescription = array();
-        $enumdescription[] = array(new enum_element(12, 14), new enum_element(0, 10));
-        $correct->enumerations = $enumdescription;
-        $pair = new qtype_correctwriting_string_pair($correct, $corrected, null);
-        $indexesintable = array(4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 3, 0, 1, 2);
-        $pair->set_indexes_in_table($indexesintable);
-        $pairs[] = $pair;
         // Input data.
         $string = 'a . q + ( b / e ) % ( c - t ) ';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
+        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_processed_string');
         $enumdescription = array();
         $enumdescription[] = array(new enum_element(0, 2), new enum_element(4, 14));
-        $correct->enumerations = $enumdescription;
+        $string = 'e * q b / . ) + ( t ) a -c (';
+        $corrected = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_processed_string');
         $pair = new qtype_correctwriting_string_pair($correct, $corrected, null);
-        $pairs[] = $pair;
+        $pair->correctstring()->enumerations = $enumdescription;
+        $newpair1 = clone $pair;
+        $indexesintable = array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14);
+        $newpair1->set_enum_correct_to_correct($indexesintable);
+        $newpair1->set_enum_correct_string(clone $pair->correctstring());
+        //$newpair1->enum_correct_string()->enumerations = $enumdescription;
+        $newpair1->correctstring()->stream = null;
+        $newpair1->correctedstring()->stream = null;
+        $newpair1->correctstring()->stream->tokens;
+        $newpair1->correctedstring()->stream->tokens;
+        // Expected result.
+        $string = '( b / e ) % ( c - t ) + a . q ';
+        $newcorrect = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_processed_string');
+        $enumdescription = array();
+        $enumdescription[] = array(new enum_element(12, 14), new enum_element(0, 10));
+        $newpair = clone $pair;
+        $indexesintable = array(4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 3, 0, 1, 2);
+        $newpair->set_enum_correct_to_correct($indexesintable);
+        $newpair->set_enum_correct_string($newcorrect);
+        $newpair->enum_correct_string()->enumerations = $enumdescription;
+        $newpair->correctstring()->stream = null;
+        $newpair->correctedstring()->stream = null;
+        $newpair->correctstring()->stream->tokens;
+        $newpair->correctedstring()->stream->tokens;
+        $pairs[] = $newpair;
+        $pairs[] = $newpair1;
         // Test body.
-        $temp = new qtype_correctwriting_enum_analyzer('q',$pair,null,false);
+        $temp = new qtype_correctwriting_enum_analyzer('q',$pair,$lang,false);
         $this->assertEquals($pairs, $temp->result_pairs(), 'Error in work found!Enumeration tokens in wrong order. Some LCS');
     }
 
