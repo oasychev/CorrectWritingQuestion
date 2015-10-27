@@ -1011,73 +1011,98 @@ class qtype_correctwriting_enum_analyzer_test extends PHPUnit_Framework_TestCase
     // Test for construct, same tokens in diffrent enumerations.
     public function test__construct_same_tokens() {
         $lang = new block_formal_langs_language_simple_english;
+        // Input data.
         $string = 'Today I meet my friends : Sam , Dine and Sam , and my Sam , with their three friends : Sam , Carry and  Sam .';
-        $corrected = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
+        $corrected = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_processed_string');
+        $string = 'Today I meet my friends : Sam , Dine and Michel , and my neighbors , with their three children : Victoria ,';
+        $string = $string.' Carry and Sam .';
+        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_processed_string');
+        $enumdescription = array();
+        $enumdescription[] = array(new enum_element(6, 6), new enum_element(8, 8), new enum_element(10, 10));
+        $enumdescription[] = array(new enum_element(3, 10), new enum_element(13, 25));
+        $enumdescription[] = array(new enum_element(21, 21), new enum_element(23, 23), new enum_element(25, 25));
+        $pair = new qtype_correctwriting_string_pair(clone $correct, clone $corrected, null);
+        $pair->correctstring()->enumerations = $enumdescription;
         // Expected result.
         $string = 'Today I meet my friends : Michel , Dine and Sam , and my neighbors , with their three children : Victoria ,';
         $string = $string.' Carry and Sam .';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
+
+        $newcorrect = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_processed_string');
         $enumdescription = array();
         $enumdescription[] = array(new enum_element(10, 10), new enum_element(8, 8), new enum_element(6, 6));
         $enumdescription[] = array(new enum_element(3, 10), new enum_element(13, 25));
         $enumdescription[] = array(new enum_element(21, 21), new enum_element(23, 23), new enum_element(25, 25));
-        $correct->enumerations = $enumdescription;
-        $pair = new qtype_correctwriting_string_pair($correct, $corrected, null);
         $indexesintable = array(0, 1, 2, 3, 4, 5, 10, 7, 8, 9, 6, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26);
-        $pair->set_indexes_in_table($indexesintable);
+        $newpair = clone $pair;
+        $newpair->set_enum_correct_to_correct($indexesintable);
+        $newpair->set_enum_correct_string($newcorrect);
+        $newpair->enum_correct_string()->enumerations = $enumdescription;
+        $newpair->correctstring()->stream = null;
+        $newpair->correctedstring()->stream = null;
+        $newpair->enum_correct_string()->stream = null;
+        $newpair->correctstring()->stream->tokens;
+        $newpair->correctedstring()->stream->tokens;
         $pairs = array();
-        $pairs[] = $pair;
+        $pairs[] = $newpair;
 
         $string = 'Today I meet my friends : Michel , Dine and Sam , and my neighbors , with their three children : Sam ,';
         $string = $string.' Carry and Victoria .';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
+        $newcorrect = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_processed_string');
         $enumdescription = array();
         $enumdescription[] = array(new enum_element(10, 10), new enum_element(8, 8), new enum_element(6, 6));
         $enumdescription[] = array(new enum_element(3, 10), new enum_element(13, 25));
         $enumdescription[] = array(new enum_element(25, 25), new enum_element(23, 23), new enum_element(21, 21));
-        $correct->enumerations = $enumdescription;
-        $pair = new qtype_correctwriting_string_pair($correct, $corrected, null);
         $indexesintable = array(0, 1, 2, 3, 4, 5, 10, 7, 8, 9, 6, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 25, 22, 23, 24, 21, 26);
-        $pair->set_indexes_in_table($indexesintable);
-        $pairs[] = $pair;
+        $newpair = clone $pair;
+        $newpair->set_enum_correct_to_correct($indexesintable);
+        $newpair->set_enum_correct_string($newcorrect);
+        $newpair->enum_correct_string()->enumerations = $enumdescription;
+        $newpair->correctstring()->stream = null;
+        $newpair->correctedstring()->stream = null;
+        $newpair->enum_correct_string()->stream = null;
+        $newpair->correctstring()->stream->tokens;
+        $newpair->correctedstring()->stream->tokens;
+        $pairs[] = $newpair;
 
         $string = 'Today I meet my friends : Sam , Dine and Michel , and my neighbors , with their three children : Victoria ,';
         $string = $string.' Carry and Sam .';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
+        $newcorrect = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_processed_string');
         $enumdescription = array();
         $enumdescription[] = array(new enum_element(6, 6), new enum_element(8, 8), new enum_element(10, 10));
         $enumdescription[] = array(new enum_element(3, 10), new enum_element(13, 25));
         $enumdescription[] = array(new enum_element(21, 21), new enum_element(23, 23), new enum_element(25, 25));
-        $correct->enumerations = $enumdescription;
-        $pair = new qtype_correctwriting_string_pair($correct, $corrected, null);
         $indexesintable = array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26);
-        $pair->set_indexes_in_table($indexesintable);
-        $pairs[] = $pair;
+        $newpair = clone $pair;
+        $newpair->set_enum_correct_to_correct($indexesintable);
+        $newpair->set_enum_correct_string($newcorrect);
+        $newpair->enum_correct_string()->enumerations = $enumdescription;
+        $newpair->correctstring()->stream = null;
+        $newpair->correctedstring()->stream = null;
+        $newpair->enum_correct_string()->stream = null;
+        $newpair->correctstring()->stream->tokens;
+        $newpair->correctedstring()->stream->tokens;
+        $pairs[] = $newpair;
 
         $string = 'Today I meet my friends : Sam , Dine and Michel , and my neighbors , with their three children : Sam ,';
         $string = $string.' Carry and Victoria .';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
+        $newcorrect = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_processed_string');
         $enumdescription = array();
         $enumdescription[] = array(new enum_element(6, 6), new enum_element(8, 8), new enum_element(10, 10));
         $enumdescription[] = array(new enum_element(3, 10), new enum_element(13, 25));
         $enumdescription[] = array(new enum_element(25, 25), new enum_element(23, 23), new enum_element(21, 21));
-        $correct->enumerations = $enumdescription;
-        $pair = new qtype_correctwriting_string_pair($correct, $corrected, null);
         $indexesintable = array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 25, 22, 23, 24, 21, 26);
-        $pair->set_indexes_in_table($indexesintable);
-        $pairs[] = $pair;
-        // Input data.
-        $string = 'Today I meet my friends : Sam , Dine and Michel , and my neighbors , with their three children : Victoria ,';
-        $string = $string.' Carry and Sam .';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
-        $enumdescription = array();
-        $enumdescription[] = array(new enum_element(6, 6), new enum_element(8, 8), new enum_element(10, 10));
-        $enumdescription[] = array(new enum_element(3, 10), new enum_element(13, 25));
-        $enumdescription[] = array(new enum_element(21, 21), new enum_element(23, 23), new enum_element(25, 25));
-        $correct->enumerations = $enumdescription;
-        $pair = new qtype_correctwriting_string_pair($correct, $corrected, null);
+        $newpair = clone $pair;
+        $newpair->set_enum_correct_to_correct($indexesintable);
+        $newpair->set_enum_correct_string($newcorrect);
+        $newpair->enum_correct_string()->enumerations = $enumdescription;
+        $newpair->correctstring()->stream = null;
+        $newpair->correctedstring()->stream = null;
+        $newpair->enum_correct_string()->stream = null;
+        $newpair->correctstring()->stream->tokens;
+        $newpair->correctedstring()->stream->tokens;
+        $pairs[] = $newpair;
         // Test body.
-        $temp = new qtype_correctwriting_enum_analyzer('q',$pair,null,false);
+        $temp = new qtype_correctwriting_enum_analyzer('q',$pair,$lang,false);
         $this->assertEquals($pairs, $temp->result_pairs(), 'Error in work found!Same tokens');
     }
 
