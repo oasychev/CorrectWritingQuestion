@@ -1346,10 +1346,25 @@ class qtype_correctwriting_enum_analyzer_test extends PHPUnit_Framework_TestCase
     public function test__construct_six_enums() {
         $lang = new block_formal_langs_language_simple_english;
         $string = 'int q = z * w * r + j + h , p = * f * d + b + e * r * z ;';
-        $corrected = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
+        $corrected = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_processed_string');
+
+        // Input data.
+        $string = 'int a = b + c * d * f + k * z * e , p = j + h + t * r * w ;';
+        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_processed_string');
+        $enumdescription = array();
+        $enumdescription[] = array(array(1, 15), array(17, 27));
+        $enumdescription[] = array(array(3, 3), array(5, 9), array(11, 15));
+        $enumdescription[] = array(array(19, 19), array(21, 21), array(23, 27));
+        $enumdescription[] = array(array(5, 5), array(7, 7), array(9, 9));
+        $enumdescription[] = array(array(23, 23), array(25, 25), array(27, 27));
+        $enumdescription[] = array(array(11, 11), array(13, 13), array(15, 15));
+        $pair = new qtype_correctwriting_string_pair($correct, $corrected, null);
+        $pair->correctstring()->enumerations = $enumdescription;
+        // Test body.
+        $temp = new qtype_correctwriting_enum_analyzer('q',$pair,$lang,false);
         // Expected result.
         $string = 'int p = t * w * r + j + h , a = c * f * d + b + e * k * z ;';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
+        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_processed_string');
         $enumdescription = array();
         $enumdescription[] = array(new enum_element(13, 27), new enum_element(1, 11));
         $enumdescription[] = array(new enum_element(21, 21), new enum_element(15, 19), new enum_element(23, 27));
@@ -1357,27 +1372,14 @@ class qtype_correctwriting_enum_analyzer_test extends PHPUnit_Framework_TestCase
         $enumdescription[] = array(new enum_element(15, 15), new enum_element(19, 19), new enum_element(17, 17));
         $enumdescription[] = array(new enum_element(3, 3), new enum_element(7, 7), new enum_element(5, 5));
         $enumdescription[] = array(new enum_element(25, 25), new enum_element(27, 27), new enum_element(23, 23));
-        $correct->enumerations = $enumdescription;
         $pair = new qtype_correctwriting_string_pair($correct, $corrected, null);
+
+        $pair->enum_correct_string()->enumerations = $enumdescription;
         $indexesintable = array(0, 17, 18, 23, 24, 27, 26, 25, 20, 19, 22, 21, 16, 1, 2, 5, 6, 9, 8, 7, 4, 3, 10, 15, 12, 11, 14,
-                                13, 28);
-        $pair->set_indexes_in_table($indexesintable);
+            13, 28);
+        $pair->set_enum_correct_to_correct($indexesintable);
         $pairs = array();
         $pairs[] = $pair;
-        // Input data.
-        $string = 'int a = b + c * d * f + k * z * e , p = j + h + t * r * w ;';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
-        $enumdescription = array();
-        $enumdescription[] = array(new enum_element(1, 15), new enum_element(17, 27));
-        $enumdescription[] = array(new enum_element(3, 3), new enum_element(5, 9), new enum_element(11, 15));
-        $enumdescription[] = array(new enum_element(19, 19), new enum_element(21, 21), new enum_element(23, 27));
-        $enumdescription[] = array(new enum_element(5, 5), new enum_element(7, 7), new enum_element(9, 9));
-        $enumdescription[] = array(new enum_element(23, 23), new enum_element(25, 25), new enum_element(27, 27));
-        $enumdescription[] = array(new enum_element(11, 11), new enum_element(13, 13), new enum_element(15, 15));
-        $correct->enumerations = $enumdescription;
-        $pair = new qtype_correctwriting_string_pair($correct, $corrected, null);
-        // Test body.
-        $temp = new qtype_correctwriting_enum_analyzer('q',$pair,null,false);
         $this->assertEquals($pairs, $temp->result_pairs(), 'Error in work found!Six enumerations');
     }
 
