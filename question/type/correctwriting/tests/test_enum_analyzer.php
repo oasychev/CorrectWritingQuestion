@@ -883,7 +883,7 @@ class qtype_correctwriting_enum_analyzer_test extends PHPUnit_Framework_TestCase
         $lang = new block_formal_langs_language_simple_english;
         // Input data.
         $string = 'int a = b + c * d * f + k * z * e , p = j + h + t * r * w ;';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
+        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_processed_string');
         $order = array(1, 0, -1, 1, 0, 2, -1, 2, 0, 1, -1, 0, 2, 1, -1, 0, 2, 1, -1, 2, 1, 0);
         $enumorder = array(3, 4, 5, 1, 2, 0);
         $enumdescription = array();
@@ -900,25 +900,33 @@ class qtype_correctwriting_enum_analyzer_test extends PHPUnit_Framework_TestCase
         $include[] = array(-1);
         $include[] = array(-1);
         $include[] = array(-1);
-        $correct->enumerations = $enumdescription;
-        $pair = new qtype_correctwriting_string_pair($correct, $correct, null);
+        $pair = new qtype_correctwriting_string_pair(clone $correct, clone $correct, null);
+        $pair->correctstring()->enumerations = $enumdescription;
         // Expected result.
         $string = 'int p = t * w * r + j + h , a = c * f * d + b + e * z * k ;';
-        $newcorrect = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
-        $enumdescription = array();
-        $enumdescription[] = array(new enum_element(13, 27), new enum_element(1, 11));
-        $enumdescription[] = array(new enum_element(21, 21), new enum_element(15, 19), new enum_element(23, 27));
-        $enumdescription[] = array(new enum_element(9, 9), new enum_element(11, 11), new enum_element(3, 7));
-        $enumdescription[] = array(new enum_element(15, 15), new enum_element(19, 19), new enum_element(17, 17));
-        $enumdescription[] = array(new enum_element(3, 3), new enum_element(7, 7), new enum_element(5, 5));
-        $enumdescription[] = array(new enum_element(27, 27), new enum_element(25, 25), new enum_element(23, 23));
+        $newcorrect = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_processed_string');
+        $enumdescription1 = array();
+        $enumdescription1[] = array(new enum_element(13, 27), new enum_element(1, 11));
+        $enumdescription1[] = array(new enum_element(21, 21), new enum_element(15, 19), new enum_element(23, 27));
+        $enumdescription1[] = array(new enum_element(9, 9), new enum_element(11, 11), new enum_element(3, 7));
+        $enumdescription1[] = array(new enum_element(15, 15), new enum_element(19, 19), new enum_element(17, 17));
+        $enumdescription1[] = array(new enum_element(3, 3), new enum_element(7, 7), new enum_element(5, 5));
+        $enumdescription1[] = array(new enum_element(27, 27), new enum_element(25, 25), new enum_element(23, 23));
         $newcorrect->enumerations = $enumdescription;
-        $newpair = new qtype_correctwriting_string_pair($newcorrect, $correct, null);
+        $newpair = new qtype_correctwriting_string_pair(clone $correct, clone $correct, null);
         $indexesintable = array(0, 17, 18, 23, 24, 27, 26, 25, 20, 19, 22, 21, 16, 1, 2, 5, 6, 9, 8, 7, 4, 3, 10, 15, 12, 13, 14,
                                 11, 28);
-        $newpair->set_indexes_in_table($indexesintable);
+        $newpair->correctstring()->enumerations = $enumdescription;
+        $newpair->set_enum_correct_to_correct($indexesintable);
+        $newpair->set_enum_correct_string($newcorrect);
+        $newpair->enum_correct_string()->enumerations = $enumdescription1;
+        $newpair->correctstring()->stream = null;
+        $newpair->correctedstring()->stream = null;
+        $newpair->enum_correct_string()->stream = null;
+        $newpair->correctstring()->stream->tokens;
+        $newpair->correctedstring()->stream->tokens;
         // Test body.
-        $temp = new qtype_correctwriting_enum_analyzer();
+        $temp = new qtype_correctwriting_enum_analyzer("q",null,$lang);
         $temp->change_enum_order($pair, $enumorder, $include, $order);
         $this->assertEquals($newpair, $pair, 'Error change order found!Six enumerations');
     }
