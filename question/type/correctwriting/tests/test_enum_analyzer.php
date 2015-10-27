@@ -790,7 +790,7 @@ class qtype_correctwriting_enum_analyzer_test extends PHPUnit_Framework_TestCase
         // Input data.
         $string = 'Today I meet my friends : Sam , Dine and Michel , and my neighbors , with their three children : Victoria ,';
         $string = $string.' Carry and Tom .';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
+        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_processed_string');
         $order = array(1, 0, -1, 0, 2, 1, -1, 2, 1, 0);
         $enumorder = array(1, 2, 0);
         $enumdescription = array();
@@ -801,22 +801,32 @@ class qtype_correctwriting_enum_analyzer_test extends PHPUnit_Framework_TestCase
         $include[] = array(1, 2);
         $include[] = array(-1);
         $include[] = array(-1);
+        $corrected = clone $correct;
+        $pair = new qtype_correctwriting_string_pair(clone $correct, clone $corrected, null);
         $correct->enumerations = $enumdescription;
-        $pair = new qtype_correctwriting_string_pair($correct, $correct, null);
+        $pair->correctstring()->enumerations = $enumdescription;
         // Expected result.
         $string = 'Today I meet my neighbors , with their three children : Tom , Carry and Victoria , and my friends : Sam , ';
         $string = $string.'Michel and Dine .';
-        $newcorrect = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
+
+        $newpair = new qtype_correctwriting_string_pair(clone $correct, clone $corrected, null);
+        $newcorrect = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_processed_string');
         $enumdescription = array();
         $enumdescription[] = array(new enum_element(18, 25), new enum_element(3, 15));
         $enumdescription[] = array(new enum_element(21, 21), new enum_element(25, 25), new enum_element(23, 23));
         $enumdescription[] = array(new enum_element(15, 15), new enum_element(13, 13), new enum_element(11, 11));
-        $newcorrect->enumerations = $enumdescription;
-        $newpair = new qtype_correctwriting_string_pair($newcorrect, $correct, null);
         $indexesintable = array(0, 1, 2, 13, 14, 15, 16, 17, 18, 19 , 20, 25, 22, 23, 24, 21, 11, 12, 3, 4, 5, 6, 7, 10, 9, 8, 26);
-        $newpair->set_indexes_in_table($indexesintable);
+        $newpair->set_enum_correct_to_correct($indexesintable);
+        $newpair->set_enum_correct_string($newcorrect);
+        $newpair->correctstring()->enumerations = $correct->enumerations;
+        $newpair->enum_correct_string()->enumerations = $enumdescription;
+        $newpair->correctstring()->stream = null;
+        $newpair->correctedstring()->stream = null;
+        $newpair->enum_correct_string()->stream = null;
+        $newpair->correctstring()->stream->tokens;
+        $newpair->correctedstring()->stream->tokens;
         // Test body.
-        $temp = new qtype_correctwriting_enum_analyzer();
+        $temp = new qtype_correctwriting_enum_analyzer('q',null,$lang);
         $temp->change_enum_order($pair, $enumorder, $include, $order);
         $this->assertEquals($newpair, $pair, 'Error change order found!Two include in other');
     }
