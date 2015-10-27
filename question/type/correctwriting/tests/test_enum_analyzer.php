@@ -968,32 +968,43 @@ class qtype_correctwriting_enum_analyzer_test extends PHPUnit_Framework_TestCase
         $lang = new block_formal_langs_language_simple_english;
         $string = 'Billy was like the other rich kids had nurse a , bicycle and or swimming , but he never played in the street ,';
         $string = $string.' did to poor people not talk .';
-        $corrected = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
+        $corrected = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_processed_string');
         // Expected result.
         $string = 'Billy was like the other rich kids had a nurse , bicycle and swimming pool , but he never played in the street';
         $string = $string.' , did not talk to poor people .';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
-        $enumdescription = array();
-        $enumdescription[] = array(new enum_element(8, 9), new enum_element(13, 14), new enum_element(11, 11));
-        $enumdescription[] = array(new enum_element(17, 22), new enum_element(24, 29));
-        $correct->enumerations = $enumdescription;
-        $pair = new qtype_correctwriting_string_pair($correct, $corrected, null);
-        $indexesintable = array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 14, 13, 11, 12, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26,
-                                27, 28, 29, 30);
-        $pair->set_indexes_in_table($indexesintable);
-        $pairs = array();
-        $pairs[] = $pair;
-        // Input data.
-        $string = 'Billy was like the other rich kids had a nurse , swimming pool and bicycle , but he never played in the street';
-        $string = $string.' , did not talk to poor people .';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
+        $enumcorrect = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_processed_string');
+        $enumdescription1 = array();
+        $enumdescription1[] = array(new enum_element(8, 9), new enum_element(13, 14), new enum_element(11, 11));
+        $enumdescription1[] = array(new enum_element(17, 22), new enum_element(24, 29));
         $enumdescription = array();
         $enumdescription[] = array(new enum_element(8, 9), new enum_element(11, 12), new enum_element(14, 14));
         $enumdescription[] = array(new enum_element(17, 22), new enum_element(24, 29));
-        $correct->enumerations = $enumdescription;
-        $pair = new qtype_correctwriting_string_pair($correct, $corrected, null);
+        //$enumcorrect->enumerations = $enumdescription1;
+        // Input data.
+        $string = 'Billy was like the other rich kids had a nurse , swimming pool and bicycle , but he never played in the street';
+        $string = $string.' , did not talk to poor people .';
+        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_processed_string');
+
+        //$correct->enumerations = $enumdescription;
+        $pair = new qtype_correctwriting_string_pair(clone $correct, clone $corrected, null);
+        $pair->correctstring()->enumerations = $enumdescription;
         // Test body.
-        $temp = new qtype_correctwriting_enum_analyzer('q',$pair,null,false);
+        $temp = new qtype_correctwriting_enum_analyzer('q',$pair,$lang,false);
+        $newpair = new qtype_correctwriting_string_pair(clone $correct, clone $corrected, null);
+        $indexesintable = array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 14, 13, 11, 12, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26,
+            27, 28, 29, 30);
+        $newpair->set_enum_correct_to_correct($indexesintable);
+        $newpair->set_enum_correct_string($enumcorrect);
+        $newpair->correctstring()->enumerations = $enumdescription;
+        $newpair->enum_correct_string()->enumerations = $enumdescription1;
+
+        $newpair->correctstring()->stream = null;
+        $newpair->correctedstring()->stream = null;
+        $newpair->enum_correct_string()->stream = null;
+        $newpair->correctstring()->stream->tokens;
+        $newpair->correctedstring()->stream->tokens;
+        $pairs = array();
+        $pairs[] = $newpair;
         $this->assertEquals($pairs, $temp->result_pairs(), 'Error in work found!Several LCS');
     }
 
