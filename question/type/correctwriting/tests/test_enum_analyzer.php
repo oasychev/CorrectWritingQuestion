@@ -171,9 +171,9 @@ class qtype_correctwriting_enum_analyzer_test extends PHPUnit_Framework_TestCase
         $enumdescription[] = array(new enum_element(3, 4), new enum_element(6, 18));
         $enumdescription[] = array(new enum_element(14, 14), new enum_element(16, 16), new enum_element(18, 18));
         $string = 'Today I meet some friends and my neighbors , with their three children : Victoria , Carry and Tom .';
-        $correctanswer = $lang->create_from_string($string, 'qtype_correctwriting_proccesedstring');
+        $correctanswer = $lang->create_from_string($string, 'qtype_correctwriting_processed_string');
         $string = 'Today I meet my friends : Sam , Dine and Michel , and my neighbors , with their three children .';
-        $correctedanswer = $lang->create_from_string($string, 'qtype_correctwriting_proccesedstring');
+        $correctedanswer = $lang->create_from_string($string, 'qtype_correctwriting_processed_string');
         // Test body.
         $temp= new qtype_correctwriting_enum_analyzer();
         $result = $temp->find_enum_orders_in_corrected_string($correctanswer->stream->tokens, $correctedanswer->stream->tokens,
@@ -215,10 +215,10 @@ class qtype_correctwriting_enum_analyzer_test extends PHPUnit_Framework_TestCase
         $enumdescription[] = array(new enum_element(3, 4), new enum_element(6, 18));
         $enumdescription[] = array(new enum_element(14, 14), new enum_element(16, 16), new enum_element(18, 18));
         $string = 'Today I meet some friends and my neighbors, with their three children: Victoria, Carry and Tom .';
-        $correctanswer = $lang->create_from_string($string, 'qtype_correctwriting_proccesedstring');
+        $correctanswer = $lang->create_from_string($string, 'qtype_correctwriting_processed_string');
         $string = 'Today I meet my friends: Sam, Dine and Michel, Tom, and my neighbors, with their three children: Victoria, ';
         $string = $string.'Carry and Tom.';
-        $correctedanswer = $lang->create_from_string($string, 'qtype_correctwriting_proccesedstring');
+        $correctedanswer = $lang->create_from_string($string, 'qtype_correctwriting_processed_string');
         // Test body.
         $temp= new qtype_correctwriting_enum_analyzer();
         $result = $temp->find_enum_orders_in_corrected_string($correctanswer->stream->tokens, $correctedanswer->stream->tokens,
@@ -254,9 +254,9 @@ class qtype_correctwriting_enum_analyzer_test extends PHPUnit_Framework_TestCase
         $enumdescription[] = array(new enum_element(3, 4), new enum_element(6, 18));
         $enumdescription[] = array(new enum_element(14, 14), new enum_element(16, 16), new enum_element(18, 18));
         $string = 'Today I meet some friends and my neighbors, with their three children: Victoria, Carry and Tom.';
-        $correctanswer = $lang->create_from_string($string, 'qtype_correctwriting_proccesedstring');
+        $correctanswer = $lang->create_from_string($string, 'qtype_correctwriting_processed_string');
         $string = 'Today I meet my neighbors, with their three children: Victoria, Tom and and Carry some friends.';
-        $correctedanswer = $lang->create_from_string($string, 'qtype_correctwriting_proccesedstring');
+        $correctedanswer = $lang->create_from_string($string, 'qtype_correctwriting_processed_string');
         // Test body.
         $temp= new qtype_correctwriting_enum_analyzer();
         $result = $temp->find_enum_orders_in_corrected_string($correctanswer->stream->tokens, $correctedanswer->stream->tokens,
@@ -306,10 +306,10 @@ class qtype_correctwriting_enum_analyzer_test extends PHPUnit_Framework_TestCase
         $enumdescription[] = array(new enum_element(8, 9), new enum_element(11, 12), new enum_element(14, 15));
         $string = 'Billy was like the other rich kids had a nurse, fast bicycle and swimming pool, but he never played in the ';
         $string = $string.'street, did not talk to poor people.';
-        $correctanswer = $lang->create_from_string($string, 'qtype_correctwriting_proccesedstring');
+        $correctanswer = $lang->create_from_string($string, 'qtype_correctwriting_processed_string');
         $string = 'Billy was like the other rich kids had a, bicycle swimming and and nurse, fast, but he never played in a ';
         $string = $string.'street or pool a.';
-        $correctedanswer = $lang->create_from_string($string, 'qtype_correctwriting_proccesedstring');
+        $correctedanswer = $lang->create_from_string($string, 'qtype_correctwriting_processed_string');
         // Test body.
         $temp= new qtype_correctwriting_enum_analyzer();
         $result = $temp->find_enum_orders_in_corrected_string($correctanswer->stream->tokens, $correctedanswer->stream->tokens,
@@ -350,10 +350,10 @@ class qtype_correctwriting_enum_analyzer_test extends PHPUnit_Framework_TestCase
         $enumdescription[] = array(new enum_element(21, 21), new enum_element(23, 23), new enum_element(25, 25));
         $string = 'Today I meet my friends: Sam, Dine and Michel, and my neighbors, with their three children: Victoria, Carry';
         $string = $string.'and Tom.';
-        $correctanswer = $lang->create_from_string($string, 'qtype_correctwriting_proccesedstring');
+        $correctanswer = $lang->create_from_string($string, 'qtype_correctwriting_processed_string');
         $string = 'Today I meet my friends: Sam, Dine and Michel, and my neighbors, with their three children: Tom, Carry and ';
         $string = $string.'Victoria.';
-        $correctedanswer = $lang->create_from_string($string, 'qtype_correctwriting_proccesedstring');
+        $correctedanswer = $lang->create_from_string($string, 'qtype_correctwriting_processed_string');
         // Test body.
         $temp= new qtype_correctwriting_enum_analyzer();
         $result = $temp->find_enum_orders_in_corrected_string($correctanswer->stream->tokens, $correctedanswer->stream->tokens,
@@ -389,10 +389,10 @@ class qtype_correctwriting_enum_analyzer_test extends PHPUnit_Framework_TestCase
         $enumdescription[] = array(new enum_element(17, 22), new enum_element(24, 29));
         $string = 'Billy was like the other rich kids had a nurse, bicycle and swimming pool, but he never played in the street, ';
         $string = $string.'did not talk to poor people.';
-        $correctanswer = $lang->create_from_string($string, 'qtype_correctwriting_proccesedstring');
+        $correctanswer = $lang->create_from_string($string, 'qtype_correctwriting_processed_string');
         $string = 'Billy was like the other rich kids had a nurse, pool and bicycle, but he never played in street, did not talk ';
         $string = $string.'to poor people.';
-        $correctedanswer = $lang->create_from_string($string, 'qtype_correctwriting_proccesedstring');
+        $correctedanswer = $lang->create_from_string($string, 'qtype_correctwriting_processed_string');
         // Test body.
         $temp= new qtype_correctwriting_enum_analyzer();
         $result = $temp->find_all_enum_orders_in_corrected_string($correctanswer->stream->tokens,
@@ -432,9 +432,9 @@ class qtype_correctwriting_enum_analyzer_test extends PHPUnit_Framework_TestCase
         $enumdescription[] = array(new enum_element(3, 4), new enum_element(6, 18));
         $enumdescription[] = array(new enum_element(14, 14), new enum_element(16, 16), new enum_element(18, 18));
         $string = 'Today I meet some friends and my neighbors, with their three children: Victoria, Carry and Tom.';
-        $correctanswer = $lang->create_from_string($string, 'qtype_correctwriting_proccesedstring');
+        $correctanswer = $lang->create_from_string($string, 'qtype_correctwriting_processed_string');
         $string = 'Today I meet my friends and my neighbors, with their three children: Victoria, Tom and Carry.';
-        $correctedanswer = $lang->create_from_string($string, 'qtype_correctwriting_proccesedstring');
+        $correctedanswer = $lang->create_from_string($string, 'qtype_correctwriting_processed_string');
         // Test body.
         $temp= new qtype_correctwriting_enum_analyzer();
         $result = $temp->find_all_enum_orders_in_corrected_string($correctanswer->stream->tokens, $correctedanswer->stream->tokens,
@@ -475,10 +475,10 @@ class qtype_correctwriting_enum_analyzer_test extends PHPUnit_Framework_TestCase
         $enumdescription[] = array(new enum_element(21, 21), new enum_element(23, 23), new enum_element(25, 25));
         $string = 'Today I meet my friends: Sam, Dine and Michel, and my neighbors, with their three children: Victoria, ';
         $string = $string.'Carry and Tom.';
-        $correctanswer = $lang->create_from_string($string, 'qtype_correctwriting_proccesedstring');
+        $correctanswer = $lang->create_from_string($string, 'qtype_correctwriting_processed_string');
         $string = 'Today I meet my friends: Sam, Dine and Michel, and my neighbors, with their three children: Tom, Carry and ';
         $string = $string.'Victoria.';
-        $correctedanswer = $lang->create_from_string($string, 'qtype_correctwriting_proccesedstring');
+        $correctedanswer = $lang->create_from_string($string, 'qtype_correctwriting_processed_string');
         // Test body.
         $temp= new qtype_correctwriting_enum_analyzer();
         $result = $temp->find_all_enum_orders_in_corrected_string($correctanswer->stream->tokens, $correctedanswer->stream->tokens,
@@ -521,10 +521,10 @@ class qtype_correctwriting_enum_analyzer_test extends PHPUnit_Framework_TestCase
         $enumdescription[] = array(new enum_element(13, 13), new enum_element(15, 15), new enum_element(17, 35));
         $string = 'I see a big group of people, which contains three parts: children, women and men, who was weared in blue ';
         $string = $string.'overall or strange suits with red and green line in front.';
-        $correctanswer = $lang->create_from_string($string, 'qtype_correctwriting_proccesedstring');
+        $correctanswer = $lang->create_from_string($string, 'qtype_correctwriting_processed_string');
         $string = 'I see a big group of people, which contains three parts: women, children and men, who was weared in blue ';
         $string = $string.'overall or strange suits with green and red line in front.';
-        $correctedanswer = $lang->create_from_string($string, 'qtype_correctwriting_proccesedstring');
+        $correctedanswer = $lang->create_from_string($string, 'qtype_correctwriting_processed_string');
         // Test body.
         $temp= new qtype_correctwriting_enum_analyzer();
         $result = $temp->find_all_enum_orders_in_corrected_string($correctanswer->stream->tokens, $correctedanswer->stream->tokens,
@@ -570,10 +570,10 @@ class qtype_correctwriting_enum_analyzer_test extends PHPUnit_Framework_TestCase
         $enumdescription[] = array(new enum_element(21, 21), new enum_element(23, 23), new enum_element(25, 25));
         $string = 'Today I meet my friends: Sam, Dine and Michel, and my neighbors, with their three children: Victoria, Carry ';
         $string = $string.'and Tom .';
-        $correctanswer = $lang->create_from_string($string, 'qtype_correctwriting_proccesedstring');
+        $correctanswer = $lang->create_from_string($string, 'qtype_correctwriting_processed_string');
         $string =  'Today I meet my friends: Sam, Dine, Victoria and Michel, and my neighbors, with their three children: Tom, ';
         $string = $string.'Carry, Sam and Victoria.';
-        $correctedanswer = $lang->create_from_string($string, 'qtype_correctwriting_proccesedstring');
+        $correctedanswer = $lang->create_from_string($string, 'qtype_correctwriting_processed_string');
         // Test body.
         $temp= new qtype_correctwriting_enum_analyzer();
         $result = $temp->find_all_enum_orders_in_corrected_string($correctanswer->stream->tokens, $correctedanswer->stream->tokens,
@@ -639,10 +639,10 @@ class qtype_correctwriting_enum_analyzer_test extends PHPUnit_Framework_TestCase
         $enumdescription[] = array(new enum_element(13, 13), new enum_element(15, 15), new enum_element(17, 35));
         $string = 'I see a big group of people, which contains three parts: children, women and men, who was weared in blue ';
         $string = $string.'overall or strange suits with red and green line in front.';
-        $correctanswer = $lang->create_from_string($string, 'qtype_correctwriting_proccesedstring');
+        $correctanswer = $lang->create_from_string($string, 'qtype_correctwriting_processed_string');
         $string =  'I see a big group of people, which contains three parts: women, children and women men, who was weared in ';
         $string = $string.'blue overall or strange suits with green and red line in front or green overall.';
-        $correctedanswer = $lang->create_from_string($string, 'qtype_correctwriting_proccesedstring');
+        $correctedanswer = $lang->create_from_string($string, 'qtype_correctwriting_processed_string');
         // Test body.
         $temp= new qtype_correctwriting_enum_analyzer();
         $result = $temp->find_all_enum_orders_in_corrected_string($correctanswer->stream->tokens, $correctedanswer->stream->tokens,
@@ -682,10 +682,10 @@ class qtype_correctwriting_enum_analyzer_test extends PHPUnit_Framework_TestCase
         $enumdescription[] = array(new enum_element(3, 4), new enum_element(6, 18));
         $enumdescription[] = array(new enum_element(14, 14), new enum_element(16, 16), new enum_element(18, 18));
         $string = 'Today I meet some friends and my neighbors, with their three children: Victoria, Carry and Tom.';
-        $correctanswer = $lang->create_from_string($string, 'qtype_correctwriting_proccesedstring');
+        $correctanswer = $lang->create_from_string($string, 'qtype_correctwriting_processed_string');
         $string =  'Today I meet my neighbors and my friends, with their three children: Victoria, Tom and Carry and some ';
         $string = $string.'children Tom.';
-        $correctedanswer = $lang->create_from_string($string, 'qtype_correctwriting_proccesedstring');
+        $correctedanswer = $lang->create_from_string($string, 'qtype_correctwriting_processed_string');
         // Test body.
         $temp= new qtype_correctwriting_enum_analyzer();
         $result = $temp->find_all_enum_orders_in_corrected_string($correctanswer->stream->tokens, $correctedanswer->stream->tokens,
@@ -707,7 +707,8 @@ class qtype_correctwriting_enum_analyzer_test extends PHPUnit_Framework_TestCase
         $lang = new block_formal_langs_language_simple_english;
         // Input data.
         $string = 'int k = j / h + t + o - r ; bool g = kill = live ;';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
+        $string = new qtype_poasquestion_string($string);
+        $correct = $lang->create_from_string($string, 'qtype_correctwriting_processed_string');
         $order = array(1, 0, 2, -1, 1, 0);
         $enumorder = array(0, 1);
         $enumdescription = array();
