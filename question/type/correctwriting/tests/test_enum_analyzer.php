@@ -717,20 +717,29 @@ class qtype_correctwriting_enum_analyzer_test extends PHPUnit_Framework_TestCase
         $include[] = array(-1);
         $enumdescription[] = array(new enum_element(3, 5), new enum_element(7, 7), new enum_element(9, 11));
         $enumdescription[] = array(new enum_element(16, 16), new enum_element(18, 18));
-        $correct->enumerations = $enumdescription;
-        $pair = new qtype_correctwriting_string_pair($correct, $correct, null);
+        $corrected = clone $correct;
+        $pair = new qtype_correctwriting_string_pair($correct, $corrected, null);
+        $pair->correctstring()->enumerations = $enumdescription;
         // Expected result.
         $string = 'int k = t + j / h + o - r ; bool g = live = kill ;';
-        $newcorrect = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
-        $enumdescription = array();
-        $enumdescription[] = array(new enum_element(5, 7), new enum_element(3, 3), new enum_element(9, 11));
-        $enumdescription[] = array(new enum_element(18, 18), new enum_element(16, 16));
-        $newcorrect->enumerations = $enumdescription;
-        $newpair = new qtype_correctwriting_string_pair($newcorrect, $correct, null);
+        $string = new qtype_poasquestion_string($string);
+        $newcorrect = $lang->create_from_string($string , 'qtype_correctwriting_processed_string');
+        $enumdescription1 = array();
+        $enumdescription1[] = array(new enum_element(5, 7), new enum_element(3, 3), new enum_element(9, 11));
+        $enumdescription1[] = array(new enum_element(18, 18), new enum_element(16, 16));
+        $newpair = new qtype_correctwriting_string_pair($correct, $corrected, null);
         $indexesintable = array(0, 1, 2, 7, 6, 3, 4, 5, 8, 9, 10, 11, 12, 13, 14, 15, 18, 17, 16, 19);
-        $newpair->set_indexes_in_table($indexesintable);
-        // Test body.
-        $temp = new qtype_correctwriting_enum_analyzer();
+        $newpair->set_enum_correct_to_correct($indexesintable);
+        $newpair->correctstring()->enumerations = $enumdescription;
+        $newpair->set_enum_correct_string($newcorrect);
+        $newpair->enum_correct_string()->enumerations = $enumdescription1;
+        $newpair->correctstring()->stream = null;
+        $newpair->correctedstring()->stream = null;
+        $newpair->enum_correct_string()->stream = null;
+        $newpair->correctstring()->stream->tokens;
+        $newpair->correctedstring()->stream->tokens;
+         // Test body.
+        $temp = new qtype_correctwriting_enum_analyzer('q',$pair,$lang,true);
         $temp->change_enum_order($pair, $enumorder, $include, $order);
         $this->assertEquals($newpair, $pair, 'Error change order found!Without including');
     }
