@@ -1109,34 +1109,43 @@ class qtype_correctwriting_enum_analyzer_test extends PHPUnit_Framework_TestCase
     // Test for construct, gap of elements.
     public function test__construct_elements_gaps() {
         $lang = new block_formal_langs_language_simple_english;
+        // Input data.
         $string = 'Billy was like the other rich kids had nurse a , bicycle and or swimming , but he never played in the street ,';
         $string = $string.' did to poor people not talk .';
-        $corrected = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
+        $corrected = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_processed_string');
+        $string = 'Billy was like the other rich kids had a nurse , swimming pool and fast bicycle , but he never played in the';
+        $string = $string.' street , did not talk to poor people .';
+        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_processed_string');
+        $enumdescription = array();
+        $enumdescription[] = array(new enum_element(8, 9), new enum_element(11, 12), new enum_element(14, 15));
+        $enumdescription[] = array(new enum_element(18, 23), new enum_element(25, 30));
+        $pair = new qtype_correctwriting_string_pair(clone $correct, clone $corrected, null);
+        $pair->correctstring()->enumerations = $enumdescription;
         // Expected result.
         $string = 'Billy was like the other rich kids had a nurse , fast bicycle and swimming pool , but he never played in the';
         $string = $string.' street , did not talk to poor people .';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
+        $newcorrect = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_processed_string');
         $enumdescription = array();
         $enumdescription[] = array(new enum_element(8, 9), new enum_element(14, 15), new enum_element(11, 12));
         $enumdescription[] = array(new enum_element(18, 23), new enum_element(25, 30));
         $correct->enumerations = $enumdescription;
-        $pair = new qtype_correctwriting_string_pair($correct, $corrected, null);
+        $newpair = new qtype_correctwriting_string_pair(clone $correct, clone $corrected, null);
         $indexesintable = array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 14, 15, 13, 11, 12, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26,
                                 27, 28, 29, 30, 31);
-        $pair->set_indexes_in_table($indexesintable);
+        $newpair = clone $pair;
+        $newpair->set_enum_correct_to_correct($indexesintable);
+        $newpair->set_enum_correct_string($newcorrect);
+        $newpair->enum_correct_string()->enumerations = $enumdescription;
+        $newpair->correctstring()->stream = null;
+        $newpair->correctedstring()->stream = null;
+        $newpair->enum_correct_string()->stream = null;
+        $newpair->correctstring()->stream->tokens;
+        $newpair->correctedstring()->stream->tokens;
+        $pairs[] = $newpair;
         $pairs = array();
-        $pairs[] = $pair;
-        // Input data.
-        $string = 'Billy was like the other rich kids had a nurse , swimming pool and fast bicycle , but he never played in the';
-        $string = $string.' street , did not talk to poor people .';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
-        $enumdescription = array();
-        $enumdescription[] = array(new enum_element(8, 9), new enum_element(11, 12), new enum_element(14, 15));
-        $enumdescription[] = array(new enum_element(18, 23), new enum_element(25, 30));
-        $correct->enumerations = $enumdescription;
-        $pair = new qtype_correctwriting_string_pair($correct, $corrected, null);
+        $pairs[] = $newpair;
         // Test body.
-        $temp = new qtype_correctwriting_enum_analyzer('q',$pair,null,false);
+        $temp = new qtype_correctwriting_enum_analyzer('q',$pair,$lang,false);
         $this->assertEquals($pairs, $temp->result_pairs(), 'Error in work found!Gaps of elements');
     }
 
