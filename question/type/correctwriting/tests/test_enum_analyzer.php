@@ -1152,19 +1152,34 @@ class qtype_correctwriting_enum_analyzer_test extends PHPUnit_Framework_TestCase
     // Test for construct, no lCS.
     public function test__construct_without_lcs() {
         $lang = new block_formal_langs_language_simple_english;
-        $string = 'Cat mouse walk in garden';
-        $corrected = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
-        // Expected result.
-        $pairs = array();
         // Input data.
         $string = 'Billy was like the other rich kids had a nurse , swimming pool and bicycle .';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
+        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_processed_string');
         $enumdescription = array();
         $enumdescription[] = array(new enum_element(8, 9), new enum_element(11, 12), new enum_element(14, 14));
-        $correct->enumerations = $enumdescription;
-        $pair = new qtype_correctwriting_string_pair($correct, $corrected, null);
+        $string = 'Cat mouse walk in garden';
+        $corrected = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_processed_string');
+        $pair = new qtype_correctwriting_string_pair( $correct, $corrected, null);
+        $pair->correctstring()->enumerations = $enumdescription;
+        // Expected result.
+        $pairs = array();
+        $string = 'Billy was like the other rich kids had a nurse , swimming pool and bicycle .';
+        $newcorrect = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_processed_string');
+        $enumdescription = array();
+        $enumdescription[] = array(new enum_element(8, 9), new enum_element(11, 12), new enum_element(14, 14));
+        $newpair = clone $pair;
+        $indexesintable = array(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15);
+        $newpair->set_enum_correct_to_correct($indexesintable);
+        $newpair->set_enum_correct_string($newcorrect);
+        $newpair->enum_correct_string()->enumerations = $enumdescription;
+        $newpair->correctstring()->stream = null;
+        $newpair->correctedstring()->stream = null;
+        $newpair->enum_correct_string()->stream = null;
+        $newpair->correctstring()->stream->tokens;
+        $newpair->correctedstring()->stream->tokens;
+        $pairs[] = $newpair;
         // Test body.
-        $temp = new qtype_correctwriting_enum_analyzer('q',$pair,null,false);
+        $temp = new qtype_correctwriting_enum_analyzer('q',$pair,$lang,false);
         $this->assertEquals($pairs, $temp->result_pairs(), 'Error in work found!No LCS');
     }
 
