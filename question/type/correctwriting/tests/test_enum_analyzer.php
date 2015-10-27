@@ -1259,30 +1259,37 @@ class qtype_correctwriting_enum_analyzer_test extends PHPUnit_Framework_TestCase
     // Test for construct, include enumeration tokens in wrong order, that take must to keep elements completely.
     public function test__construct_enum_include_tokens_wrong_order() {
         $lang = new block_formal_langs_language_simple_english;
-        $string = '( / e b ) * c t - ) + a . q';
-        $corrected = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
-        // Expected result.
-        $string = '( b / e ) * ( c - t ) + a . q ';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
-        $enumdescription = array();
-        $enumdescription[] = array(new enum_element(12, 14), new enum_element(0, 10));
-        $enumdescription[] = array(new enum_element(0, 4), new enum_element(6, 10));
-        $correct->enumerations = $enumdescription;
-        $pair = new qtype_correctwriting_string_pair($correct, $corrected, null);
-        $indexesintable = array(4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 3, 0, 1, 2);
-        $pair->set_indexes_in_table($indexesintable);
-        $pairs = array();
-        $pairs[] = $pair;
         // Input data.
         $string = 'a . q + ( b / e ) * ( c - t )';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
+        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_processed_string');
         $enumdescription = array();
         $enumdescription[] = array(new enum_element(0, 2), new enum_element(4, 14));
         $enumdescription[] = array(new enum_element(4, 8), new enum_element(10, 14));
-        $correct->enumerations = $enumdescription;
+        $string = '( / e b ) * c t - ) + a . q';
+        $corrected = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_processed_string');
         $pair = new qtype_correctwriting_string_pair($correct, $corrected, null);
+        $pair->correctstring()->enumerations = $enumdescription;
+
+        // Expected result.
+        $string = '( b / e ) * ( c - t ) + a . q ';
+        $newcorrect = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_processed_string');
+        $enumdescription = array();
+        $enumdescription[] = array(new enum_element(12, 14), new enum_element(0, 10));
+        $enumdescription[] = array(new enum_element(0, 4), new enum_element(6, 10));
+        $newpair = clone $pair;
+        $indexesintable = array(4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 3, 0, 1, 2);
+        $newpair->set_enum_correct_to_correct($indexesintable);
+        $newpair->set_enum_correct_string($newcorrect);
+        $newpair->enum_correct_string()->enumerations = $enumdescription;
+        $newpair->correctstring()->stream = null;
+        $newpair->correctedstring()->stream = null;
+        $newpair->enum_correct_string()->stream = null;
+        $newpair->correctstring()->stream->tokens;
+        $newpair->correctedstring()->stream->tokens;
+        $pairs = array();
+        $pairs[] = $newpair;
         // Test body.
-        $temp = new qtype_correctwriting_enum_analyzer('q',$pair,null,false);
+        $temp = new qtype_correctwriting_enum_analyzer('q',$pair,$lang,false);
         $this->assertEquals($pairs, $temp->result_pairs(), 'Error in work found!Include enumeration some tokens are missed');
     }
 
