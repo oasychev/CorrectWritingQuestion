@@ -59,6 +59,7 @@ $string['langid'] = 'Language of the answer';
 $string['langid_help'] = 'This language will be used to tokenize answers and responses to the question.';
 $string['lexemedescriptions'] = 'Descriptions for the tokens';
 $string['lexical_analyzer'] = 'Typo analysis';
+$string['lexical_analyzer_required_for_howtofixpic'] = 'Typo analysis is required for "how to fix" picture hint';
 $string['lexical_analyzer_help'] = 'Typo analysis assumes, that student can have mistakes inside of tokens. Turn it off if any mistakes inside of lexemes should be treated other lexemes';
 $string['lexicalanalyzerlistsettingname'] = 'Lists of tokens for determining special mistakes, when correcting lexical mistakes is performed';
 $string['lexicalanalyzerlistsettingdescription'] = 'Some lexemes should be processed by special rules, when performing correcting lexical mistakes. Set this list, if some tokens require this.';
