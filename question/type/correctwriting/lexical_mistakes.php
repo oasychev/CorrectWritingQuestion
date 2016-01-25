@@ -72,7 +72,7 @@ class qtype_correctwriting_lexical_mistake extends qtype_correctwriting_response
                 $token = $this->stringpair->comparedstring()->stream->tokens[$index];
                 $string = $token->value();
                 if (is_object($string)) {
-                    /** @var qtype_poasquestion\string $string */
+                    /** @var qtype_poasquestion\utf8_string $string */
                     $string = $string->string();
                 }
                 $strings[]=$string;

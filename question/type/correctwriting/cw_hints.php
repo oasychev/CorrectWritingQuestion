@@ -26,7 +26,7 @@
 
 
 defined('MOODLE_INTERNAL') || die();
-require_once($CFG->dirroot . '/question/type/poasquestion/poasquestion_string.php');
+require_once($CFG->dirroot . '/question/type/poasquestion/classes/utf8_string.php');
 require_once($CFG->dirroot . '/question/type/correctwriting/question.php');
 require_once($CFG->dirroot . '/question/type/correctwriting/mistakesimage.php');
 require_once($CFG->dirroot . '/blocks/formal_langs/block_formal_langs.php');
@@ -98,7 +98,7 @@ class qtype_correctwriting_hintwhatis extends qtype_poasquestion\hint {
             if (method_exists($this->mistake, 'what_is_description')) {
                 $hinttext = $this->mistake->what_is_description();
             } else {
-                $hinttext = new qtype_poasquestion\string($this->mistake->token_descriptions(true));
+                $hinttext = new qtype_poasquestion\utf8_string($this->mistake->token_descriptions(true));
             }
             // Capitalize first letter.
             $hinttext[0] = core_text::strtoupper($hinttext[0]);
