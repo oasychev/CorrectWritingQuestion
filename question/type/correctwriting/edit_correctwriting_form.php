@@ -26,6 +26,7 @@ defined('MOODLE_INTERNAL') || die();
 require_once($CFG->dirroot . '/question/type/shortanswer/edit_shortanswer_form.php');
 require_once($CFG->dirroot . '/blocks/formal_langs/block_formal_langs.php');
 
+require_once($CFG->dirroot . '/question/type/correctwriting/enumeditor_form/correctwriting_text_and_button.php');
 /**
  * Correctwriting question editing form definition.
  *
@@ -447,8 +448,10 @@ require_once($CFG->dirroot . '/blocks/formal_langs/block_formal_langs.php');
         // A replace for standard get_per_answer_fields, extending a fields for
         // answer and moving fraction to a next line
         $repeated = array();
-        $repeated[] = $mform->createElement('textarea', 'answer',
-            $label, array('rows' => 1, 'cols' => 80));
+        //$repeated[] = $mform->createElement('textarea', 'answer',
+          //  $label, array('rows' => 1, 'cols' => 80));
+        $repeated[] = $mform->createElement('hidden', 'enumerations', '');
+        $repeated[] = $mform->createElement('correctwriting_text_and_button', 'answer', $label, 'enum');
         $repeated[] = $mform->createElement('select', 'fraction',
             get_string('grade'), $gradeoptions);
         /**
@@ -462,6 +465,7 @@ require_once($CFG->dirroot . '/blocks/formal_langs/block_formal_langs.php');
         $repeated[] = $mform->createElement('editor', 'feedback',
             get_string('feedback', 'question'), array('rows' => 5), $this->editoroptions);
 
+        $repeatedoptions['enumerations']['type'] = PARAM_RAW;
         $repeatedoptions['answer']['type'] = PARAM_RAW;
         $repeatedoptions['lexemedescriptions']['type'] = PARAM_TEXT;
         $repeatedoptions['fraction']['default'] = 0;
