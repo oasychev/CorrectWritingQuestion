@@ -1,5 +1,5 @@
 <?php
-// This file is part of CorrectWriting question type - https://code.google.com/p/oasychev-moodle-plugins/
+// This file is part of CorrectWriting question type - https://bitbucket.org/oasychev/moodle-plugins/
 //
 // CorrectWriting question type is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -240,8 +240,8 @@ class qtype_correctwriting_question extends question_graded_automatically
             $response = array('answer' => '');
         }
         // Check, for cache, and make it lowercase to prevent some odd executions
-        if (is_a($response['answer'],'qtype_poasquestion\string') == false) {
-            $response['answer'] = new qtype_poasquestion\string($response['answer']);
+        if (is_a($response['answer'],'qtype_poasquestion\utf8_string') == false) {
+            $response['answer'] = new qtype_poasquestion\utf8_string($response['answer']);
         }
 
         if (($this->gradecachevalid == true) && ($this->gradecachedanswer == $response['answer'])) {
@@ -249,8 +249,8 @@ class qtype_correctwriting_question extends question_graded_automatically
         }
 
         foreach($this->answers as $id => $answer) {
-            if (is_a($answer->answer,'qtype_poasquestion\string') == false) {
-                $answer->answer = new qtype_poasquestion\string($answer->answer);
+            if (is_a($answer->answer,'qtype_poasquestion\utf8_string') == false) {
+                $answer->answer = new qtype_poasquestion\utf8_string($answer->answer);
             }
         }
 

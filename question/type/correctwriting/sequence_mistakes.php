@@ -1,5 +1,5 @@
 <?php
-// This file is part of CorrectWriting question type - https://code.google.com/p/oasychev-moodle-plugins/
+// This file is part of CorrectWriting question type - https://bitbucket.org/oasychev/moodle-plugins/
 //
 // CorrectWriting question type is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -90,7 +90,7 @@ abstract class qtype_correctwriting_sequence_mistake extends qtype_correctwritin
                 $token = $this->stringpair->comparedstring()->stream->tokens[$index];
                 $string = $token->value();
                 if (is_object($string)) {
-                    /** @var qtype_poasquestion\string $string */
+                    /** @var qtype_poasquestion\utf8_string $string */
                     $string = $string->string();
                 }
                 $strings[]=$string;
@@ -120,7 +120,7 @@ abstract class qtype_correctwriting_sequence_mistake extends qtype_correctwritin
                 $token = $tokens[$realanswerindex];
                 $a = $token->value();
                 if (is_object($a)) {
-                    /** @var qtype_poasquestion\string $a */
+                    /** @var qtype_poasquestion\utf8_string $a */
                     $a = $a->string();
                 }
                 $a = get_string('quote', 'block_formal_langs', $a);

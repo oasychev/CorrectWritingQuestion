@@ -1,5 +1,5 @@
 <?php
-// This file is part of CorrectWriting question type - https://code.google.com/p/oasychev-moodle-plugins/
+// This file is part of CorrectWriting question type - https://bitbucket.org/oasychev/moodle-plugins/
 //
 // CorrectWriting question type is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -1147,7 +1147,7 @@ class qtype_correctwriting_image_generator
        if (count($tokens) != 0) {
            foreach($tokens as $answertoken) {
                /** @var block_formal_langs_token_base $answertoken */
-               /** @var qtype_poasquestion\string $value */
+               /** @var qtype_poasquestion\utf8_string $value */
                $value = $answertoken->value();
                if (is_object($value)) {
                    $value = $value->string();
@@ -1163,7 +1163,7 @@ class qtype_correctwriting_image_generator
        if (count($tokens) != 0) {
            foreach($tokens as $responsetoken) {
                /** @var block_formal_langs_token_base $responsetoken */
-               /** @var qtype_poasquestion\string $value */
+               /** @var qtype_poasquestion\utf8_string $value */
                $value = $responsetoken->value();
                if (is_object($value)) {
                    $value = $value->string();

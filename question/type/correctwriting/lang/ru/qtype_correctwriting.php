@@ -1,5 +1,5 @@
 ﻿<?php
-// This file is part of CorrectWriting question type - https://code.google.com/p/oasychev-moodle-plugins/
+// This file is part of CorrectWriting question type - https://bitbucket.org/oasychev/moodle-plugins/
 //
 // CorrectWriting question type is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -63,6 +63,7 @@ $string['hinting'] = 'Настройки подсказок';
 $string['hinting_help'] = 'Настройки подсказок позволяют вам задать доступность подсказок и штрафы за них. Чтобы отключить какой-либо вид подсказки, установите штраф для него выше 1.';
 $string['lexemedescriptions'] = 'Описания лексем';
 $string['lexical_analyzer'] = 'Анализ опечаток';
+$string['lexical_analyzer_required_for_howtofixpic'] = 'Необходимо включить анализ опечаток для подсказки "как можно исправить", в виде изображения';
 $string['lexical_analyzer_help'] = 'Анализ опечаток предполагает, что студент может совершать небольшие ошибки внутри лексем. Отключите эту опцию, чтобы все различия внутри лексем, учитывались как ошибки на уровне последовательности лексем';
 $string['lexicalanalyzerlistsettingname'] = 'Список лексем для определения специальных ошибок при лексическом анализе';
 $string['lexicalanalyzerlistsettingdescription'] = 'Некоторые лексемы должны быть обработаны особым образом в лексическом анализе. Задайте этот список, если некоторые лексемы требуют особой обработки';

@@ -1,5 +1,5 @@
 <?php
-// This file is part of Correct Writing question type - https://code.google.com/p/oasychev-moodle-plugins/
+// This file is part of Correct Writing question type - https://bitbucket.org/oasychev/moodle-plugins/
 //
 // Correct Writing is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -540,6 +540,8 @@ require_once($CFG->dirroot . '/question/type/correctwriting/enumeditor_form/corr
                     get_string('hintbtn', 'qbehaviour_adaptivehints', get_string('wheretxthint', 'qtype_correctwriting', get_string('mistakentokens', 'qtype_correctwriting'))));
         $repeated[] = $mform->createElement('advcheckbox', 'wherepic_', '',
                     get_string('hintbtn', 'qbehaviour_adaptivehints', get_string('wherepichint', 'qtype_correctwriting', get_string('mistakentokens', 'qtype_correctwriting'))));
+        $repeated[] = $mform->createElement('advcheckbox', 'howtofixpic_', '',
+            get_string('hintbtn', 'qbehaviour_adaptivehints', get_string('howtofixpic', 'qtype_correctwriting', get_string('mistakentokens', 'qtype_correctwriting'))));
         return array($repeated, $repeatedoptions);
     }
 
@@ -561,8 +563,9 @@ require_once($CFG->dirroot . '/question/type/correctwriting/enumeditor_form/corr
         foreach ($question->hints as $hint) {
             $hints = explode("\n", $hint->options);
             $question->whatis_[] = in_array('whatis_', $hints);
-            $question->wheretxt_[] = in_array('wheretxt_', $hints);
+            $question->howtofixpic_[] = in_array('howtofixpic_', $hints);
             $question->wherepic_[] = in_array('wherepic_', $hints);
+            $question->howtofix_[] = in_array('howtofix_', $hints);
         }
 
         return $question;
@@ -726,6 +729,22 @@ require_once($CFG->dirroot . '/question/type/correctwriting/enumeditor_form/corr
         if ($issyntaxanalyzerenabled) {
             $errors['issequenceanalyzerenabled'] = get_string('syntaxanalyzerisdisabled','qtype_correctwriting');
         }
+
+        if (!$islexicalanalyzerenabled && array_key_exists('howtofixpic_', $data)) {
+            if (is_array($data['howtofixpic_'])) {
+                if (count($data['howtofixpic_'])) {
+                    foreach($data['howtofixpic_'] as $key  => $value) {
+                        if ($value) {
+                            $errors["howtofixpic_[$key]"] = get_string(
+                                'lexical_analyzer_required_for_howtofixpic',
+                                'qtype_correctwriting'
+                            );
+                        }
+                    }
+                }
+            }
+        }
+
         
         // Validate floating fields for min/max borders.
         foreach ($this->floatfields as $name => $params) {
