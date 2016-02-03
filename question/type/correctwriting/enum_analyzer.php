@@ -620,7 +620,7 @@ class  qtype_correctwriting_enum_analyzer extends qtype_correctwriting_abstract_
             }
             $tempstringbegin = $tempstringbegin.$tempstringend;
             // Update enumeration correct string.
-            $enumstring = new qtype_poasquestion_string($tempstringbegin);
+            $enumstring = new qtype_poasquestion\utf8_string($tempstringbegin);
             $enumstring = $this->language->create_from_string($enumstring, 'qtype_correctwriting_processed_string');
             $enumstring->stream = null;
             $stringpair->set_enum_correct_string($enumstring);
