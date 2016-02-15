@@ -1,0 +1,31 @@
+.vline {
+    width: 3px;
+    position: absolute;
+    height: 15px;
+    cursor: wait;
+}
+
+.gline {
+    width: 10px;
+    position: absolute;
+    height: 3px;
+}
+
+.show {
+    font-family: monospace,monospace;
+    display: inline-block;
+    resize: none;
+    line-height: 50px;
+    font-size: 30px;
+    white-space: nowrap;
+}
+
+.img {
+    cursor: ew-resize;
+}
+.text {
+    width: 50em;
+}
+.setting {
+    background: url("/theme/image.php/clean/core/1410350174/t/block");
+}
