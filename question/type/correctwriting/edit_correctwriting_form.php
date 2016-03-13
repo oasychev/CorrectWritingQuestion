@@ -79,6 +79,28 @@ require_once($CFG->dirroot . '/blocks/formal_langs/block_formal_langs.php');
         global $CFG, $PAGE, $COURSE, $DB;
 
         $PAGE->requires->jquery();
+        $version = 0;
+        // Handling broken validation in Moodle 3.1+, due to https://tracker.moodle.org/browse/MDL-52826
+        // Thank you, David Monllaó, for wasting developers' time with client-side validation non-sense.
+
+        // Seriously, are those people even worked with forms with complex validation?
+        eval(str_replace(
+            array('<?php', '<?'),
+            array('', ''),
+            file_get_contents($CFG->dirroot . '/version.php')
+        ));
+        /** @var float $version */
+        if (intval($version) >= 2016031000) {
+            MoodleQuickForm::registerRule(
+                'expose_validator',
+                'rule',
+                'qtype_correctwring_expose_validator',
+                "$CFG->dirroot/question/type/correctwriting/expose_validator.php"
+            );
+            $mform->addRule('name', get_string('err_expose_validator', 'qtype_correctwriting'), 'expose_validator', null, 'client');
+            $mform->addElement('hidden', 'should_expose_validator', true);
+            $mform->setType('should_expose_validator', PARAM_RAW);
+        }
 
         // Create global floating fields before changing array.
         foreach ($this->floatfields as $name => $params) {

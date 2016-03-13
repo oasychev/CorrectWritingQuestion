@@ -120,6 +120,19 @@ M.question_type_correctwriting.Form = function() {
             }
         };
         var readyhandler =  function() {
+            // Expose validator, by triggering validation of name
+            if ($("input[name=should_expose_validator]").length != 0) {
+                var name = $("#id_name");
+                var empty = name.val() == '';
+                if (empty) {
+                    name.val(' ');
+                }
+                name[0].dispatchEvent(new Event('blur'));
+                if (empty) {
+                    name.val('');
+                }
+            }
+
             /** @var this M.question_type_correctwriting.Form  */
             for(var i = 0; i < this.answer_count; i++) {
                 M.question_type_correctwriting.form.lasttimefired[i] = new Date().getTime();
@@ -164,7 +177,7 @@ M.question_type_correctwriting.Form = function() {
                     }
                     // Reset mistakes array accordingly
                     //noinspection JSUnresolvedFunction
-                    qf_errorHandler(answerfield[0], "");
+                    qf_errorHandler(answerfield[0], "", answerfield.attr('name'));
                     if (data.errors.length != 0) {
                         // fake label for errors, we need to set text as html,
                         // but qf_errorHandler does not allow us to do so
@@ -172,7 +185,7 @@ M.question_type_correctwriting.Form = function() {
                         // messed up on any kind of form update.
                         // But sadly, there is no other way...
                         //noinspection JSUnresolvedFunction
-                        qf_errorHandler(answerfield[0], "fake label");
+                        qf_errorHandler(answerfield[0], "fake label", answerfield.attr('name'));
                         $(mistakespanselector).html(data.errors);
                     }
                     labeltextarea.removeAttr("style");
