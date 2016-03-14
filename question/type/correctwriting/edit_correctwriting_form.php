@@ -81,9 +81,7 @@ require_once($CFG->dirroot . '/blocks/formal_langs/block_formal_langs.php');
         $PAGE->requires->jquery();
         $version = 0;
         // Handling broken validation in Moodle 3.1+, due to https://tracker.moodle.org/browse/MDL-52826
-        // Thank you, David Monllaó, for wasting developers' time with client-side validation non-sense.
 
-        // Seriously, are those people even worked with forms with complex validation?
         eval(str_replace(
             array('<?php', '<?'),
             array('', ''),
