@@ -79,26 +79,13 @@ require_once($CFG->dirroot . '/blocks/formal_langs/block_formal_langs.php');
         global $CFG, $PAGE, $COURSE, $DB;
 
         $PAGE->requires->jquery();
-        $version = 0;
-        // Handling broken validation in Moodle 3.1+, due to https://tracker.moodle.org/browse/MDL-52826
-
-        eval(str_replace(
-            array('<?php', '<?'),
-            array('', ''),
-            file_get_contents($CFG->dirroot . '/version.php')
-        ));
-        /** @var float $version */
-        if (intval($version) >= 2016031000) {
-            MoodleQuickForm::registerRule(
-                'expose_validator',
-                'rule',
-                'qtype_correctwring_expose_validator',
-                "$CFG->dirroot/question/type/correctwriting/expose_validator.php"
-            );
-            $mform->addRule('name', get_string('err_expose_validator', 'qtype_correctwriting'), 'expose_validator', null, 'client');
-            $mform->addElement('hidden', 'should_expose_validator', true);
-            $mform->setType('should_expose_validator', PARAM_RAW);
-        }
+        $PAGE->requires->js_init_call(
+            'M.question_type_correctwriting.form.init_require_answer_message',
+            array( get_string('pleaseenterananswer', 'qtype_correctwriting') ),
+            false,
+            $this->jsmodule
+        );
+        // Note: rolled-out own error-span-generating function. to prevent nasty things with data
 
         // Create global floating fields before changing array.
         foreach ($this->floatfields as $name => $params) {
@@ -776,6 +763,14 @@ require_once($CFG->dirroot . '/blocks/formal_langs/block_formal_langs.php');
         $lang = block_formal_langs::lang_object($data['langid']);
         $br = html_writer::empty_tag('br');
         foreach($data['answer'] as $key => $value) {
+            $fractions = $data['fraction'];
+            if (\core_text::strlen($value) == 0  && $fractions[$key] >= $data['hintgradeborder']) {
+                $errors["answer[$key]"] = get_string(
+                    'pleaseenterananswer',
+                    'qtype_correctwriting',
+                    $value
+                );
+            }
             $processedstring = $lang->create_from_string($value);
             $stream = $processedstring->stream;
 
