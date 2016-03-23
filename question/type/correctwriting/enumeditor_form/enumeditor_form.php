@@ -16,14 +16,15 @@ class enumeditor_form extends moodleform {
         global $CFG;
 
         $mform = $this->_form;
+        $mform->addElement('html', '<style>@font-face{font-family: ptmono;src: url(' . $CFG->wwwroot . '/question/type/correctwriting/enumeditor_form/PTM55FT.ttf);</style>');
         $mform->addElement('html', '<link href="' . $CFG->wwwroot . '/question/type/correctwriting/enumeditor_form/style.css" id="SL_resources" rel="stylesheet" type="text/css">');
         $mform->addElement('text', 'answer', get_string('enumeditoranswer', 'qtype_correctwriting')); // Add elements to your form
         $mform->setType('answer','PARAM_TEXT');
         $mform->addElement('html', '<a class="ajaxcatcher">'.get_string('enumeditordetermineenumerations', 'qtype_correctwriting') .'</a>');
         $mform->addElement('html', '<div id="work"><div id="lines"></div><div id="closes"></div><div id="arrows"></div>
-                                    <span id="width" style = "visibility: hidden;font-family:monospace,monospace;display:inline-block;resize:none;line-height:50px;
-                                    font-size:30px;white-space:nowrap;">T</span><div id="words" style = "font-family:monospace,monospace;display:inline-block;resize:none;line-height:50px;
-                                    font-size:30px;white-space:nowrap;" class = "show" readonly="true" ></div></div>');
+                                    <span id="width" style = "visibility: hidden;font-family:ptmono, monospace;display:inline-block;resize:none;line-height:50px;
+                                    font-size:30px;white-space:nowrap;">T</span><div id="words" style = "font-family:ptmono, monospace;display:inline-block;
+                                    resize:none;line-height:50px;font-size:30px;white-space:nowrap;" class = "show" readonly="true" ></div></div>');
         $mform->addElement('static', 'enumerations', get_string('enumeditorenumerations', 'qtype_correctwriting'));
         $mform->addElement('html', '<div id="enums">');
         $mform->addElement('html', '</div>');
