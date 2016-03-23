@@ -1,3 +1,7 @@
+@font-face{
+    font-family: ptmono;
+    src: url(./PTM55FT.ttf);
+}
 .vline {
     width: 3px;
     position: absolute;
@@ -12,7 +16,7 @@
 }
 
 .show {
-    font-family: monospace,monospace;
+    font-family: ptmono, monospace;
     display: inline-block;
     resize: none;
     line-height: 50px;
