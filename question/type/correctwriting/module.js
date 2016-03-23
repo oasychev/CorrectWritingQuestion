@@ -29,6 +29,11 @@ M.question_type_correctwriting.Form = function() {
      * @type {object}
      */
     this.lasttimefired = {};
+    /**
+     * Message, that should be shown, when required answer is empty
+     * @type {string}
+     */
+    this.require_answer_message = "";
     //noinspection JSUnusedGlobalSymbols
     /**
      * Forces descriptions to be hidden
@@ -62,6 +67,15 @@ M.question_type_correctwriting.Form = function() {
     };
     //noinspection JSUnusedGlobalSymbols
     /**
+     * Init require answer message
+     * @param {YUI} Y
+     * @param {string} lexerurl
+     */
+    this.init_require_answer_message  = function(Y, message) {
+       this.require_answer_message = message;
+    };
+    //noinspection JSUnusedGlobalSymbols
+    /**
      * Forces inits text input on page
      * @param {YUI} Y
      * @param {int} answercount
@@ -76,12 +90,24 @@ M.question_type_correctwriting.Form = function() {
             var matches = $(this).attr("name").match("(answer|fraction)\\[([0-9]+)\\]");
             var number = matches[2];
             var hintgradeborder = parseFloat($("input[name=hintgradeborder]").val());
-            var text  = $("textarea[name='answer[" + number +"]']").val();
+            var textarea = $("textarea[name='answer[" + number +"]']");
+            var text  = textarea.val();
             var descriptions = $("#fitem_id_lexemedescriptions_" + number);
             var fraction = parseFloat($("select[name='fraction[" + number +"]']").val());
             var shouldrequestdescriptions = false;
             if (!isNaN(hintgradeborder)) {
                 if (text.length == 0 || fraction < hintgradeborder) {
+                    if (text.length == 0 && fraction  >= hintgradeborder) {
+                        M.question_type_correctwriting.form.toggle_error_span(
+                            textarea[0],
+                            M.question_type_correctwriting.form.require_answer_message
+                        );
+                    } else {
+                        M.question_type_correctwriting.form.toggle_error_span(
+                            textarea[0],
+                            ""
+                        );
+                    }
                     descriptions.css("display", "none");
                     descriptions.prev().css("display", "none");
                 } else {
@@ -131,6 +157,51 @@ M.question_type_correctwriting.Form = function() {
         $(document).ready(readyhandler);
     };
     /**
+     * A simple version of adding error span into item
+     * @param element
+     * @param message
+     * @returns {boolean}
+     */
+    this.toggle_error_span = function(element, message) {
+        var errorSpan;
+        var div = element.parentNode;
+        var escapedName = $(element).attr('name');
+        var cssEscapedName = escapedName.replace(/\[/g, "\\[").replace(/\]/g, "\\]");
+
+        if ((div == undefined) || (element.name == undefined)) {
+            //no checking can be done for undefined elements so let server handle it.
+            return true;
+        }
+        var msg = $.trim(message);
+
+        if (msg.length != 0) {
+            //noinspection JSJQueryEfficiency
+            errorSpan = $('#id_error_' + cssEscapedName);
+            if (errorSpan.length  == 0) {
+                var span = "<span class=\"error\" id=\"id_error_" + escapedName + "\"></span>";
+                $(span).insertBefore($(element.parentNode.firstChild));
+                errorSpan = $('#id_error_' + cssEscapedName);
+                errorSpan.attr('TabIndex', 0);
+                errorSpan.focus();
+            }
+
+            errorSpan.html(message);
+
+            if ($(div).hasClass('error') == false) {
+                var field = $(errorSpan[0].nextSibling);
+                $("<br class=\"error\" id=\"id_error_break_" + escapedName + "\">").insertBefore(field);
+                $(div).addClass('error');
+            }
+
+            return false;
+        } else {
+            $("#id_error_" + cssEscapedName).remove();
+            $("#id_error_break_" + cssEscapedName).remove();
+            $(div).removeClass("error");
+            return true;
+        }
+    };
+    /**
      * Runs a tokenization request for text
      * @param {string} text a text for request
      * @param {int} number a number of index of answer, which request is came from
@@ -140,7 +211,7 @@ M.question_type_correctwriting.Form = function() {
         var editabletextarea = $("#id_lexemedescriptions_" + number);
         var currentlanguage = $("#id_langid").val();
         var answerfield = $("textarea[name=\'answer[" + number+ "]\']");
-        var mistakespanselector = "*[id=\'id_error_answer[" + number + "]\']";
+        var me = this;
         $.ajax({
             "url": this.lexerurl,
             "type": "POST",
@@ -164,16 +235,9 @@ M.question_type_correctwriting.Form = function() {
                     }
                     // Reset mistakes array accordingly
                     //noinspection JSUnresolvedFunction
-                    qf_errorHandler(answerfield[0], "");
+                    me.toggle_error_span(answerfield[0], "");
                     if (data.errors.length != 0) {
-                        // fake label for errors, we need to set text as html,
-                        // but qf_errorHandler does not allow us to do so
-                        // we doing it via jQuery. This is so going to be
-                        // messed up on any kind of form update.
-                        // But sadly, there is no other way...
-                        //noinspection JSUnresolvedFunction
-                        qf_errorHandler(answerfield[0], "fake label");
-                        $(mistakespanselector).html(data.errors);
+                        me.toggle_error_span(answerfield[0], data.errors);
                     }
                     labeltextarea.removeAttr("style");
                     labeltextarea.css("display", "inline");

@@ -80,6 +80,13 @@ require_once($CFG->dirroot . '/question/type/correctwriting/enumeditor_form/corr
         global $CFG, $PAGE, $COURSE, $DB;
 
         $PAGE->requires->jquery();
+        $PAGE->requires->js_init_call(
+            'M.question_type_correctwriting.form.init_require_answer_message',
+            array( get_string('pleaseenterananswer', 'qtype_correctwriting') ),
+            false,
+            $this->jsmodule
+        );
+        // Note: rolled-out own error-span-generating function. to prevent nasty things with data
 
         // Create global floating fields before changing array.
         foreach ($this->floatfields as $name => $params) {
@@ -760,6 +767,14 @@ require_once($CFG->dirroot . '/question/type/correctwriting/enumeditor_form/corr
         $lang = block_formal_langs::lang_object($data['langid']);
         $br = html_writer::empty_tag('br');
         foreach($data['answer'] as $key => $value) {
+            $fractions = $data['fraction'];
+            if (\core_text::strlen($value) == 0  && $fractions[$key] >= $data['hintgradeborder']) {
+                $errors["answer[$key]"] = get_string(
+                    'pleaseenterananswer',
+                    'qtype_correctwriting',
+                    $value
+                );
+            }
             $processedstring = $lang->create_from_string($value);
             $stream = $processedstring->stream;
 

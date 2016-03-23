@@ -39,6 +39,7 @@ $string['enum_analyzer'] = 'Analysis of enumerations';
 $string['enum_analyzer_help'] = 'Analysis of enumerations allows some of parts of teacher\'s answer be moved in order to make it more flexible, when testing against student orders. The parts will be moved, only if this allowed. At the moment, moving parts is supported only for C++ language.';
 $string['enumanalyzerrequiresequenceanalyzer'] = 'Enumeration analysis requires token sequence analysis to be enabled';
 $string['enumanalyzerisincompatiblewithlang'] = 'Enumeration analysis is incompatible with this language. Please, use C++ language';
+$string['err_expose_validator'] = '';
 $string['enumeditoraddenumeration'] = 'Add enumeration';
 $string['enumeditoranswer'] = 'Answer:';
 $string['enumeditorelements'] = 'Elements:';

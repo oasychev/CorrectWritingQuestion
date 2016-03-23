@@ -39,6 +39,7 @@ $string['enum_analyzer'] = 'Анализ перечислений';
 $string['enum_analyzer_help'] = 'Анализ перечислений позволяет некоторым частям ответа преподавателя быть перемещенными, чтобы уменьшить число ложных ошибок в ответе студента в случае эквивалентных ответов. Сейчас он поддерживается только для языка C++';
 $string['enumanalyzerrequiresequenceanalyzer'] = 'Анализ перечислений требует, чтобы анализ последовательности лексем был включен';
 $string['enumanalyzerisincompatiblewithlang'] = 'Анализ перечислений несовместим с данным языком. Пожалуйста, используйте C++';
+$string['err_expose_validator'] = '';
 $string['enumeditoraddenumeration'] = 'Добавить перечисление';
 $string['enumeditoranswer'] = 'Ответ:';
 $string['enumeditorelements'] = 'Элементы:';
