@@ -54,6 +54,12 @@ class qtype_correctwriting_lexical_analyzer_test extends PHPUnit_Framework_TestC
 		$result = $analyzer1->result_pairs(); // array of resultstringpairs
 		$this->assertTrue(count($result[0]->matches()->matchedpairs)==2);
 		$this->assertTrue($result[0]->matches()->mistakeweight==0);
+		/**
+		 * @var qtype_correctwriting_string_pair $pair
+		 */
+		$pair = $result[0];
+		$correctedstring = $pair->correctedstring()->string;
+		$this->assertTrue($correctedstring == 'abc cde');
 	}
 
 	//опечатка
@@ -77,6 +83,12 @@ class qtype_correctwriting_lexical_analyzer_test extends PHPUnit_Framework_TestC
 		$this->assertTrue($result[0]->matches()->mistakeweight==1);
         $ops = $result[0]->matches()->matchedpairs[0]->operations;
 		$this->assertTrue($ops == 'mmmmmim', var_export($ops, true));
+		/**
+		 * @var qtype_correctwriting_string_pair $pair
+		 */
+		$pair = $result[0];
+		$correctedstring = $pair->correctedstring()->string;
+		$this->assertTrue($correctedstring == 'abcdpoc');
 	}
 
 	//опечатка - вставка
@@ -100,6 +112,12 @@ class qtype_correctwriting_lexical_analyzer_test extends PHPUnit_Framework_TestC
 		$this->assertTrue(count($result[0]->matches()->mistakeweight)==1);
         $ops = $result[0]->matches()->matchedpairs[0]->operations;
         $this->assertTrue($ops == 'mmmmmmdm', var_export($ops, true));
+		/**
+		 * @var qtype_correctwriting_string_pair $pair
+		 */
+		$pair = $result[0];
+		$correctedstring = $pair->correctedstring()->string;
+		$this->assertTrue($correctedstring == 'abcdpoc');
 	}
 
 	//опечатка - замена
@@ -123,6 +141,12 @@ class qtype_correctwriting_lexical_analyzer_test extends PHPUnit_Framework_TestC
 		$this->assertTrue(count($result[0]->matches()->mistakeweight)==1);
         $ops = $result[0]->matches()->matchedpairs[0]->operations;
         $this->assertTrue($ops == 'mmmmmrm', var_export($ops, true));
+		/**
+		 * @var qtype_correctwriting_string_pair $pair
+		 */
+		$pair = $result[0];
+		$correctedstring = $pair->correctedstring()->string;
+		$this->assertTrue($correctedstring == 'abcdpoc');
 	}
 
 	//опечатка - несколько операций
@@ -146,6 +170,12 @@ class qtype_correctwriting_lexical_analyzer_test extends PHPUnit_Framework_TestC
 		$this->assertTrue(count($result[0]->matches()->mistakeweight)==1);
         $ops = $result[0]->matches()->matchedpairs[0]->operations;
         $this->assertTrue($ops == 'mrmmmim', var_export($ops, true));
+		/**
+		 * @var qtype_correctwriting_string_pair $pair
+		 */
+		$pair = $result[0];
+		$correctedstring = $pair->correctedstring()->string;
+		$this->assertTrue($correctedstring == 'abcdpoc');
 	}
 
 	//опечатка - транспозиция
@@ -169,7 +199,13 @@ class qtype_correctwriting_lexical_analyzer_test extends PHPUnit_Framework_TestC
 		$this->assertTrue(count($result[0]->matches()->mistakeweight)==1);
         $ops = $result[0]->matches()->matchedpairs[0]->operations;
         $this->assertTrue($ops == 'mmmmmt', var_export($ops, true));
-    }
+		/**
+		 * @var qtype_correctwriting_string_pair $pair
+		 */
+		$pair = $result[0];
+		$correctedstring = $pair->correctedstring()->string;
+		$this->assertTrue($correctedstring == 'abcdpoc');
+	}
 
 	//1 пара
 	public function test_lexical_analyzer2() {
@@ -190,6 +226,12 @@ class qtype_correctwriting_lexical_analyzer_test extends PHPUnit_Framework_TestC
 		$result=$analyzer2->result_pairs(); // array of resultstringpairs
 		$this->assertTrue(count($result[0]->matches()->matchedpairs)==1);
 		$this->assertTrue($result[0]->matches()->mistakeweight==0);
+		/**
+		 * @var qtype_correctwriting_string_pair $pair
+		 */
+		$pair = $result[0];
+		$correctedstring = $pair->correctedstring()->string;
+		$this->assertTrue($correctedstring == 'abc naklc');
 	}
 
 	//нет пар
@@ -238,6 +280,12 @@ class qtype_correctwriting_lexical_analyzer_test extends PHPUnit_Framework_TestC
 		$result=$analyzer2->result_pairs(); // array of resultstringpairs
 		$this->assertTrue(count($result[0]->matches()->matchedpairs)==1);
 		$this->assertTrue($result[0]->matches()->mistakeweight==1);
+		/**
+		 * @var qtype_correctwriting_string_pair $pair
+		 */
+		$pair = $result[0];
+		$correctedstring = $pair->correctedstring()->string;
+		$this->assertTrue($correctedstring == 'abkd poc');
 	}
 	//лишний разделитель
 	public function test_lexical_analyzer4() {
@@ -261,6 +309,12 @@ class qtype_correctwriting_lexical_analyzer_test extends PHPUnit_Framework_TestC
 		$result=$analyzer2->result_pairs(); // array of resultstringpairs
 		$this->assertTrue(count($result[0]->matches()->matchedpairs)==1);
 		$this->assertTrue($result[0]->matches()->mistakeweight==1);
+		/**
+		 * @var qtype_correctwriting_string_pair $pair
+		 */
+		$pair = $result[0];
+		$correctedstring = $pair->correctedstring()->string;
+		$this->assertTrue($correctedstring == 'abkdroc');
 	}
 	//2 набора
 	public function test_lexical_analyzer5() {
@@ -306,6 +360,12 @@ class qtype_correctwriting_lexical_analyzer_test extends PHPUnit_Framework_TestC
 		$analyzer2 = new qtype_correctwriting_lexical_analyzer($question, $bestmatchpair1, $language2, true);
 		$result=$analyzer2->result_pairs(); // array of resultstringpairs
 		$this->assertTrue(count($result)==1);
+		/**
+		 * @var qtype_correctwriting_string_pair $pair
+		 */
+		$pair = $result[0];
+		$correctedstring = $pair->correctedstring()->string;
+		$this->assertTrue($correctedstring == 'abc naklc');
 	}
 
 }

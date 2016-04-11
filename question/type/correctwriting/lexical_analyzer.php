@@ -94,6 +94,8 @@ class qtype_correctwriting_lexical_analyzer extends qtype_correctwriting_abstrac
             if($pair->matches()==null){
                 $pair->setcorrectedstring($pair->comparedstring());
                 return;
+            } else {
+                $this->fill_string_as_text_in_corrected_string($pair->correctedstring());
             }
             $setmatches = $pair->matches()->matchedpairs;
             $lexmistakes=array();
@@ -215,8 +217,27 @@ class qtype_correctwriting_lexical_analyzer extends qtype_correctwriting_abstrac
         );
 
         /** @var qtype_correctwriting_string_pair $string */
-        $this->resultstringpairs[0]->set_mistakes($this->convert_lexer_errors_to_mistakes());
+        $string = $this->resultstringpairs[0];
+        $this->fill_string_as_text_in_corrected_string($string->correctedstring());
+        $string->set_mistakes($this->convert_lexer_errors_to_mistakes());
+    }
 
+    /**
+     * Fills string as text in corrected string
+     * @param block_formal_langs_processed_string $string a string
+     */
+    protected function fill_string_as_text_in_corrected_string($string) {
+        $tokenvalues = array();
+        $sourcetokens = $string->stream->tokens;
+        if (count($sourcetokens)) {
+            foreach($sourcetokens as $token) {
+                /** @var block_formal_langs_token_base $token */
+                $tokenvalues[] = $token->value();
+            }
+        }
+        /** @var block_formal_langs_abstract_language $language */
+        $language = $string->language;
+        $string->string = new qtype_poasquestion\utf8_string(implode($language->token_delimiter(), $tokenvalues));
     }
 
     /**
