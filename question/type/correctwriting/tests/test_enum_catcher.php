@@ -878,4 +878,420 @@ class qtype_correctwriting_enum_catcher_test extends PHPUnit_Framework_TestCase 
         $this->assertEquals($expected_result[0][3], $result[0][3], $error_string);
         $this->assertEquals($expected_result, $result, $error_string);
     }
+
+    /**
+     *  Test for find enumerations in definition of struct inside class.
+     */
+    public function test_definition_struct_in_class() {
+        $lang = new block_formal_langs_language_cpp_parseable_language();
+        $string = 'class cl { public : struct suit { int a ; char * b ; float k ; } first; float second;} ;';
+        $correct = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
+        $tree = $correct->syntaxtree;
+        $temp = new qtype_correctwriting_enum_catcher($tree);
+        $expected_result = array();
+        $expected_result[] = array();
+        $expected_result[] = array();
+        $expected_result[0][] = array(5,20);
+        $expected_result[0][] = array(21,23);
+        $expected_result[1][] = array(8,10);
+        $expected_result[1][] = array(11,14);
+        $expected_result[1][] = array(15,17);
+        $result = $temp->getEnums();
+        $error_string = 'Error enumeration catcher found!Definition struct inside class.';
+        $this->assertEquals($expected_result[0][0], $result[0][0], $error_string);
+        $this->assertEquals($expected_result[0][1], $result[0][1], $error_string);
+        $this->assertEquals($expected_result[1][0], $result[1][0], $error_string);
+        $this->assertEquals($expected_result[1][1], $result[1][1], $error_string);
+        $this->assertEquals($expected_result[1][2], $result[1][2], $error_string);
+        $this->assertEquals($expected_result, $result, $error_string);
+    }
+
+    /**
+     *  Test for find enumerations in definition of function in class.
+     */
+    public function test_definition_function_in_class() {
+        $lang = new block_formal_langs_language_cpp_parseable_language();
+        $string = 'class cl { public : int suit() { int a ; char * b ; float k ; return 0; } float second;} ;';
+        $correct = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
+        $tree = $correct->syntaxtree;
+        $temp = new qtype_correctwriting_enum_catcher($tree);
+        $expected_result = array();
+        $expected_result[] = array();
+        $expected_result[] = array();
+        $expected_result[0][] = array(5,23);
+        $expected_result[0][] = array(24,26);
+        $expected_result[1][] = array(10,12);
+        $expected_result[1][] = array(13,16);
+        $expected_result[1][] = array(17,19);
+        $result = $temp->getEnums();
+        $error_string = 'Error enumeration catcher found!Definition function inside class.';
+        $this->assertEquals($expected_result[0][0], $result[0][0], $error_string);
+        $this->assertEquals($expected_result[0][1], $result[0][1], $error_string);
+        $this->assertEquals($expected_result[1][0], $result[1][0], $error_string);
+        $this->assertEquals($expected_result[1][1], $result[1][1], $error_string);
+        $this->assertEquals($expected_result[1][2], $result[1][2], $error_string);
+        $this->assertEquals($expected_result, $result, $error_string);
+    }
+
+    /**
+     *  Test for find enumerations in definition of struct in struct.
+     */
+    public function test_definition_struct_in_struct() {
+        $lang = new block_formal_langs_language_cpp_parseable_language();
+        $string = 'struct st {struct suit { int a ; char * b ; float k ; } first; float second;} ;';
+        $correct = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
+        $tree = $correct->syntaxtree;
+        $temp = new qtype_correctwriting_enum_catcher($tree);
+        $expected_result = array();
+        $expected_result[] = array();
+        $expected_result[] = array();
+        $expected_result[0][] = array(3,18);
+        $expected_result[0][] = array(19,21);
+        $expected_result[1][] = array(6,8);
+        $expected_result[1][] = array(9,12);
+        $expected_result[1][] = array(13,15);
+        $result = $temp->getEnums();
+        $error_string = 'Error enumeration catcher found!Definition struct inside struct.';
+        $this->assertEquals($expected_result[0][0], $result[0][0], $error_string);
+        $this->assertEquals($expected_result[0][1], $result[0][1], $error_string);
+        $this->assertEquals($expected_result[1][0], $result[1][0], $error_string);
+        $this->assertEquals($expected_result[1][1], $result[1][1], $error_string);
+        $this->assertEquals($expected_result[1][2], $result[1][2], $error_string);
+        $this->assertEquals($expected_result, $result, $error_string);
+    }
+
+    /**
+     *  Test for find enumerations in definition of struct in union.
+     */
+    public function test_definition_struct_in_union() {
+        $lang = new block_formal_langs_language_cpp_parseable_language();
+        $string = 'union un {struct suit { int a ; char * b ; float k ; } first; float second;} ;';
+        $correct = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
+        $tree = $correct->syntaxtree;
+        $temp = new qtype_correctwriting_enum_catcher($tree);
+        $expected_result = array();
+        $expected_result[] = array();
+        $expected_result[] = array();
+        $expected_result[0][] = array(3,18);
+        $expected_result[0][] = array(19,21);
+        $expected_result[1][] = array(6,8);
+        $expected_result[1][] = array(9,12);
+        $expected_result[1][] = array(13,15);
+        $result = $temp->getEnums();
+        $error_string = 'Error enumeration catcher found!Definition struct in union.';
+        $this->assertEquals($expected_result[0][0], $result[0][0], $error_string);
+        $this->assertEquals($expected_result[0][1], $result[0][1], $error_string);
+        $this->assertEquals($expected_result[1][0], $result[1][0], $error_string);
+        $this->assertEquals($expected_result[1][1], $result[1][1], $error_string);
+        $this->assertEquals($expected_result[1][2], $result[1][2], $error_string);
+        $this->assertEquals($expected_result, $result, $error_string);
+    }
+
+    /**
+     *  Test for find enumerations in definition of union in class.
+     */
+    public function test_definition_union_in_class() {
+        $lang = new block_formal_langs_language_cpp_parseable_language();
+        $string = 'class cl {union suit { int a ; char * b ; float k ; } first; float second;} ;';
+        $correct = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
+        $tree = $correct->syntaxtree;
+        $temp = new qtype_correctwriting_enum_catcher($tree);
+        $expected_result = array();
+        $expected_result[] = array();
+        $expected_result[] = array();
+        $expected_result[0][] = array(3,18);
+        $expected_result[0][] = array(19,21);
+        $expected_result[1][] = array(6,8);
+        $expected_result[1][] = array(9,12);
+        $expected_result[1][] = array(13,15);
+        $result = $temp->getEnums();
+        $error_string = 'Error enumeration catcher found!Definition union in class.';
+        $this->assertEquals($expected_result[0][0], $result[0][0], $error_string);
+        $this->assertEquals($expected_result[0][1], $result[0][1], $error_string);
+        $this->assertEquals($expected_result[1][0], $result[1][0], $error_string);
+        $this->assertEquals($expected_result[1][1], $result[1][1], $error_string);
+        $this->assertEquals($expected_result[1][2], $result[1][2], $error_string);
+        $this->assertEquals($expected_result, $result, $error_string);
+    }
+
+    /**
+     *  Test for find enumerations in definition of union in struct.
+     */
+    public function test_definition_union_in_struct() {
+        $lang = new block_formal_langs_language_cpp_parseable_language();
+        $string = 'struct st {union suit { int a ; char * b ; float k ; } first; float second;} ;';
+        $correct = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
+        $tree = $correct->syntaxtree;
+        $temp = new qtype_correctwriting_enum_catcher($tree);
+        $expected_result = array();
+        $expected_result[] = array();
+        $expected_result[] = array();
+        $expected_result[0][] = array(3,18);
+        $expected_result[0][] = array(19,21);
+        $expected_result[1][] = array(6,8);
+        $expected_result[1][] = array(9,12);
+        $expected_result[1][] = array(13,15);
+        $result = $temp->getEnums();
+        $error_string = 'Error enumeration catcher found!Definition union in struct.';
+        $this->assertEquals($expected_result[0][0], $result[0][0], $error_string);
+        $this->assertEquals($expected_result[0][1], $result[0][1], $error_string);
+        $this->assertEquals($expected_result[1][0], $result[1][0], $error_string);
+        $this->assertEquals($expected_result[1][1], $result[1][1], $error_string);
+        $this->assertEquals($expected_result[1][2], $result[1][2], $error_string);
+        $this->assertEquals($expected_result, $result, $error_string);
+    }
+
+    /**
+     *  Test for find enumerations in definition of union in union.
+     */
+    public function test_definition_union_in_union() {
+        $lang = new block_formal_langs_language_cpp_parseable_language();
+        $string = 'union un {union suit { int a ; char * b ; float k ; } first; float second;} ;';
+        $correct = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
+        $tree = $correct->syntaxtree;
+        $temp = new qtype_correctwriting_enum_catcher($tree);
+        $expected_result = array();
+        $expected_result[] = array();
+        $expected_result[] = array();
+        $expected_result[0][] = array(3,18);
+        $expected_result[0][] = array(19,21);
+        $expected_result[1][] = array(6,8);
+        $expected_result[1][] = array(9,12);
+        $expected_result[1][] = array(13,15);
+        $result = $temp->getEnums();
+        $error_string = 'Error enumeration catcher found!Definition union in union.';
+        $this->assertEquals($expected_result[0][0], $result[0][0], $error_string);
+        $this->assertEquals($expected_result[0][1], $result[0][1], $error_string);
+        $this->assertEquals($expected_result[1][0], $result[1][0], $error_string);
+        $this->assertEquals($expected_result[1][1], $result[1][1], $error_string);
+        $this->assertEquals($expected_result[1][2], $result[1][2], $error_string);
+        $this->assertEquals($expected_result, $result, $error_string);
+    }
+
+    /**
+     *  Test for find enumerations in definition of class in class.
+     */
+    public function test_definition_class_in_class() {
+        $lang = new block_formal_langs_language_cpp_parseable_language();
+        $string = 'class cl { class suit { public: int a ; char * b ; float k ; private: int d,c; }; float second;};';
+        $correct = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
+        $tree = $correct->syntaxtree;
+        $temp = new qtype_correctwriting_enum_catcher($tree);
+        $expected_result = array();
+        $expected_result[] = array();
+        $expected_result[] = array();
+        $expected_result[] = array();
+        $expected_result[] = array();
+        $expected_result[0][] = array(3,26);
+        $expected_result[0][] = array(27,29);
+        $expected_result[1][] = array(8,10);
+        $expected_result[1][] = array(11,14);
+        $expected_result[1][] = array(15,17);
+        $expected_result[2][] = array(6,17);
+        $expected_result[2][] = array(18,24);
+        $expected_result[3][] = array(21,21);
+        $expected_result[3][] = array(23,23);
+        $result = $temp->getEnums();
+        $error_string = 'Error enumeration catcher found!Definition class in class';
+        $this->assertEquals($expected_result[0][0], $result[0][0], $error_string);
+        $this->assertEquals($expected_result[0][1], $result[0][1], $error_string);
+        $this->assertEquals($expected_result[1][0], $result[1][0], $error_string);
+        $this->assertEquals($expected_result[1][1], $result[1][1], $error_string);
+        $this->assertEquals($expected_result[1][2], $result[1][2], $error_string);
+        $this->assertEquals($expected_result[2][0], $result[2][0], $error_string);
+        $this->assertEquals($expected_result[2][1], $result[2][1], $error_string);
+        $this->assertEquals($expected_result[3][0], $result[3][0], $error_string);
+        $this->assertEquals($expected_result[3][1], $result[3][1], $error_string);
+        $this->assertEquals($expected_result, $result, $error_string);
+    }
+
+    /**
+     *  Test for find enumerations in definition of class in struct.
+     */
+    public function test_definition_class_in_struct() {
+        $lang = new block_formal_langs_language_cpp_parseable_language();
+        $string = 'struct st {class suit { public: int a ; char * b ; float k ; private: int d,c; }; float second;} ;';
+        $correct = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
+        $tree = $correct->syntaxtree;
+        $temp = new qtype_correctwriting_enum_catcher($tree);
+        $expected_result = array();
+        $expected_result[] = array();
+        $expected_result[] = array();
+        $expected_result[] = array();
+        $expected_result[] = array();
+        $expected_result[0][] = array(3,26);
+        $expected_result[0][] = array(27,29);
+        $expected_result[1][] = array(8,10);
+        $expected_result[1][] = array(11,14);
+        $expected_result[1][] = array(15,17);
+        $expected_result[2][] = array(6,17);
+        $expected_result[2][] = array(18,24);
+        $expected_result[3][] = array(21,21);
+        $expected_result[3][] = array(23,23);
+        $result = $temp->getEnums();
+        $error_string = 'Error enumeration catcher found!Definition class in struct.';
+        $this->assertEquals($expected_result[0][0], $result[0][0], $error_string);
+        $this->assertEquals($expected_result[0][1], $result[0][1], $error_string);
+        $this->assertEquals($expected_result[1][0], $result[1][0], $error_string);
+        $this->assertEquals($expected_result[1][1], $result[1][1], $error_string);
+        $this->assertEquals($expected_result[1][2], $result[1][2], $error_string);
+        $this->assertEquals($expected_result[2][0], $result[2][0], $error_string);
+        $this->assertEquals($expected_result[2][1], $result[2][1], $error_string);
+        $this->assertEquals($expected_result[3][0], $result[3][0], $error_string);
+        $this->assertEquals($expected_result[3][1], $result[3][1], $error_string);
+        $this->assertEquals($expected_result, $result, $error_string);
+    }
+
+    /**
+     *  Test for find enumerations in definition of class in union.
+     */
+    public function test_definition_class_in_union() {
+        $lang = new block_formal_langs_language_cpp_parseable_language();
+        $string = 'union un {class suit { public: int a ; char * b ; float k ; private: int b,c; }; float second;};';
+        $correct = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
+        $tree = $correct->syntaxtree;
+        $temp = new qtype_correctwriting_enum_catcher($tree);
+        $expected_result = array();
+        $expected_result[] = array();
+        $expected_result[] = array();
+        $expected_result[] = array();
+        $expected_result[] = array();
+        $expected_result[0][] = array(3,26);
+        $expected_result[0][] = array(27,29);
+        $expected_result[1][] = array(8,10);
+        $expected_result[1][] = array(11,14);
+        $expected_result[1][] = array(15,17);
+        $expected_result[2][] = array(6,17);
+        $expected_result[2][] = array(18,24);
+        $expected_result[3][] = array(21,21);
+        $expected_result[3][] = array(23,23);
+        $result = $temp->getEnums();
+        $error_string = 'Error enumeration catcher found!Definition class in union';
+        $this->assertEquals($expected_result[0][0], $result[0][0], $error_string);
+        $this->assertEquals($expected_result[0][1], $result[0][1], $error_string);
+        $this->assertEquals($expected_result[1][0], $result[1][0], $error_string);
+        $this->assertEquals($expected_result[1][1], $result[1][1], $error_string);
+        $this->assertEquals($expected_result[1][2], $result[1][2], $error_string);
+        $this->assertEquals($expected_result[2][0], $result[2][0], $error_string);
+        $this->assertEquals($expected_result[2][1], $result[2][1], $error_string);
+        $this->assertEquals($expected_result[3][0], $result[3][0], $error_string);
+        $this->assertEquals($expected_result[3][1], $result[3][1], $error_string);
+        $this->assertEquals($expected_result, $result, $error_string);
+    }
+
+    /**
+     *  Test for find enumerations in definition of union.
+     *  Enumeration from int to prelast ';'.
+     */
+    public function test_definition_union() {
+        $lang = new block_formal_langs_language_cpp_parseable_language();
+        $string = 'union suit { int a ; char * b ; float k ; } ;';
+        $correct = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
+        $tree = $correct->syntaxtree;
+        $temp = new qtype_correctwriting_enum_catcher($tree);
+        $expected_result = array();
+        $expected_result[] = array();
+        $expected_result[0][] = array(3,5);
+        $expected_result[0][] = array(6,9);
+        $expected_result[0][] = array(10,12);
+        $result = $temp->getEnums();
+        $error_string = 'Error enumeration catcher found!Definition union.';
+        $this->assertEquals($expected_result[0][0], $result[0][0], $error_string);
+        $this->assertEquals($expected_result[0][1], $result[0][1], $error_string);
+        $this->assertEquals($expected_result[0][2], $result[0][2], $error_string);
+        $this->assertEquals($expected_result, $result, $error_string);
+    }
+
+    /**
+     *  Test for find enumerations in definition of class.
+     *  Enumeration from int to prelast ';'.
+     */
+    public function test_definition_class() {
+        $lang = new block_formal_langs_language_cpp_parseable_language();
+        $string = 'class suit { int a ; char * b ; float k ; } ;';
+        $correct = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
+        $tree = $correct->syntaxtree;
+        $temp = new qtype_correctwriting_enum_catcher($tree);
+        $expected_result = array();
+        $expected_result[] = array();
+        $expected_result[0][] = array(3,5);
+        $expected_result[0][] = array(6,9);
+        $expected_result[0][] = array(10,12);
+        $result = $temp->getEnums();
+        $error_string = 'Error enumeration catcher found!Definition class.';
+        $this->assertEquals($expected_result[0][0], $result[0][0], $error_string);
+        $this->assertEquals($expected_result[0][1], $result[0][1], $error_string);
+        $this->assertEquals($expected_result[0][2], $result[0][2], $error_string);
+        $this->assertEquals($expected_result, $result, $error_string);
+    }
+
+    /**
+     *  Test for find enumerations in definition of class.
+     *  Enumeration from int to prelast ';'.
+     */
+    public function test_definition_class_with_visibility_modify() {
+        $lang = new block_formal_langs_language_cpp_parseable_language();
+        $string = 'class suit { public: int a ; char * b ; float k ; private: int d,c; } ;';
+        $correct = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
+        $tree = $correct->syntaxtree;
+        $temp = new qtype_correctwriting_enum_catcher($tree);
+        $expected_result = array();
+        $expected_result[] = array();
+        $expected_result[] = array();
+        $expected_result[0][] = array(5,7);
+        $expected_result[0][] = array(8,11);
+        $expected_result[0][] = array(12,14);
+        $expected_result[1][] = array(3,14);
+        $expected_result[1][] = array(15,21);
+        $expected_result[2][] = array(18,18);
+        $expected_result[2][] = array(20,20);
+        $result = $temp->getEnums();
+        $error_string = 'Error enumeration catcher found!Definition class with visibitility modificators.';
+        $this->assertEquals($expected_result[0][0], $result[0][0], $error_string);
+        $this->assertEquals($expected_result[0][1], $result[0][1], $error_string);
+        $this->assertEquals($expected_result[0][2], $result[0][2], $error_string);
+        $this->assertEquals($expected_result[1][0], $result[1][0], $error_string);
+        $this->assertEquals($expected_result[1][1], $result[1][1], $error_string);
+        $this->assertEquals($expected_result[2][1], $result[2][1], $error_string);
+        $this->assertEquals($expected_result[2][0], $result[2][0], $error_string);
+        $this->assertEquals($expected_result, $result, $error_string);
+    }
+
+    /**
+     *  Test for find enumerations in logical operators.
+     *  Four enumerations, first from logical or, second from logical and, third from logical equal, fourth from logical not equal.
+     */
+    public function test_logical_operators_without_defenition() {
+        $lang = new block_formal_langs_language_cpp_parseable_language();
+        $string = 'j == h && t != o && r  || f ;';
+        $correct = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
+        $tree = $correct->syntaxtree;
+        $temp = new qtype_correctwriting_enum_catcher($tree);
+        $expected_result = array();
+        $expected_result[] = array();
+        $expected_result[] = array();
+        $expected_result[] = array();
+        $expected_result[] = array();
+        $expected_result[0][] = array(0,8);
+        $expected_result[0][] = array(10,10);
+        $expected_result[1][] = array(0,2);
+        $expected_result[1][] = array(4,6);
+        $expected_result[1][] = array(8,8);
+        $expected_result[2][] = array(0,0);
+        $expected_result[2][] = array(2,2);
+        $expected_result[3][] = array(4,4);
+        $expected_result[3][] = array(6,6);
+        $result = $temp->getEnums();
+        $error_string = 'Error enumeration catcher found!Definition enum.';
+        $this->assertEquals($expected_result[0][0], $result[0][0], $error_string);
+        $this->assertEquals($expected_result[0][1], $result[0][1], $error_string);
+        $this->assertEquals($expected_result[1][0], $result[1][0], $error_string);
+        $this->assertEquals($expected_result[1][1], $result[1][1], $error_string);
+        $this->assertEquals($expected_result[1][2], $result[1][2], $error_string);
+        $this->assertEquals($expected_result[2][0], $result[2][0], $error_string);
+        $this->assertEquals($expected_result[2][1], $result[2][1], $error_string);
+        $this->assertEquals($expected_result[3][0], $result[3][0], $error_string);
+        $this->assertEquals($expected_result[3][1], $result[3][1], $error_string);
+        $this->assertEquals($expected_result, $result, $error_string);
+    }
 }
