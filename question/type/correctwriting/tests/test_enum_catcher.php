@@ -36,15 +36,17 @@ class qtype_correctwriting_enum_catcher_test extends PHPUnit_Framework_TestCase 
         $correct = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
         $tree = $correct->syntaxtree;
         $temp = new qtype_correctwriting_enum_catcher($tree);
-        $expected_result = [array()];
+        $expected_result = array();
+        $expected_result[] = array();
         $expected_result[0][] = array(3,5);
         $expected_result[0][] = array(7,7);
         $expected_result[0][] = array(9,9);
+        $result = $temp->getEnums();
         $error_string = 'Error enumeration catcher found!Sequence of definitions.';
-        $this->assertEquals($expected_result[0][0], $temp->getEnums()[0][0], $error_string);
-        $this->assertEquals($expected_result[0][1], $temp->getEnums()[0][1], $error_string);
-        $this->assertEquals($expected_result[0][2], $temp->getEnums()[0][2], $error_string);
-        $this->assertEquals($expected_result, $temp->getEnums(), $error_string);
+        $this->assertEquals($expected_result[0][0], $result[0][0], $error_string);
+        $this->assertEquals($expected_result[0][1], $result[0][1], $error_string);
+        $this->assertEquals($expected_result[0][2], $result[0][2], $error_string);
+        $this->assertEquals($expected_result, $result, $error_string);
     }
 
     /**
@@ -57,17 +59,19 @@ class qtype_correctwriting_enum_catcher_test extends PHPUnit_Framework_TestCase 
         $correct = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
         $tree = $correct->syntaxtree;
         $temp = new qtype_correctwriting_enum_catcher($tree);
-        $expected_result = [array()];
+        $expected_result = array();
+        $expected_result[] = array();
         $expected_result[0][] = array(4,4);
         $expected_result[0][] = array(6,6);
         $expected_result[0][] = array(8,8);
         $expected_result[0][] = array(10,10);
+        $result = $temp->getEnums();
         $error_string = 'Error enumeration catcher found!Sequence of mod.';
-        $this->assertEquals($expected_result[0][0], $temp->getEnums()[0][0], $error_string);
-        $this->assertEquals($expected_result[0][1], $temp->getEnums()[0][1], $error_string);
-        $this->assertEquals($expected_result[0][2], $temp->getEnums()[0][2], $error_string);
-        $this->assertEquals($expected_result[0][3], $temp->getEnums()[0][3], $error_string);
-        $this->assertEquals($expected_result, $temp->getEnums(), $error_string);
+        $this->assertEquals($expected_result[0][0], $result[0][0], $error_string);
+        $this->assertEquals($expected_result[0][1], $result[0][1], $error_string);
+        $this->assertEquals($expected_result[0][2], $result[0][2], $error_string);
+        $this->assertEquals($expected_result[0][3], $result[0][3], $error_string);
+        $this->assertEquals($expected_result, $result, $error_string);
 
     }
 
@@ -81,23 +85,26 @@ class qtype_correctwriting_enum_catcher_test extends PHPUnit_Framework_TestCase 
         $correct = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
         $tree = $correct->syntaxtree;
         $temp = new qtype_correctwriting_enum_catcher($tree);
-        $expected_result = [array(),array()];
-        $expected_result[1][] = array(2,12);
-        $expected_result[1][] = array(14,14);
+        $expected_result = array();
+        $expected_result[] = array();
+        $expected_result[] = array();
         $expected_result[0][] = array(3,3);
         $expected_result[0][] = array(5,5);
         $expected_result[0][] = array(7,7);
         $expected_result[0][] = array(9,9);
         $expected_result[0][] = array(11,11);
+        $expected_result[1][] = array(2,12);
+        $expected_result[1][] = array(14,14);
+        $result = $temp->getEnums();
         $error_string = 'Error enumeration catcher found!Sequence of plus with multiple.';
-        $this->assertEquals($expected_result[1][0], $temp->getEnums()[1][0], $error_string);
-        $this->assertEquals($expected_result[1][1], $temp->getEnums()[1][1], $error_string);
-        $this->assertEquals($expected_result[0][0], $temp->getEnums()[0][0], $error_string);
-        $this->assertEquals($expected_result[0][1], $temp->getEnums()[0][1], $error_string);
-        $this->assertEquals($expected_result[0][2], $temp->getEnums()[0][2], $error_string);
-        $this->assertEquals($expected_result[0][3], $temp->getEnums()[0][3], $error_string);
-        $this->assertEquals($expected_result[0][4], $temp->getEnums()[0][4], $error_string);
-        $this->assertEquals($expected_result, $temp->getEnums(), $error_string);
+        $this->assertEquals($expected_result[0][0], $result[0][0], $error_string);
+        $this->assertEquals($expected_result[0][1], $result[0][1], $error_string);
+        $this->assertEquals($expected_result[0][2], $result[0][2], $error_string);
+        $this->assertEquals($expected_result[0][3], $result[0][3], $error_string);
+        $this->assertEquals($expected_result[0][4], $result[0][4], $error_string);
+        $this->assertEquals($expected_result[1][0], $result[1][0], $error_string);
+        $this->assertEquals($expected_result[1][1], $result[1][1], $error_string);
+        $this->assertEquals($expected_result, $result, $error_string);
     }
 
     /**
@@ -110,27 +117,32 @@ class qtype_correctwriting_enum_catcher_test extends PHPUnit_Framework_TestCase 
         $correct = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
         $tree = $correct->syntaxtree;
         $temp = new qtype_correctwriting_enum_catcher($tree);
-        $expected_result = [array(),array(),array(),array()];
-        $expected_result[1][] = array(2,12);
-        $expected_result[1][] = array(14,14);
+        $expected_result = array();
+        $expected_result[] = array();
+        $expected_result[] = array();
+        $expected_result[] = array();
+        $expected_result[] = array();
         $expected_result[0][] = array(3,5);
         $expected_result[0][] = array(7,9);
         $expected_result[0][] = array(11,11);
-        $expected_result[3][] = array(7,7);
-        $expected_result[3][] = array(9,9);
+        $expected_result[1][] = array(2,12);
+        $expected_result[1][] = array(14,14);
         $expected_result[2][] = array(3,3);
         $expected_result[2][] = array(5,5);
+        $expected_result[3][] = array(7,7);
+        $expected_result[3][] = array(9,9);
+        $result = $temp->getEnums();
         $error_string = 'Error enumeration catcher found!Sequence of plus and multiple.';
-        $this->assertEquals($expected_result[1][0], $temp->getEnums()[1][0], $error_string);
-        $this->assertEquals($expected_result[1][1], $temp->getEnums()[1][1], $error_string);
-        $this->assertEquals($expected_result[0][0], $temp->getEnums()[0][0], $error_string);
-        $this->assertEquals($expected_result[0][1], $temp->getEnums()[0][1], $error_string);
-        $this->assertEquals($expected_result[0][2], $temp->getEnums()[0][2], $error_string);
-        $this->assertEquals($expected_result[2][0], $temp->getEnums()[2][0], $error_string);
-        $this->assertEquals($expected_result[2][1], $temp->getEnums()[2][1], $error_string);
-        $this->assertEquals($expected_result[3][0], $temp->getEnums()[3][0], $error_string);
-        $this->assertEquals($expected_result[3][1], $temp->getEnums()[3][1], $error_string);
-        $this->assertEquals($expected_result, $temp->getEnums(), $error_string);
+        $this->assertEquals($expected_result[0][0], $result[0][0], $error_string);
+        $this->assertEquals($expected_result[0][1], $result[0][1], $error_string);
+        $this->assertEquals($expected_result[0][2], $result[0][2], $error_string);
+        $this->assertEquals($expected_result[1][0], $result[1][0], $error_string);
+        $this->assertEquals($expected_result[1][1], $result[1][1], $error_string);
+        $this->assertEquals($expected_result[2][0], $result[2][0], $error_string);
+        $this->assertEquals($expected_result[2][1], $result[2][1], $error_string);
+        $this->assertEquals($expected_result[3][0], $result[3][0], $error_string);
+        $this->assertEquals($expected_result[3][1], $result[3][1], $error_string);
+        $this->assertEquals($expected_result, $result, $error_string);
     }
 
     /**
@@ -143,27 +155,32 @@ class qtype_correctwriting_enum_catcher_test extends PHPUnit_Framework_TestCase 
         $correct = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
         $tree = $correct->syntaxtree;
         $temp = new qtype_correctwriting_enum_catcher($tree);
-        $expected_result = [array(),array(),array(),array()];
-        $expected_result[1][] = array(2,15);
-        $expected_result[1][] = array(17,17);
+        $expected_result = array();
+        $expected_result[] = array();
+        $expected_result[] = array();
+        $expected_result[] = array();
+        $expected_result[] = array();
         $expected_result[0][] = array(6,8);
         $expected_result[0][] = array(10,12);
         $expected_result[0][] = array(14,14);
-        $expected_result[3][] = array(10,10);
-        $expected_result[3][] = array(12,12);
+        $expected_result[1][] = array(2,15);
+        $expected_result[1][] = array(17,17);
         $expected_result[2][] = array(6,6);
         $expected_result[2][] = array(8,8);
+        $expected_result[3][] = array(10,10);
+        $expected_result[3][] = array(12,12);
+        $result = $temp->getEnums();
         $error_string = 'Error enumeration catcher found!Sequence of plus and multiple with type casting.';
-        $this->assertEquals($expected_result[1][0], $temp->getEnums()[1][0], $error_string);
-        $this->assertEquals($expected_result[1][1], $temp->getEnums()[1][1], $error_string);
-        $this->assertEquals($expected_result[0][0], $temp->getEnums()[0][0], $error_string);
-        $this->assertEquals($expected_result[0][1], $temp->getEnums()[0][1], $error_string);
-        $this->assertEquals($expected_result[0][2], $temp->getEnums()[0][2], $error_string);
-        $this->assertEquals($expected_result[2][0], $temp->getEnums()[2][0], $error_string);
-        $this->assertEquals($expected_result[2][1], $temp->getEnums()[2][1], $error_string);
-        $this->assertEquals($expected_result[3][0], $temp->getEnums()[3][0], $error_string);
-        $this->assertEquals($expected_result[3][1], $temp->getEnums()[3][1], $error_string);
-        $this->assertEquals($expected_result, $temp->getEnums(), $error_string);
+        $this->assertEquals($expected_result[0][0], $result[0][0], $error_string);
+        $this->assertEquals($expected_result[0][1], $result[0][1], $error_string);
+        $this->assertEquals($expected_result[0][2], $result[0][2], $error_string);
+        $this->assertEquals($expected_result[1][0], $result[1][0], $error_string);
+        $this->assertEquals($expected_result[1][1], $result[1][1], $error_string);
+        $this->assertEquals($expected_result[2][0], $result[2][0], $error_string);
+        $this->assertEquals($expected_result[2][1], $result[2][1], $error_string);
+        $this->assertEquals($expected_result[3][0], $result[3][0], $error_string);
+        $this->assertEquals($expected_result[3][1], $result[3][1], $error_string);
+        $this->assertEquals($expected_result, $result, $error_string);
     }
 
     /**
@@ -177,25 +194,30 @@ class qtype_correctwriting_enum_catcher_test extends PHPUnit_Framework_TestCase 
         $correct = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
         $tree = $correct->syntaxtree;
         $temp = new qtype_correctwriting_enum_catcher($tree);
-        $expected_result = [array(),array(),array(),array()];
-        $expected_result[3][] = array(14,14);
-        $expected_result[3][] = array(16,16);
+        $expected_result = array();
+        $expected_result[] = array();
+        $expected_result[] = array();
+        $expected_result[] = array();
+        $expected_result[] = array();
         $expected_result[0][] = array(3,5);
         $expected_result[0][] = array(7,11);
-        $expected_result[2][] = array(9,9);
-        $expected_result[2][] = array(11,11);
         $expected_result[1][] = array(3,3);
         $expected_result[1][] = array(5,5);
+        $expected_result[2][] = array(9,9);
+        $expected_result[2][] = array(11,11);
+        $expected_result[3][] = array(14,14);
+        $expected_result[3][] = array(16,16);
+        $result = $temp->getEnums();
         $error_string = 'Error enumeration catcher found!Sequence of plus and multiple, mod and div.';
-        $this->assertEquals($expected_result[1][0], $temp->getEnums()[1][0], $error_string);
-        $this->assertEquals($expected_result[1][1], $temp->getEnums()[1][1], $error_string);
-        $this->assertEquals($expected_result[0][0], $temp->getEnums()[0][0], $error_string);
-        $this->assertEquals($expected_result[0][1], $temp->getEnums()[0][1], $error_string);
-        $this->assertEquals($expected_result[2][0], $temp->getEnums()[2][0], $error_string);
-        $this->assertEquals($expected_result[2][1], $temp->getEnums()[2][1], $error_string);
-        $this->assertEquals($expected_result[3][0], $temp->getEnums()[3][0], $error_string);
-        $this->assertEquals($expected_result[3][1], $temp->getEnums()[3][1], $error_string);
-        $this->assertEquals($expected_result, $temp->getEnums(), $error_string);
+        $this->assertEquals($expected_result[0][0], $result[0][0], $error_string);
+        $this->assertEquals($expected_result[0][1], $result[0][1], $error_string);
+        $this->assertEquals($expected_result[1][0], $result[1][0], $error_string);
+        $this->assertEquals($expected_result[1][1], $result[1][1], $error_string);
+        $this->assertEquals($expected_result[2][0], $result[2][0], $error_string);
+        $this->assertEquals($expected_result[2][1], $result[2][1], $error_string);
+        $this->assertEquals($expected_result[3][0], $result[3][0], $error_string);
+        $this->assertEquals($expected_result[3][1], $result[3][1], $error_string);
+        $this->assertEquals($expected_result, $result, $error_string);
     }
 
     /**
@@ -208,17 +230,19 @@ class qtype_correctwriting_enum_catcher_test extends PHPUnit_Framework_TestCase 
         $correct = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
         $tree = $correct->syntaxtree;
         $temp = new qtype_correctwriting_enum_catcher($tree);
-        $expected_result = [array()];
+        $expected_result = array();
+        $expected_result[] = array();
         $expected_result[0][] = array(4,4);
         $expected_result[0][] = array(6,6);
         $expected_result[0][] = array(8,8);
         $expected_result[0][] = array(10,10);
+        $result = $temp->getEnums();
         $error_string = 'Error enumeration catcher found!Sequence of sub.';
-        $this->assertEquals($expected_result[0][0], $temp->getEnums()[0][0], $error_string);
-        $this->assertEquals($expected_result[0][1], $temp->getEnums()[0][1], $error_string);
-        $this->assertEquals($expected_result[0][2], $temp->getEnums()[0][2], $error_string);
-        $this->assertEquals($expected_result[0][3], $temp->getEnums()[0][3], $error_string);
-        $this->assertEquals($expected_result, $temp->getEnums(), $error_string);
+        $this->assertEquals($expected_result[0][0], $result[0][0], $error_string);
+        $this->assertEquals($expected_result[0][1], $result[0][1], $error_string);
+        $this->assertEquals($expected_result[0][2], $result[0][2], $error_string);
+        $this->assertEquals($expected_result[0][3], $result[0][3], $error_string);
+        $this->assertEquals($expected_result, $result, $error_string);
     }
 
     /**
@@ -231,17 +255,19 @@ class qtype_correctwriting_enum_catcher_test extends PHPUnit_Framework_TestCase 
         $correct = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
         $tree = $correct->syntaxtree;
         $temp = new qtype_correctwriting_enum_catcher($tree);
-        $expected_result = [array()];
+        $expected_result = array();
+        $expected_result[] = array();
         $expected_result[0][] = array(4,4);
         $expected_result[0][] = array(6,6);
         $expected_result[0][] = array(8,8);
         $expected_result[0][] = array(10,10);
+        $result = $temp->getEnums();
         $error_string = 'Error enumeration catcher found!Sequence of div.';
-        $this->assertEquals($expected_result[0][0], $temp->getEnums()[0][0], $error_string);
-        $this->assertEquals($expected_result[0][1], $temp->getEnums()[0][1], $error_string);
-        $this->assertEquals($expected_result[0][2], $temp->getEnums()[0][2], $error_string);
-        $this->assertEquals($expected_result[0][3], $temp->getEnums()[0][3], $error_string);
-        $this->assertEquals($expected_result, $temp->getEnums(), $error_string);
+        $this->assertEquals($expected_result[0][0], $result[0][0], $error_string);
+        $this->assertEquals($expected_result[0][1], $result[0][1], $error_string);
+        $this->assertEquals($expected_result[0][2], $result[0][2], $error_string);
+        $this->assertEquals($expected_result[0][3], $result[0][3], $error_string);
+        $this->assertEquals($expected_result, $result, $error_string);
     }
 
     /**
@@ -254,19 +280,21 @@ class qtype_correctwriting_enum_catcher_test extends PHPUnit_Framework_TestCase 
         $correct = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
         $tree = $correct->syntaxtree;
         $temp = new qtype_correctwriting_enum_catcher($tree);
-        $expected_result = [array()];
+        $expected_result = array();
+        $expected_result[] = array();
         $expected_result[0][] = array(2,2);
         $expected_result[0][] = array(4,4);
         $expected_result[0][] = array(6,6);
         $expected_result[0][] = array(8,8);
         $expected_result[0][] = array(10,10);
+        $result = $temp->getEnums();
         $error_string = 'Error enumeration catcher found!Sequence plus.';
-        $this->assertEquals($expected_result[0][0], $temp->getEnums()[0][0], $error_string);
-        $this->assertEquals($expected_result[0][1], $temp->getEnums()[0][1], $error_string);
-        $this->assertEquals($expected_result[0][2], $temp->getEnums()[0][2], $error_string);
-        $this->assertEquals($expected_result[0][3], $temp->getEnums()[0][3], $error_string);
-        $this->assertEquals($expected_result[0][4], $temp->getEnums()[0][4], $error_string);
-        $this->assertEquals($expected_result, $temp->getEnums(), $error_string);
+        $this->assertEquals($expected_result[0][0], $result[0][0], $error_string);
+        $this->assertEquals($expected_result[0][1], $result[0][1], $error_string);
+        $this->assertEquals($expected_result[0][2], $result[0][2], $error_string);
+        $this->assertEquals($expected_result[0][3], $result[0][3], $error_string);
+        $this->assertEquals($expected_result[0][4], $result[0][4], $error_string);
+        $this->assertEquals($expected_result, $result, $error_string);
     }
 
     /**
@@ -279,19 +307,21 @@ class qtype_correctwriting_enum_catcher_test extends PHPUnit_Framework_TestCase 
         $correct = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
         $tree = $correct->syntaxtree;
         $temp = new qtype_correctwriting_enum_catcher($tree);
-        $expected_result = [array()];
+        $expected_result = array();
+        $expected_result[] = array();
         $expected_result[0][] = array(2,2);
         $expected_result[0][] = array(4,4);
         $expected_result[0][] = array(6,6);
         $expected_result[0][] = array(8,8);
         $expected_result[0][] = array(10,10);
+        $result = $temp->getEnums();
         $error_string = 'Error enumeration catcher found!Sequence of mul.';
-        $this->assertEquals($expected_result[0][0], $temp->getEnums()[0][0], $error_string);
-        $this->assertEquals($expected_result[0][1], $temp->getEnums()[0][1], $error_string);
-        $this->assertEquals($expected_result[0][2], $temp->getEnums()[0][2], $error_string);
-        $this->assertEquals($expected_result[0][3], $temp->getEnums()[0][3], $error_string);
-        $this->assertEquals($expected_result[0][4], $temp->getEnums()[0][4], $error_string);
-        $this->assertEquals($expected_result, $temp->getEnums(), $error_string);
+        $this->assertEquals($expected_result[0][0], $result[0][0], $error_string);
+        $this->assertEquals($expected_result[0][1], $result[0][1], $error_string);
+        $this->assertEquals($expected_result[0][2], $result[0][2], $error_string);
+        $this->assertEquals($expected_result[0][3], $result[0][3], $error_string);
+        $this->assertEquals($expected_result[0][4], $result[0][4], $error_string);
+        $this->assertEquals($expected_result, $result, $error_string);
     }
 
     /**
@@ -304,20 +334,22 @@ class qtype_correctwriting_enum_catcher_test extends PHPUnit_Framework_TestCase 
         $correct = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
         $tree = $correct->syntaxtree;
         $temp = new qtype_correctwriting_enum_catcher($tree);
-        $expected_result = [array()];
+        $expected_result = array();
+        $expected_result[] = array();
         $expected_result[0][] = array(0,0);
         $expected_result[0][] = array(2,2);
         $expected_result[0][] = array(4,4);
         $expected_result[0][] = array(6,6);
         $expected_result[0][] = array(8,8);
+        $result = $temp->getEnums();
         $error_string = 'Error enumeration catcher found!Sequence of assign.';
-        $this->assertEquals(5, count($temp->getEnums()[0]));
-        $this->assertEquals($expected_result[0][0], $temp->getEnums()[0][0], $error_string);
-        $this->assertEquals($expected_result[0][1], $temp->getEnums()[0][1], $error_string);
-        $this->assertEquals($expected_result[0][2], $temp->getEnums()[0][2], $error_string);
-        $this->assertEquals($expected_result[0][3], $temp->getEnums()[0][3], $error_string);
-        $this->assertEquals($expected_result[0][4], $temp->getEnums()[0][4], $error_string);
-        $this->assertEquals($expected_result, $temp->getEnums(), $error_string);
+        $this->assertEquals(5, count($result[0]));
+        $this->assertEquals($expected_result[0][0], $result[0][0], $error_string);
+        $this->assertEquals($expected_result[0][1], $result[0][1], $error_string);
+        $this->assertEquals($expected_result[0][2], $result[0][2], $error_string);
+        $this->assertEquals($expected_result[0][3], $result[0][3], $error_string);
+        $this->assertEquals($expected_result[0][4], $result[0][4], $error_string);
+        $this->assertEquals($expected_result, $result, $error_string);
     }
 
     /**
@@ -330,26 +362,31 @@ class qtype_correctwriting_enum_catcher_test extends PHPUnit_Framework_TestCase 
         $correct = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
         $tree = $correct->syntaxtree;
         $temp = new qtype_correctwriting_enum_catcher($tree);
-        $expected_result = [array(), array(), array(), array()];
+        $expected_result = array();
+        $expected_result[] = array();
+        $expected_result[] = array();
+        $expected_result[] = array();
+        $expected_result[] = array();
         $expected_result[0][] = array(2,4);
         $expected_result[0][] = array(6,10);
         $expected_result[1][] = array(2,2);
         $expected_result[1][] = array(4,4);
-        $expected_result[3][] = array(6,6);
-        $expected_result[3][] = array(8,10);
         $expected_result[2][] = array(8,8);
         $expected_result[2][] = array(10,10);
+        $expected_result[3][] = array(6,6);
+        $expected_result[3][] = array(8,10);
+        $result = $temp->getEnums();
 
         $error_string = 'Error enumeration catcher found!Bit operators.';
-        $this->assertEquals($expected_result[1][0], $temp->getEnums()[1][0], $error_string);
-        $this->assertEquals($expected_result[1][1], $temp->getEnums()[1][1], $error_string);
-        $this->assertEquals($expected_result[0][0], $temp->getEnums()[0][0], $error_string);
-        $this->assertEquals($expected_result[0][1], $temp->getEnums()[0][1], $error_string);
-        $this->assertEquals($expected_result[2][0], $temp->getEnums()[2][0], $error_string);
-        $this->assertEquals($expected_result[2][1], $temp->getEnums()[2][1], $error_string);
-        $this->assertEquals($expected_result[3][0], $temp->getEnums()[3][0], $error_string);
-        $this->assertEquals($expected_result[3][1], $temp->getEnums()[3][1], $error_string);
-        $this->assertEquals($expected_result, $temp->getEnums(), $error_string);
+        $this->assertEquals($expected_result[0][0], $result[0][0], $error_string);
+        $this->assertEquals($expected_result[0][1], $result[0][1], $error_string);
+        $this->assertEquals($expected_result[1][0], $result[1][0], $error_string);
+        $this->assertEquals($expected_result[1][1], $result[1][1], $error_string);
+        $this->assertEquals($expected_result[2][0], $result[2][0], $error_string);
+        $this->assertEquals($expected_result[2][1], $result[2][1], $error_string);
+        $this->assertEquals($expected_result[3][0], $result[3][0], $error_string);
+        $this->assertEquals($expected_result[3][1], $result[3][1], $error_string);
+        $this->assertEquals($expected_result, $result, $error_string);
     }
 
     /**
@@ -362,15 +399,17 @@ class qtype_correctwriting_enum_catcher_test extends PHPUnit_Framework_TestCase 
         $correct = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
         $tree = $correct->syntaxtree;
         $temp = new qtype_correctwriting_enum_catcher($tree);
-        $expected_result = [array()];
+        $expected_result = array();
+        $expected_result[] = array();
         $expected_result[0][] = array(1,2);
         $expected_result[0][] = array(4,4);
         $expected_result[0][] = array(6,7);
+        $result = $temp->getEnums();
         $error_string = 'Error enumeration catcher found!Definition of variables and pointers.';
-        $this->assertEquals($expected_result[0][0], $temp->getEnums()[0][0], $error_string);
-        $this->assertEquals($expected_result[0][1], $temp->getEnums()[0][1], $error_string);
-        $this->assertEquals($expected_result[0][2], $temp->getEnums()[0][2], $error_string);
-        $this->assertEquals($expected_result, $temp->getEnums(), $error_string);
+        $this->assertEquals($expected_result[0][0], $result[0][0], $error_string);
+        $this->assertEquals($expected_result[0][1], $result[0][1], $error_string);
+        $this->assertEquals($expected_result[0][2], $result[0][2], $error_string);
+        $this->assertEquals($expected_result, $result, $error_string);
     }
     /**
      *  Test for find enumerations in sequence of definitions variables and pointers with assign.
@@ -382,15 +421,17 @@ class qtype_correctwriting_enum_catcher_test extends PHPUnit_Framework_TestCase 
         $correct = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
         $tree = $correct->syntaxtree;
         $temp = new qtype_correctwriting_enum_catcher($tree);
-        $expected_result = [array()];
+        $expected_result = array();
+        $expected_result[] = array();
         $expected_result[0][] = array(1,2);
         $expected_result[0][] = array(4,4);
         $expected_result[0][] = array(6,11);
+        $result = $temp->getEnums();
         $error_string = 'Error enumeration catcher found!Definition of variables and pointers.';
-        $this->assertEquals($expected_result[0][0], $temp->getEnums()[0][0], $error_string);
-        $this->assertEquals($expected_result[0][1], $temp->getEnums()[0][1], $error_string);
-        $this->assertEquals($expected_result[0][2], $temp->getEnums()[0][2], $error_string);
-        $this->assertEquals($expected_result, $temp->getEnums(), $error_string);
+        $this->assertEquals($expected_result[0][0], $result[0][0], $error_string);
+        $this->assertEquals($expected_result[0][1], $result[0][1], $error_string);
+        $this->assertEquals($expected_result[0][2], $result[0][2], $error_string);
+        $this->assertEquals($expected_result, $result, $error_string);
     }
 
     /**
@@ -403,15 +444,17 @@ class qtype_correctwriting_enum_catcher_test extends PHPUnit_Framework_TestCase 
         $correct = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
         $tree = $correct->syntaxtree;
         $temp = new qtype_correctwriting_enum_catcher($tree);
-        $expected_result = [array()];
+        $expected_result = array();
+        $expected_result[] = array();
         $expected_result[0][] = array(1,1);
         $expected_result[0][] = array(3,3);
         $expected_result[0][] = array(5,5);
+        $result = $temp->getEnums();
         $error_string = 'Error enumeration catcher found!Definition variales.';
-        $this->assertEquals($expected_result[0][0], $temp->getEnums()[0][0], $error_string);
-        $this->assertEquals($expected_result[0][1], $temp->getEnums()[0][1], $error_string);
-        $this->assertEquals($expected_result[0][2], $temp->getEnums()[0][2], $error_string);
-        $this->assertEquals($expected_result, $temp->getEnums(), $error_string);
+        $this->assertEquals($expected_result[0][0], $result[0][0], $error_string);
+        $this->assertEquals($expected_result[0][1], $result[0][1], $error_string);
+        $this->assertEquals($expected_result[0][2], $result[0][2], $error_string);
+        $this->assertEquals($expected_result, $result, $error_string);
     }
 
     /**
@@ -424,15 +467,17 @@ class qtype_correctwriting_enum_catcher_test extends PHPUnit_Framework_TestCase 
         $correct = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
         $tree = $correct->syntaxtree;
         $temp = new qtype_correctwriting_enum_catcher($tree);
-        $expected_result = [array()];
+        $expected_result = array();
+        $expected_result[] = array();
         $expected_result[0][] = array(1,3);
         $expected_result[0][] = array(5,7);
         $expected_result[0][] = array(9,9);
+        $result = $temp->getEnums();
         $error_string = 'Error enumeration catcher found!Definition variables with assign.';
-        $this->assertEquals($expected_result[0][0], $temp->getEnums()[0][0], $error_string);
-        $this->assertEquals($expected_result[0][1], $temp->getEnums()[0][1], $error_string);
-        $this->assertEquals($expected_result[0][2], $temp->getEnums()[0][2], $error_string);
-        $this->assertEquals($expected_result, $temp->getEnums(), $error_string);
+        $this->assertEquals($expected_result[0][0], $result[0][0], $error_string);
+        $this->assertEquals($expected_result[0][1], $result[0][1], $error_string);
+        $this->assertEquals($expected_result[0][2], $result[0][2], $error_string);
+        $this->assertEquals($expected_result, $result, $error_string);
     }
 
     /**
@@ -445,15 +490,17 @@ class qtype_correctwriting_enum_catcher_test extends PHPUnit_Framework_TestCase 
         $correct = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
         $tree = $correct->syntaxtree;
         $temp = new qtype_correctwriting_enum_catcher($tree);
-        $expected_result = [array()];
+        $expected_result = array();
+        $expected_result[] = array();
         $expected_result[0][] = array(1,3);
         $expected_result[0][] = array(5,7);
         $expected_result[0][] = array(9,9);
+        $result = $temp->getEnums();
         $error_string = 'Error enumeration catcher found!Definition variables with assign, heavy.';
-        $this->assertEquals($expected_result[0][0], $temp->getEnums()[0][0], $error_string);
-        $this->assertEquals($expected_result[0][1], $temp->getEnums()[0][1], $error_string);
-        $this->assertEquals($expected_result[0][2], $temp->getEnums()[0][2], $error_string);
-        $this->assertEquals($expected_result, $temp->getEnums(), $error_string);
+        $this->assertEquals($expected_result[0][0], $result[0][0], $error_string);
+        $this->assertEquals($expected_result[0][1], $result[0][1], $error_string);
+        $this->assertEquals($expected_result[0][2], $result[0][2], $error_string);
+        $this->assertEquals($expected_result, $result, $error_string);
     }
 
     /**
@@ -466,9 +513,10 @@ class qtype_correctwriting_enum_catcher_test extends PHPUnit_Framework_TestCase 
         $correct = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
         $tree = $correct->syntaxtree;
         $temp = new qtype_correctwriting_enum_catcher($tree);
-        $expected_result = [];
+        $expected_result = array();
+        $result = $temp->getEnums();
         $error_string = 'Error enumeration catcher found!Definition variables with assign, heavy.';
-        $this->assertEquals($expected_result, $temp->getEnums(), $error_string);
+        $this->assertEquals($expected_result, $result, $error_string);
     }
 
     /**
@@ -481,17 +529,19 @@ class qtype_correctwriting_enum_catcher_test extends PHPUnit_Framework_TestCase 
         $correct = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
         $tree = $correct->syntaxtree;
         $temp = new qtype_correctwriting_enum_catcher($tree);
-        $expected_result = [array()];
+        $expected_result = array();
+        $expected_result[] = array();
         $expected_result[0][] = array(3,3);
         $expected_result[0][] = array(5,5);
         $expected_result[0][] = array(7,7);
         $expected_result[0][] = array(9,9);
+        $result = $temp->getEnums();
         $error_string = 'Error enumeration catcher found!Definition enum.';
-        $this->assertEquals($expected_result[0][0], $temp->getEnums()[0][0], $error_string);
-        $this->assertEquals($expected_result[0][1], $temp->getEnums()[0][1], $error_string);
-        $this->assertEquals($expected_result[0][2], $temp->getEnums()[0][2], $error_string);
-        $this->assertEquals($expected_result[0][3], $temp->getEnums()[0][3], $error_string);
-        $this->assertEquals($expected_result, $temp->getEnums(), $error_string);
+        $this->assertEquals($expected_result[0][0], $result[0][0], $error_string);
+        $this->assertEquals($expected_result[0][1], $result[0][1], $error_string);
+        $this->assertEquals($expected_result[0][2], $result[0][2], $error_string);
+        $this->assertEquals($expected_result[0][3], $result[0][3], $error_string);
+        $this->assertEquals($expected_result, $result, $error_string);
     }
 
     /**
@@ -504,13 +554,15 @@ class qtype_correctwriting_enum_catcher_test extends PHPUnit_Framework_TestCase 
         $correct = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
         $tree = $correct->syntaxtree;
         $temp = new qtype_correctwriting_enum_catcher($tree);
-        $expected_result = [array()];
+        $expected_result = array();
+        $expected_result[] = array();
         $expected_result[0][] = array(3,5);
         $expected_result[0][] = array(7,7);
+        $result = $temp->getEnums();
         $error_string = 'Error enumeration catcher found!Definition enum with assign.';
-        $this->assertEquals($expected_result[0][0], $temp->getEnums()[0][0], $error_string);
-        $this->assertEquals($expected_result[0][1], $temp->getEnums()[0][1], $error_string);
-        $this->assertEquals($expected_result, $temp->getEnums(), $error_string);
+        $this->assertEquals($expected_result[0][0], $result[0][0], $error_string);
+        $this->assertEquals($expected_result[0][1], $result[0][1], $error_string);
+        $this->assertEquals($expected_result, $result, $error_string);
     }
 
     /**
@@ -523,17 +575,18 @@ class qtype_correctwriting_enum_catcher_test extends PHPUnit_Framework_TestCase 
         $correct = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
         $tree = $correct->syntaxtree;
         $temp = new qtype_correctwriting_enum_catcher($tree);
-        $expected_result = [array()];
+        $expected_result = array();
+        $expected_result[] = array();
         $expected_result[0][] = array(3,5);
         $expected_result[0][] = array(6,9);
         $expected_result[0][] = array(10,12);
+        $result = $temp->getEnums();
         $error_string = 'Error enumeration catcher found!Definition struct.';
-        $this->assertEquals($expected_result[0][0], $temp->getEnums()[0][0], $error_string);
-        $this->assertEquals($expected_result[0][1], $temp->getEnums()[0][1], $error_string);
-        $this->assertEquals($expected_result[0][2], $temp->getEnums()[0][2], $error_string);
-        $this->assertEquals($expected_result, $temp->getEnums(), $error_string);
+        $this->assertEquals($expected_result[0][0], $result[0][0], $error_string);
+        $this->assertEquals($expected_result[0][1], $result[0][1], $error_string);
+        $this->assertEquals($expected_result[0][2], $result[0][2], $error_string);
+        $this->assertEquals($expected_result, $result, $error_string);
     }
-
     /**
      *  Test for find enumerations in logical operators.
      *  Four enumerations, first from logical or, second from logical and, third from logical equal, fourth from logical not equal.
@@ -544,7 +597,11 @@ class qtype_correctwriting_enum_catcher_test extends PHPUnit_Framework_TestCase 
         $correct = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
         $tree = $correct->syntaxtree;
         $temp = new qtype_correctwriting_enum_catcher($tree);
-        $expected_result = [array(),array(),array(),array()];
+        $expected_result = array();
+        $expected_result[] = array();
+        $expected_result[] = array();
+        $expected_result[] = array();
+        $expected_result[] = array();
         $expected_result[0][] = array(2,10);
         $expected_result[0][] = array(12,12);
         $expected_result[1][] = array(2,4);
@@ -554,17 +611,18 @@ class qtype_correctwriting_enum_catcher_test extends PHPUnit_Framework_TestCase 
         $expected_result[2][] = array(4,4);
         $expected_result[3][] = array(6,6);
         $expected_result[3][] = array(8,8);
+        $result = $temp->getEnums();
         $error_string = 'Error enumeration catcher found!Definition enum.';
-        $this->assertEquals($expected_result[1][0], $temp->getEnums()[1][0], $error_string);
-        $this->assertEquals($expected_result[1][1], $temp->getEnums()[1][1], $error_string);
-        $this->assertEquals($expected_result[1][2], $temp->getEnums()[1][2], $error_string);
-        $this->assertEquals($expected_result[0][0], $temp->getEnums()[0][0], $error_string);
-        $this->assertEquals($expected_result[0][1], $temp->getEnums()[0][1], $error_string);
-        $this->assertEquals($expected_result[2][0], $temp->getEnums()[2][0], $error_string);
-        $this->assertEquals($expected_result[2][1], $temp->getEnums()[2][1], $error_string);
-        $this->assertEquals($expected_result[3][0], $temp->getEnums()[3][0], $error_string);
-        $this->assertEquals($expected_result[3][1], $temp->getEnums()[3][1], $error_string);
-        $this->assertEquals($expected_result, $temp->getEnums(), $error_string);
+        $this->assertEquals($expected_result[0][0], $result[0][0], $error_string);
+        $this->assertEquals($expected_result[0][1], $result[0][1], $error_string);
+        $this->assertEquals($expected_result[1][0], $result[1][0], $error_string);
+        $this->assertEquals($expected_result[1][1], $result[1][1], $error_string);
+        $this->assertEquals($expected_result[1][2], $result[1][2], $error_string);
+        $this->assertEquals($expected_result[2][0], $result[2][0], $error_string);
+        $this->assertEquals($expected_result[2][1], $result[2][1], $error_string);
+        $this->assertEquals($expected_result[3][0], $result[3][0], $error_string);
+        $this->assertEquals($expected_result[3][1], $result[3][1], $error_string);
+        $this->assertEquals($expected_result, $result, $error_string);
     }
 
     /**
@@ -578,29 +636,35 @@ class qtype_correctwriting_enum_catcher_test extends PHPUnit_Framework_TestCase 
         $correct = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
         $tree = $correct->syntaxtree;
         $temp = new qtype_correctwriting_enum_catcher($tree);
-        $expected_result = [array(),array(),array(),array(),array()];
+        $expected_result = array();
+        $expected_result[] = array();
+        $expected_result[] = array();
+        $expected_result[] = array();
+        $expected_result[] = array();
+        $expected_result[] = array();
+        $expected_result[0][] = array(7,11);
+        $expected_result[0][] = array(13,13);
         $expected_result[1][] = array(2,4);
         $expected_result[1][] = array(6,14);
+        $expected_result[2][] = array(7,9);
+        $expected_result[2][] = array(11,11);
         $expected_result[4][] = array(7,7);
         $expected_result[4][] = array(9,9);
         $expected_result[3][] = array(2,2);
         $expected_result[3][] = array(4,4);
-        $expected_result[2][] = array(7,9);
-        $expected_result[2][] = array(11,11);
-        $expected_result[0][] = array(7,11);
-        $expected_result[0][] = array(13,13);
+        $result = $temp->getEnums();
         $error_string = 'Error enumeration catcher found!Logical_operations and brackets.';
-        $this->assertEquals($expected_result[1][0], $temp->getEnums()[1][0], $error_string);
-        $this->assertEquals($expected_result[1][1], $temp->getEnums()[1][1], $error_string);
-        $this->assertEquals($expected_result[0][0], $temp->getEnums()[0][0], $error_string);
-        $this->assertEquals($expected_result[0][1], $temp->getEnums()[0][1], $error_string);
-        $this->assertEquals($expected_result[2][0], $temp->getEnums()[2][0], $error_string);
-        $this->assertEquals($expected_result[2][1], $temp->getEnums()[2][1], $error_string);
-        $this->assertEquals($expected_result[3][0], $temp->getEnums()[3][0], $error_string);
-        $this->assertEquals($expected_result[3][1], $temp->getEnums()[3][1], $error_string);
-        $this->assertEquals($expected_result[4][0], $temp->getEnums()[4][0], $error_string);
-        $this->assertEquals($expected_result[4][1], $temp->getEnums()[4][1], $error_string);
-        $this->assertEquals($expected_result, $temp->getEnums(), $error_string);
+        $this->assertEquals($expected_result[0][0], $result[0][0], $error_string);
+        $this->assertEquals($expected_result[0][1], $result[0][1], $error_string);
+        $this->assertEquals($expected_result[1][0], $result[1][0], $error_string);
+        $this->assertEquals($expected_result[1][1], $result[1][1], $error_string);
+        $this->assertEquals($expected_result[2][0], $result[2][0], $error_string);
+        $this->assertEquals($expected_result[2][1], $result[2][1], $error_string);
+        $this->assertEquals($expected_result[3][0], $result[3][0], $error_string);
+        $this->assertEquals($expected_result[3][1], $result[3][1], $error_string);
+        $this->assertEquals($expected_result[4][0], $result[4][0], $error_string);
+        $this->assertEquals($expected_result[4][1], $result[4][1], $error_string);
+        $this->assertEquals($expected_result, $result, $error_string);
     }
 
     /**
@@ -613,21 +677,25 @@ class qtype_correctwriting_enum_catcher_test extends PHPUnit_Framework_TestCase 
         $correct = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
         $tree = $correct->syntaxtree;
         $temp = new qtype_correctwriting_enum_catcher($tree);
-        $expected_result = [array(),array(),array()];
-        $expected_result[2][] = array(11,11);
-        $expected_result[2][] = array(13,13);
-        $expected_result[1][] = array(7,9);
-        $expected_result[1][] = array(11,13);
+        $expected_result = array();
+        $expected_result[] = array();
+        $expected_result[] = array();
+        $expected_result[] = array();
         $expected_result[0][] = array(2,2);
         $expected_result[0][] = array(4,4);
+        $expected_result[1][] = array(7,9);
+        $expected_result[1][] = array(11,13);
+        $expected_result[2][] = array(11,11);
+        $expected_result[2][] = array(13,13);
+        $result = $temp->getEnums();
         $error_string = 'Error enumeration catcher found!Shortform of plus.';
-        $this->assertEquals($expected_result[1][0], $temp->getEnums()[1][0], $error_string);
-        $this->assertEquals($expected_result[1][1], $temp->getEnums()[1][1], $error_string);
-        $this->assertEquals($expected_result[0][0], $temp->getEnums()[0][0], $error_string);
-        $this->assertEquals($expected_result[0][1], $temp->getEnums()[0][1], $error_string);
-        $this->assertEquals($expected_result[2][0], $temp->getEnums()[2][0], $error_string);
-        $this->assertEquals($expected_result[2][1], $temp->getEnums()[2][1], $error_string);
-        $this->assertEquals($expected_result, $temp->getEnums(), $error_string);
+        $this->assertEquals($expected_result[0][0], $result[0][0], $error_string);
+        $this->assertEquals($expected_result[0][1], $result[0][1], $error_string);
+        $this->assertEquals($expected_result[1][0], $result[1][0], $error_string);
+        $this->assertEquals($expected_result[1][1], $result[1][1], $error_string);
+        $this->assertEquals($expected_result[2][0], $result[2][0], $error_string);
+        $this->assertEquals($expected_result[2][1], $result[2][1], $error_string);
+        $this->assertEquals($expected_result, $result, $error_string);
     }
 
     /**
@@ -640,21 +708,25 @@ class qtype_correctwriting_enum_catcher_test extends PHPUnit_Framework_TestCase 
         $correct = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
         $tree = $correct->syntaxtree;
         $temp = new qtype_correctwriting_enum_catcher($tree);
-        $expected_result = [array(),array(),array()];
-        $expected_result[2][] = array(11,11);
-        $expected_result[2][] = array(13,13);
-        $expected_result[1][] = array(7,9);
-        $expected_result[1][] = array(11,13);
+        $expected_result = array();
+        $expected_result[] = array();
+        $expected_result[] = array();
+        $expected_result[] = array();
         $expected_result[0][] = array(2,2);
         $expected_result[0][] = array(4,4);
+        $expected_result[1][] = array(7,9);
+        $expected_result[1][] = array(11,13);
+        $expected_result[2][] = array(11,11);
+        $expected_result[2][] = array(13,13);
+        $result = $temp->getEnums();
         $error_string = 'Error enumeration catcher found!Shortform of sub.';
-        $this->assertEquals($expected_result[1][0], $temp->getEnums()[1][0], $error_string);
-        $this->assertEquals($expected_result[1][1], $temp->getEnums()[1][1], $error_string);
-        $this->assertEquals($expected_result[0][0], $temp->getEnums()[0][0], $error_string);
-        $this->assertEquals($expected_result[0][1], $temp->getEnums()[0][1], $error_string);
-        $this->assertEquals($expected_result[2][0], $temp->getEnums()[2][0], $error_string);
-        $this->assertEquals($expected_result[2][1], $temp->getEnums()[2][1], $error_string);
-        $this->assertEquals($expected_result, $temp->getEnums(), $error_string);
+        $this->assertEquals($expected_result[0][0], $result[0][0], $error_string);
+        $this->assertEquals($expected_result[0][1], $result[0][1], $error_string);
+        $this->assertEquals($expected_result[1][0], $result[1][0], $error_string);
+        $this->assertEquals($expected_result[1][1], $result[1][1], $error_string);
+        $this->assertEquals($expected_result[2][0], $result[2][0], $error_string);
+        $this->assertEquals($expected_result[2][1], $result[2][1], $error_string);
+        $this->assertEquals($expected_result, $result, $error_string);
     }
 
     /**
@@ -667,21 +739,25 @@ class qtype_correctwriting_enum_catcher_test extends PHPUnit_Framework_TestCase 
         $correct = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
         $tree = $correct->syntaxtree;
         $temp = new qtype_correctwriting_enum_catcher($tree);
-        $expected_result = [array(),array(),array()];
-        $expected_result[2][] = array(11,11);
-        $expected_result[2][] = array(13,13);
-        $expected_result[1][] = array(7,9);
-        $expected_result[1][] = array(11,13);
+        $expected_result = array();
+        $expected_result[] = array();
+        $expected_result[] = array();
+        $expected_result[] = array();
         $expected_result[0][] = array(2,2);
         $expected_result[0][] = array(4,4);
+        $expected_result[1][] = array(7,9);
+        $expected_result[1][] = array(11,13);
+        $expected_result[2][] = array(11,11);
+        $expected_result[2][] = array(13,13);
+        $result = $temp->getEnums();
         $error_string = 'Error enumeration catcher found!Shortform of mul.';
-        $this->assertEquals($expected_result[1][0], $temp->getEnums()[1][0], $error_string);
-        $this->assertEquals($expected_result[1][1], $temp->getEnums()[1][1], $error_string);
-        $this->assertEquals($expected_result[0][0], $temp->getEnums()[0][0], $error_string);
-        $this->assertEquals($expected_result[0][1], $temp->getEnums()[0][1], $error_string);
-        $this->assertEquals($expected_result[2][0], $temp->getEnums()[2][0], $error_string);
-        $this->assertEquals($expected_result[2][1], $temp->getEnums()[2][1], $error_string);
-        $this->assertEquals($expected_result, $temp->getEnums(), $error_string);
+        $this->assertEquals($expected_result[0][0], $result[0][0], $error_string);
+        $this->assertEquals($expected_result[0][1], $result[0][1], $error_string);
+        $this->assertEquals($expected_result[1][0], $result[1][0], $error_string);
+        $this->assertEquals($expected_result[1][1], $result[1][1], $error_string);
+        $this->assertEquals($expected_result[2][0], $result[2][0], $error_string);
+        $this->assertEquals($expected_result[2][1], $result[2][1], $error_string);
+        $this->assertEquals($expected_result, $result, $error_string);
     }
 
     /**
@@ -694,21 +770,25 @@ class qtype_correctwriting_enum_catcher_test extends PHPUnit_Framework_TestCase 
         $correct = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
         $tree = $correct->syntaxtree;
         $temp = new qtype_correctwriting_enum_catcher($tree);
-        $expected_result = [array(),array(),array()];
-        $expected_result[2][] = array(11,11);
-        $expected_result[2][] = array(13,13);
-        $expected_result[1][] = array(7,9);
-        $expected_result[1][] = array(11,13);
+        $expected_result = array();
+        $expected_result[] = array();
+        $expected_result[] = array();
+        $expected_result[] = array();
         $expected_result[0][] = array(2,2);
         $expected_result[0][] = array(4,4);
+        $expected_result[1][] = array(7,9);
+        $expected_result[1][] = array(11,13);
+        $expected_result[2][] = array(11,11);
+        $expected_result[2][] = array(13,13);
+        $result = $temp->getEnums();
         $error_string = 'Error enumeration catcher found!Shortform of div.';
-        $this->assertEquals($expected_result[1][0], $temp->getEnums()[1][0], $error_string);
-        $this->assertEquals($expected_result[1][1], $temp->getEnums()[1][1], $error_string);
-        $this->assertEquals($expected_result[0][0], $temp->getEnums()[0][0], $error_string);
-        $this->assertEquals($expected_result[0][1], $temp->getEnums()[0][1], $error_string);
-        $this->assertEquals($expected_result[2][0], $temp->getEnums()[2][0], $error_string);
-        $this->assertEquals($expected_result[2][1], $temp->getEnums()[2][1], $error_string);
-        $this->assertEquals($expected_result, $temp->getEnums(), $error_string);
+        $this->assertEquals($expected_result[0][0], $result[0][0], $error_string);
+        $this->assertEquals($expected_result[0][1], $result[0][1], $error_string);
+        $this->assertEquals($expected_result[1][0], $result[1][0], $error_string);
+        $this->assertEquals($expected_result[1][1], $result[1][1], $error_string);
+        $this->assertEquals($expected_result[2][0], $result[2][0], $error_string);
+        $this->assertEquals($expected_result[2][1], $result[2][1], $error_string);
+        $this->assertEquals($expected_result, $result, $error_string);
     }
 
     /**
@@ -721,21 +801,25 @@ class qtype_correctwriting_enum_catcher_test extends PHPUnit_Framework_TestCase 
         $correct = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
         $tree = $correct->syntaxtree;
         $temp = new qtype_correctwriting_enum_catcher($tree);
-        $expected_result = [array(),array(),array()];
-        $expected_result[2][] = array(13,13);
-        $expected_result[2][] = array(15,15);
-        $expected_result[1][] = array(8,11);
-        $expected_result[1][] = array(13,15);
+        $expected_result = array();
+        $expected_result[] = array();
+        $expected_result[] = array();
+        $expected_result[] = array();
         $expected_result[0][] = array(2,2);
         $expected_result[0][] = array(4,5);
+        $expected_result[1][] = array(8,11);
+        $expected_result[1][] = array(13,15);
+        $expected_result[2][] = array(13,13);
+        $expected_result[2][] = array(15,15);
+        $result = $temp->getEnums();
         $error_string = 'Error enumeration catcher found!Shortform of inc.';
-        $this->assertEquals($expected_result[1][0], $temp->getEnums()[1][0], $error_string);
-        $this->assertEquals($expected_result[1][1], $temp->getEnums()[1][1], $error_string);
-        $this->assertEquals($expected_result[0][0], $temp->getEnums()[0][0], $error_string);
-        $this->assertEquals($expected_result[0][1], $temp->getEnums()[0][1], $error_string);
-        $this->assertEquals($expected_result[2][0], $temp->getEnums()[2][0], $error_string);
-        $this->assertEquals($expected_result[2][1], $temp->getEnums()[2][1], $error_string);
-        $this->assertEquals($expected_result, $temp->getEnums(), $error_string);
+        $this->assertEquals($expected_result[0][0], $result[0][0], $error_string);
+        $this->assertEquals($expected_result[0][1], $result[0][1], $error_string);
+        $this->assertEquals($expected_result[1][0], $result[1][0], $error_string);
+        $this->assertEquals($expected_result[1][1], $result[1][1], $error_string);
+        $this->assertEquals($expected_result[2][0], $result[2][0], $error_string);
+        $this->assertEquals($expected_result[2][1], $result[2][1], $error_string);
+        $this->assertEquals($expected_result, $result, $error_string);
     }
 
     /**
@@ -748,21 +832,25 @@ class qtype_correctwriting_enum_catcher_test extends PHPUnit_Framework_TestCase 
         $correct = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
         $tree = $correct->syntaxtree;
         $temp = new qtype_correctwriting_enum_catcher($tree);
-        $expected_result = [array(),array(),array()];
-        $expected_result[1][] = array(8,11);
-        $expected_result[1][] = array(13,15);
+        $expected_result = array();
+        $expected_result[] = array();
+        $expected_result[] = array();
+        $expected_result[] = array();
         $expected_result[0][] = array(2,2);
         $expected_result[0][] = array(4,5);
+        $expected_result[1][] = array(8,11);
+        $expected_result[1][] = array(13,15);
         $expected_result[2][] = array(13,13);
         $expected_result[2][] = array(15,15);
+        $result = $temp->getEnums();
         $error_string = 'Error enumeration catcher found!Shortform of dec.';
-        $this->assertEquals($expected_result[1][0], $temp->getEnums()[1][0], $error_string);
-        $this->assertEquals($expected_result[1][1], $temp->getEnums()[1][1], $error_string);
-        $this->assertEquals($expected_result[0][0], $temp->getEnums()[0][0], $error_string);
-        $this->assertEquals($expected_result[0][1], $temp->getEnums()[0][1], $error_string);
-        $this->assertEquals($expected_result[2][0], $temp->getEnums()[2][0], $error_string);
-        $this->assertEquals($expected_result[2][1], $temp->getEnums()[2][1], $error_string);
-        $this->assertEquals($expected_result, $temp->getEnums(), $error_string);
+        $this->assertEquals($expected_result[0][0], $result[0][0], $error_string);
+        $this->assertEquals($expected_result[0][1], $result[0][1], $error_string);
+        $this->assertEquals($expected_result[1][0], $result[1][0], $error_string);
+        $this->assertEquals($expected_result[1][1], $result[1][1], $error_string);
+        $this->assertEquals($expected_result[2][0], $result[2][0], $error_string);
+        $this->assertEquals($expected_result[2][1], $result[2][1], $error_string);
+        $this->assertEquals($expected_result, $result, $error_string);
     }
 
     /**
@@ -776,16 +864,18 @@ class qtype_correctwriting_enum_catcher_test extends PHPUnit_Framework_TestCase 
         $correct = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
         $tree = $correct->syntaxtree;
         $temp = new qtype_correctwriting_enum_catcher($tree);
-        $expected_result = [array()];
+        $expected_result = array();
+        $expected_result[] = array();
         $expected_result[0][] = array(3, 3);
         $expected_result[0][] = array(5, 5);
         $expected_result[0][] = array(7, 7);
         $expected_result[0][] = array(9, 9);
+        $result = $temp->getEnums();
         $error_string = 'Error enumeration catcher found!Sequence of assign.';
-        $this->assertEquals($expected_result[0][0], $temp->getEnums()[0][0], $error_string);
-        $this->assertEquals($expected_result[0][1], $temp->getEnums()[0][1], $error_string);
-        $this->assertEquals($expected_result[0][2], $temp->getEnums()[0][2], $error_string);
-        $this->assertEquals($expected_result[0][3], $temp->getEnums()[0][3], $error_string);
-        $this->assertEquals($expected_result, $temp->getEnums(), $error_string);
+        $this->assertEquals($expected_result[0][0], $result[0][0], $error_string);
+        $this->assertEquals($expected_result[0][1], $result[0][1], $error_string);
+        $this->assertEquals($expected_result[0][2], $result[0][2], $error_string);
+        $this->assertEquals($expected_result[0][3], $result[0][3], $error_string);
+        $this->assertEquals($expected_result, $result, $error_string);
     }
 }
