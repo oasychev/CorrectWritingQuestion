@@ -416,7 +416,7 @@ class qtype_correctwriting_enum_catcher {
             if ($node != NULL && in_array($node->type(),$statements)) {
                 $this->analyze_stmt($node);
                 $is_find = true;
-            } else if ( $node != NULL && in_array($node->type(), $defenitions)) {
+            } else if ( $node != NULL && in_array($node->type(), $definitions)) {
                 $this->find_struct_decl($node);
                 
             } else if ($node != NULL) {
