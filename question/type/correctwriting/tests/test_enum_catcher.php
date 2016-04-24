@@ -683,7 +683,7 @@ class qtype_correctwriting_enum_catcher_test extends PHPUnit_Framework_TestCase 
         $expected_result[] = array();
         $expected_result[0][] = array(2,2);
         $expected_result[0][] = array(4,4);
-        $expected_result[1][] = array(7,9);
+        $expected_result[1][] = array(9,9);
         $expected_result[1][] = array(11,13);
         $expected_result[2][] = array(11,11);
         $expected_result[2][] = array(13,13);
@@ -714,7 +714,7 @@ class qtype_correctwriting_enum_catcher_test extends PHPUnit_Framework_TestCase 
         $expected_result[] = array();
         $expected_result[0][] = array(2,2);
         $expected_result[0][] = array(4,4);
-        $expected_result[1][] = array(7,9);
+        $expected_result[1][] = array(9,9);
         $expected_result[1][] = array(11,13);
         $expected_result[2][] = array(11,11);
         $expected_result[2][] = array(13,13);
@@ -745,7 +745,7 @@ class qtype_correctwriting_enum_catcher_test extends PHPUnit_Framework_TestCase 
         $expected_result[] = array();
         $expected_result[0][] = array(2,2);
         $expected_result[0][] = array(4,4);
-        $expected_result[1][] = array(7,9);
+        $expected_result[1][] = array(9,9);
         $expected_result[1][] = array(11,13);
         $expected_result[2][] = array(11,11);
         $expected_result[2][] = array(13,13);
@@ -776,7 +776,7 @@ class qtype_correctwriting_enum_catcher_test extends PHPUnit_Framework_TestCase 
         $expected_result[] = array();
         $expected_result[0][] = array(2,2);
         $expected_result[0][] = array(4,4);
-        $expected_result[1][] = array(7,9);
+        $expected_result[1][] = array(9,9);
         $expected_result[1][] = array(11,13);
         $expected_result[2][] = array(11,11);
         $expected_result[2][] = array(13,13);
@@ -807,7 +807,7 @@ class qtype_correctwriting_enum_catcher_test extends PHPUnit_Framework_TestCase 
         $expected_result[] = array();
         $expected_result[0][] = array(2,2);
         $expected_result[0][] = array(4,5);
-        $expected_result[1][] = array(8,11);
+        $expected_result[1][] = array(10,11);
         $expected_result[1][] = array(13,15);
         $expected_result[2][] = array(13,13);
         $expected_result[2][] = array(15,15);
@@ -838,7 +838,7 @@ class qtype_correctwriting_enum_catcher_test extends PHPUnit_Framework_TestCase 
         $expected_result[] = array();
         $expected_result[0][] = array(2,2);
         $expected_result[0][] = array(4,5);
-        $expected_result[1][] = array(8,11);
+        $expected_result[1][] = array(10,11);
         $expected_result[1][] = array(13,15);
         $expected_result[2][] = array(13,13);
         $expected_result[2][] = array(15,15);
