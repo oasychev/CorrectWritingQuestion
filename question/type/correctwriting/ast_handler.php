@@ -23,46 +23,9 @@
  * @author     Oleg Sychev <oasychev@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+require_once($CFG->dirroot . '/blocks/formal_langs/ast_handler.php');
 
-abstract class qtype_correctwriting_ast_handler  {
-    /**
-     * Visits array of parent nodes
-     * @param array $nodes
-     */
-    public function visit_array($nodes) {
-        if (count($nodes)) {
-            foreach($nodes as $node) {
-                $this->visit($node);
-            }
-        }
-    }
-
-    /**
-     * Visits node, performing needed operations
-     * @param block_formal_langs_ast_node_base $node
-     * @return mixed
-     */
-    public function visit($node) {
-        $children = $this->children($node);
-        if (count($children)) {
-            foreach($children as $child) {
-                $this->visit($child);
-            }
-        }
-    }
-
-    /**
-     * Returns children data
-     * @param block_formal_langs_ast_node_base $node node data
-     * @return mixed
-     */
-    public function children($node) {
-        return $node->childs();
-    }
-}
-
-
-class qtype_correctwriting_marked_tree_builder extends qtype_correctwriting_ast_handler {
+class qtype_correctwriting_marked_tree_builder extends block_formal_langs_ast_handler {
     /**
      * A tree  as array of nodes
      * @var array
@@ -132,7 +95,7 @@ class qtype_correctwriting_marked_tree_builder extends qtype_correctwriting_ast_
     }
 }
 
-class qtype_correctwriting_marked_tree_remarker extends qtype_correctwriting_ast_handler {
+class qtype_correctwriting_marked_tree_remarker extends block_formal_langs_ast_handler {
 
     public $changed = false;
 
@@ -186,7 +149,7 @@ class qtype_correctwriting_marked_tree_remarker extends qtype_correctwriting_ast
     }
 }
 
-class qtype_correctwriting_find_top_marked_nodes extends qtype_correctwriting_ast_handler {
+class qtype_correctwriting_find_top_marked_nodes extends block_formal_langs_ast_handler {
 
     public $result = array();
 
