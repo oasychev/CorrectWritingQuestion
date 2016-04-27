@@ -39,6 +39,8 @@ class qtype_correctwriting_enum_analyzer_large_test extends PHPUnit_Framework_Te
           $enumdescription[] = array(new enum_element(21, 21), new enum_element(23, 23), new enum_element(25, 25));
           $pair = new qtype_correctwriting_string_pair(clone $correct, clone $corrected, null);
           $pair->correctstring()->enumerations = $enumdescription;
+          $temp = new qtype_correctwriting_enum_analyzer('q',$pair,$lang,true);
+          $temp->fill_string_as_text_in_corrected_string($pair->correctedstring());
           // Expected result.
           $string = 'Today I meet my friends : Michel , Dine and Sam , and my neighbors , with their three children : Victoria ,';
           $string = $string.' Carry and Sam .';
@@ -53,6 +55,7 @@ class qtype_correctwriting_enum_analyzer_large_test extends PHPUnit_Framework_Te
           $newpair->set_enum_correct_to_correct($indexesintable);
           $newpair->set_enum_correct_string($newcorrect);
           $newpair->enum_correct_string()->enumerations = $enumdescription;
+          $temp->fill_string_as_text_in_corrected_string($newpair->correctedstring());
           $newpair->correctstring()->stream = null;
           $newpair->correctedstring()->stream = null;
           $newpair->enum_correct_string()->stream = null;
@@ -94,6 +97,7 @@ class qtype_correctwriting_enum_analyzer_large_test extends PHPUnit_Framework_Te
           $newpair->enum_correct_string()->enumerations = $enumdescription;
           $newpair->correctstring()->stream = null;
           $newpair->correctedstring()->stream = null;
+          $temp->fill_string_as_text_in_corrected_string($newpair->correctedstring());
           $newpair->enum_correct_string()->stream = null;
           $newpair->correctstring()->stream->tokens;
           $newpair->correctedstring()->stream->tokens;
@@ -113,6 +117,7 @@ class qtype_correctwriting_enum_analyzer_large_test extends PHPUnit_Framework_Te
           $newpair->enum_correct_string()->enumerations = $enumdescription;
           $newpair->correctstring()->stream = null;
           $newpair->correctedstring()->stream = null;
+          $temp->fill_string_as_text_in_corrected_string($newpair->correctedstring());
           $newpair->enum_correct_string()->stream = null;
           $newpair->correctstring()->stream->tokens;
           $newpair->correctedstring()->stream->tokens;
@@ -140,6 +145,8 @@ class qtype_correctwriting_enum_analyzer_large_test extends PHPUnit_Framework_Te
           $enumdescription[] = array(new enum_element(11, 11), new enum_element(13, 13), new enum_element(15, 15));
           $pair = new qtype_correctwriting_string_pair(clone $correct, clone $corrected, null);
           $pair->correctstring()->enumerations = $enumdescription;
+          $temp = new qtype_correctwriting_enum_analyzer('q',$pair,$lang,true);
+          $temp->fill_string_as_text_in_corrected_string($pair->correctedstring());
           // Expected result.
           $string = 'int p = t * w * r + j + h , a = c * f * d + b + e * k * z ;';
           $newcorrect = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
@@ -158,6 +165,7 @@ class qtype_correctwriting_enum_analyzer_large_test extends PHPUnit_Framework_Te
           $newpair->set_enum_correct_to_correct($indexesintable);
           $newpair->set_enum_correct_string($newcorrect);
           $newpair->enum_correct_string()->enumerations = $newenumdescription;
+          $temp->fill_string_as_text_in_corrected_string($newpair->correctedstring());
           $newpair->correctstring()->stream = null;
           $newpair->correctedstring()->stream = null;
           $newpair->correctstring()->stream->tokens;
@@ -168,7 +176,7 @@ class qtype_correctwriting_enum_analyzer_large_test extends PHPUnit_Framework_Te
           $temp = new qtype_correctwriting_enum_analyzer('q',$pair,$lang,false);
           $this->assertEquals($pairs, $temp->result_pairs(), 'Error in work found!Six enumerations');
       }
-/*      // Test for construct, enumeration elements are missed.
+      // Test for construct, enumeration elements are missed.
       public function test__construct_enum_elems_are_missed() {
           $lang = new block_formal_langs_language_simple_english;
           // Input data.
@@ -180,6 +188,8 @@ class qtype_correctwriting_enum_analyzer_large_test extends PHPUnit_Framework_Te
           $enumdescription[] = array(new enum_element(8, 9), new enum_element(11, 12), new enum_element(14, 14));
           $pair = new qtype_correctwriting_string_pair($correct, $corrected, null);
           $pair->correctstring()->enumerations = $enumdescription;
+          $temp = new qtype_correctwriting_enum_analyzer('q',$pair,$lang,true);
+          $temp->fill_string_as_text_in_corrected_string($pair->correctedstring());
           // Expected result.
           $string = 'Billy was like the other rich kids had bicycle , a nurse and swimming pool .';
           $newcorrect = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
@@ -193,6 +203,7 @@ class qtype_correctwriting_enum_analyzer_large_test extends PHPUnit_Framework_Te
           $newpair->correctstring()->stream = null;
           $newpair->correctedstring()->stream = null;
           $newpair->enum_correct_string()->stream = null;
+          $temp->fill_string_as_text_in_corrected_string($newpair->correctedstring());
           $newpair->correctstring()->stream->tokens;
           $newpair->correctedstring()->stream->tokens;
           $pairs = array();
@@ -200,5 +211,5 @@ class qtype_correctwriting_enum_analyzer_large_test extends PHPUnit_Framework_Te
           // Test body.
           $temp = new qtype_correctwriting_enum_analyzer('q',$pair,$lang,false);
           $this->assertEquals($pairs, $temp->result_pairs(), 'Error in work found!Enumeration elements are missed');
-      }*/
+      }
 }
