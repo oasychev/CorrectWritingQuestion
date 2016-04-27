@@ -742,24 +742,42 @@ class  qtype_correctwriting_enum_analyzer extends qtype_correctwriting_abstract_
             $this->resultmistakes = array();
         }
     }
-		/**
-		* If this analyzer requires some other ones to work, not bypass - return an array of such analyzers names.
-		*/
-		public function require_analyzers() {
-				return array("qtype_correctwriting_sequence_analyzer");
-		}
+    /**
+    * If this analyzer requires some other ones to work, not bypass - return an array of such analyzers names.
+    */
+    public function require_analyzers() {
+            return array("qtype_correctwriting_sequence_analyzer");
+    }
 
-		/**
-		* Returns if the language is compatible with this analyzer.
-		* @param block_formal_langs_abstract_language $lang a language object from block_formal_langs
-		* @return boolean
-		*/
-		public function is_lang_compatible($lang) {
-				if($lang->name() == 'cpp_parseable') {
-					return true;
-				}
-				return false;
-		}
+    /**
+    * Returns if the language is compatible with this analyzer.
+    * @param block_formal_langs_abstract_language $lang a language object from block_formal_langs
+    * @return boolean
+    */
+    public function is_lang_compatible($lang) {
+            if($lang->name() == 'cpp_parseable') {
+                return true;
+            }
+            return false;
+    }
+
+    /**
+     * Fills string as text in corrected string
+     * @param block_formal_langs_processed_string $string a string
+     */
+    public function fill_string_as_text_in_corrected_string($string) {
+        $tokenvalues = array();
+        $sourcetokens = $string->stream->tokens;
+        if (count($sourcetokens)) {
+            foreach($sourcetokens as $token) {
+                /** @var block_formal_langs_token_base $token */
+                $tokenvalues[] = $token->value();
+            }
+        }
+        /** @var block_formal_langs_abstract_language $language */
+        $language = $string->language;
+        $string->string = new qtype_poasquestion\utf8_string(implode($language->token_delimiter(), $tokenvalues));
+    }
 }
 
 class enum_element {
