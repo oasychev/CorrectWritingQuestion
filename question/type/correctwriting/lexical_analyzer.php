@@ -148,11 +148,13 @@ class qtype_correctwriting_lexical_analyzer extends qtype_correctwriting_abstrac
             }
             /** @var block_formal_langs_matched_tokens_pair $onematch */
             for($i = 0; $i < count($onematch->comparedtokens); $i++) {
-                if (array_key_exists($onematch->comparedtokens[$i], $noncoveredresponsetokens)) {
-                    unset($noncoveredresponsetokens[$onematch->comparedtokens[$i]]);
+                $index = $onematch->comparedtokens[$i];
+                if (array_key_exists($index, $noncoveredresponsetokens)) {
+                    unset($noncoveredresponsetokens[$index]);
                 }
             }
         }
+
 
         if (count($noncoveredanswertokens)) {
             foreach($noncoveredanswertokens as $answerkey => $id) {
@@ -160,8 +162,20 @@ class qtype_correctwriting_lexical_analyzer extends qtype_correctwriting_abstrac
             }
         }
         if (count($noncoveredresponsetokens)) {
+            $comparedtocorrected = array();
+            $tokencount = count($pair->correctedstring()->stream->tokens);
+            for($i = 0; $i < $tokencount; $i++) {
+                $indexes = $pair->map_from_corrected_string_to_compared_string($i);
+                for($j = 0; $j < count($indexes); $j++) {
+                    $comparedtocorrected[$indexes[$j]] = $i;
+                }
+            }
             foreach($noncoveredresponsetokens as $responsekey => $id) {
-                $mistakes[] = $this->create_added_mistake($pair, $responsekey);
+                $key = $responsekey;
+                if (array_key_exists($responsekey, $comparedtocorrected)) {
+                    $key = $comparedtocorrected[$responsekey];
+                }
+                $mistakes[] = $this->create_added_mistake($pair, $key);
             }
         }
 
