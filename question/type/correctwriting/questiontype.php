@@ -29,7 +29,6 @@ require_once($CFG->dirroot . '/question/engine/lib.php');
 require_once($CFG->dirroot . '/question/type/shortanswer/questiontype.php');
 require_once($CFG->dirroot . '/question/type/correctwriting/lib.php');
 require_once($CFG->dirroot . '/blocks/formal_langs/block_formal_langs.php');
-require_once($CFG->dirroot . '/question/type/correctwriting/classes/answer.php');
 
 /**
  * Represents a correctwriting question type.
