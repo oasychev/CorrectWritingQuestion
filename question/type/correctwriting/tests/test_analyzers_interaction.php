@@ -204,7 +204,7 @@ class qtype_correctwriting_analyzers_interaction_test extends advanced_testcase 
         $language = new block_formal_langs_language_cpp_parseable_language();
         $question = new qtype_correctwriting_question();
         $question->usecase = true;
-        $question->lexicalerrorthreshold = 3000;
+        $question->lexicalerrorthreshold = 0.6;
         $question->lexicalerrorweight = 0.1;
         $question->usedlanguage = $language;
         $question->movedmistakeweight = 0.1;
@@ -220,21 +220,18 @@ class qtype_correctwriting_analyzers_interaction_test extends advanced_testcase 
         $answers = array((object)array('id' => 1, 'answer' => 'int i,j,k, hash, fraction; j = k / fraction - hash;', 'fraction' => 1.0));
         $question->answers = $answers;
         $state = $question->grade_response(array('answer' => 'imt k,j,i; f = j / fruction - ;'));
-        $this->assertEquals(14, count($question->matchedresults->mistakes()));
-        $this->assertEquals('qtype_correctwriting_lexical_mistake', get_class($question->matchedresults->mistakes()[0]));
-        $this->assertEquals('qtype_correctwriting_lexical_mistake', get_class($question->matchedresults->mistakes()[1]));
-        $this->assertEquals('qtype_correctwriting_lexical_mistake', get_class($question->matchedresults->mistakes()[2]));
-        $this->assertEquals('qtype_correctwriting_lexical_mistake', get_class($question->matchedresults->mistakes()[3]));
-        $this->assertEquals('qtype_correctwriting_lexical_mistake', get_class($question->matchedresults->mistakes()[4]));
-        $this->assertEquals('qtype_correctwriting_lexical_mistake', get_class($question->matchedresults->mistakes()[5]));
-        $this->assertEquals('qtype_correctwriting_lexical_mistake', get_class($question->matchedresults->mistakes()[6]));
-        $this->assertEquals('qtype_correctwriting_lexeme_moved_mistake', get_class($question->matchedresults->mistakes()[7]));
-        $this->assertEquals('qtype_correctwriting_lexeme_moved_mistake', get_class($question->matchedresults->mistakes()[8]));
-        $this->assertEquals('qtype_correctwriting_lexeme_absent_mistake', get_class($question->matchedresults->mistakes()[9]));
-        $this->assertEquals('qtype_correctwriting_lexeme_absent_mistake', get_class($question->matchedresults->mistakes()[10]));
-        $this->assertEquals('qtype_correctwriting_lexeme_absent_mistake', get_class($question->matchedresults->mistakes()[11]));
-        $this->assertEquals('qtype_correctwriting_lexeme_absent_mistake', get_class($question->matchedresults->mistakes()[12]));
-        $this->assertEquals('qtype_correctwriting_lexeme_absent_mistake', get_class($question->matchedresults->mistakes()[13]));
+        $mistakes = $question->matchedresults->mistakes();
+        $this->assertEquals(10, count($mistakes));
+        $this->assertEquals('qtype_correctwriting_lexical_mistake', get_class($mistakes[0]));
+        $this->assertEquals('qtype_correctwriting_lexical_mistake', get_class($mistakes[1]));
+        $this->assertEquals('qtype_correctwriting_lexeme_absent_mistake', get_class($mistakes[2]));
+        $this->assertEquals('qtype_correctwriting_lexeme_absent_mistake', get_class($mistakes[3]));
+        $this->assertEquals('qtype_correctwriting_lexeme_absent_mistake', get_class($mistakes[4]));
+        $this->assertEquals('qtype_correctwriting_lexeme_absent_mistake', get_class($mistakes[5]));
+        $this->assertEquals('qtype_correctwriting_lexeme_absent_mistake', get_class($mistakes[6]));
+        $this->assertEquals('qtype_correctwriting_lexeme_absent_mistake', get_class($mistakes[7]));
+        $this->assertEquals('qtype_correctwriting_lexeme_moved_mistake', get_class($mistakes[8]));
+        $this->assertEquals('qtype_correctwriting_lexeme_added_mistake', get_class($mistakes[9]));
     }
     // Test move lexemes. Enumeration and sequence analyzers. Enumeration catcher struct definition rule test.
     public function test_moved_lexemes_with_enumerations_enum_sequence_catcher_struct() {
