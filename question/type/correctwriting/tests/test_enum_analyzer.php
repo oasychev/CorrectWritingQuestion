@@ -171,9 +171,9 @@ class qtype_correctwriting_enum_analyzer_test extends PHPUnit_Framework_TestCase
         $enumdescription[] = array(new enum_element(3, 4), new enum_element(6, 18));
         $enumdescription[] = array(new enum_element(14, 14), new enum_element(16, 16), new enum_element(18, 18));
         $string = 'Today I meet some friends and my neighbors , with their three children : Victoria , Carry and Tom .';
-        $correctanswer = $lang->create_from_string($string, 'qtype_correctwriting_proccesedstring');
+        $correctanswer = $lang->create_from_string($string, 'qtype_correctwriting_processed_string');
         $string = 'Today I meet my friends : Sam , Dine and Michel , and my neighbors , with their three children .';
-        $correctedanswer = $lang->create_from_string($string, 'qtype_correctwriting_proccesedstring');
+        $correctedanswer = $lang->create_from_string($string, 'qtype_correctwriting_processed_string');
         // Test body.
         $temp= new qtype_correctwriting_enum_analyzer();
         $result = $temp->find_enum_orders_in_corrected_string($correctanswer->stream->tokens, $correctedanswer->stream->tokens,
@@ -215,10 +215,10 @@ class qtype_correctwriting_enum_analyzer_test extends PHPUnit_Framework_TestCase
         $enumdescription[] = array(new enum_element(3, 4), new enum_element(6, 18));
         $enumdescription[] = array(new enum_element(14, 14), new enum_element(16, 16), new enum_element(18, 18));
         $string = 'Today I meet some friends and my neighbors, with their three children: Victoria, Carry and Tom .';
-        $correctanswer = $lang->create_from_string($string, 'qtype_correctwriting_proccesedstring');
+        $correctanswer = $lang->create_from_string($string, 'qtype_correctwriting_processed_string');
         $string = 'Today I meet my friends: Sam, Dine and Michel, Tom, and my neighbors, with their three children: Victoria, ';
         $string = $string.'Carry and Tom.';
-        $correctedanswer = $lang->create_from_string($string, 'qtype_correctwriting_proccesedstring');
+        $correctedanswer = $lang->create_from_string($string, 'qtype_correctwriting_processed_string');
         // Test body.
         $temp= new qtype_correctwriting_enum_analyzer();
         $result = $temp->find_enum_orders_in_corrected_string($correctanswer->stream->tokens, $correctedanswer->stream->tokens,
@@ -254,9 +254,9 @@ class qtype_correctwriting_enum_analyzer_test extends PHPUnit_Framework_TestCase
         $enumdescription[] = array(new enum_element(3, 4), new enum_element(6, 18));
         $enumdescription[] = array(new enum_element(14, 14), new enum_element(16, 16), new enum_element(18, 18));
         $string = 'Today I meet some friends and my neighbors, with their three children: Victoria, Carry and Tom.';
-        $correctanswer = $lang->create_from_string($string, 'qtype_correctwriting_proccesedstring');
+        $correctanswer = $lang->create_from_string($string, 'qtype_correctwriting_processed_string');
         $string = 'Today I meet my neighbors, with their three children: Victoria, Tom and and Carry some friends.';
-        $correctedanswer = $lang->create_from_string($string, 'qtype_correctwriting_proccesedstring');
+        $correctedanswer = $lang->create_from_string($string, 'qtype_correctwriting_processed_string');
         // Test body.
         $temp= new qtype_correctwriting_enum_analyzer();
         $result = $temp->find_enum_orders_in_corrected_string($correctanswer->stream->tokens, $correctedanswer->stream->tokens,
@@ -306,10 +306,10 @@ class qtype_correctwriting_enum_analyzer_test extends PHPUnit_Framework_TestCase
         $enumdescription[] = array(new enum_element(8, 9), new enum_element(11, 12), new enum_element(14, 15));
         $string = 'Billy was like the other rich kids had a nurse, fast bicycle and swimming pool, but he never played in the ';
         $string = $string.'street, did not talk to poor people.';
-        $correctanswer = $lang->create_from_string($string, 'qtype_correctwriting_proccesedstring');
+        $correctanswer = $lang->create_from_string($string, 'qtype_correctwriting_processed_string');
         $string = 'Billy was like the other rich kids had a, bicycle swimming and and nurse, fast, but he never played in a ';
         $string = $string.'street or pool a.';
-        $correctedanswer = $lang->create_from_string($string, 'qtype_correctwriting_proccesedstring');
+        $correctedanswer = $lang->create_from_string($string, 'qtype_correctwriting_processed_string');
         // Test body.
         $temp= new qtype_correctwriting_enum_analyzer();
         $result = $temp->find_enum_orders_in_corrected_string($correctanswer->stream->tokens, $correctedanswer->stream->tokens,
@@ -350,10 +350,10 @@ class qtype_correctwriting_enum_analyzer_test extends PHPUnit_Framework_TestCase
         $enumdescription[] = array(new enum_element(21, 21), new enum_element(23, 23), new enum_element(25, 25));
         $string = 'Today I meet my friends: Sam, Dine and Michel, and my neighbors, with their three children: Victoria, Carry';
         $string = $string.'and Tom.';
-        $correctanswer = $lang->create_from_string($string, 'qtype_correctwriting_proccesedstring');
+        $correctanswer = $lang->create_from_string($string, 'qtype_correctwriting_processed_string');
         $string = 'Today I meet my friends: Sam, Dine and Michel, and my neighbors, with their three children: Tom, Carry and ';
         $string = $string.'Victoria.';
-        $correctedanswer = $lang->create_from_string($string, 'qtype_correctwriting_proccesedstring');
+        $correctedanswer = $lang->create_from_string($string, 'qtype_correctwriting_processed_string');
         // Test body.
         $temp= new qtype_correctwriting_enum_analyzer();
         $result = $temp->find_enum_orders_in_corrected_string($correctanswer->stream->tokens, $correctedanswer->stream->tokens,
@@ -389,10 +389,10 @@ class qtype_correctwriting_enum_analyzer_test extends PHPUnit_Framework_TestCase
         $enumdescription[] = array(new enum_element(17, 22), new enum_element(24, 29));
         $string = 'Billy was like the other rich kids had a nurse, bicycle and swimming pool, but he never played in the street, ';
         $string = $string.'did not talk to poor people.';
-        $correctanswer = $lang->create_from_string($string, 'qtype_correctwriting_proccesedstring');
+        $correctanswer = $lang->create_from_string($string, 'qtype_correctwriting_processed_string');
         $string = 'Billy was like the other rich kids had a nurse, pool and bicycle, but he never played in street, did not talk ';
         $string = $string.'to poor people.';
-        $correctedanswer = $lang->create_from_string($string, 'qtype_correctwriting_proccesedstring');
+        $correctedanswer = $lang->create_from_string($string, 'qtype_correctwriting_processed_string');
         // Test body.
         $temp= new qtype_correctwriting_enum_analyzer();
         $result = $temp->find_all_enum_orders_in_corrected_string($correctanswer->stream->tokens,
@@ -432,9 +432,9 @@ class qtype_correctwriting_enum_analyzer_test extends PHPUnit_Framework_TestCase
         $enumdescription[] = array(new enum_element(3, 4), new enum_element(6, 18));
         $enumdescription[] = array(new enum_element(14, 14), new enum_element(16, 16), new enum_element(18, 18));
         $string = 'Today I meet some friends and my neighbors, with their three children: Victoria, Carry and Tom.';
-        $correctanswer = $lang->create_from_string($string, 'qtype_correctwriting_proccesedstring');
+        $correctanswer = $lang->create_from_string($string, 'qtype_correctwriting_processed_string');
         $string = 'Today I meet my friends and my neighbors, with their three children: Victoria, Tom and Carry.';
-        $correctedanswer = $lang->create_from_string($string, 'qtype_correctwriting_proccesedstring');
+        $correctedanswer = $lang->create_from_string($string, 'qtype_correctwriting_processed_string');
         // Test body.
         $temp= new qtype_correctwriting_enum_analyzer();
         $result = $temp->find_all_enum_orders_in_corrected_string($correctanswer->stream->tokens, $correctedanswer->stream->tokens,
@@ -475,10 +475,10 @@ class qtype_correctwriting_enum_analyzer_test extends PHPUnit_Framework_TestCase
         $enumdescription[] = array(new enum_element(21, 21), new enum_element(23, 23), new enum_element(25, 25));
         $string = 'Today I meet my friends: Sam, Dine and Michel, and my neighbors, with their three children: Victoria, ';
         $string = $string.'Carry and Tom.';
-        $correctanswer = $lang->create_from_string($string, 'qtype_correctwriting_proccesedstring');
+        $correctanswer = $lang->create_from_string($string, 'qtype_correctwriting_processed_string');
         $string = 'Today I meet my friends: Sam, Dine and Michel, and my neighbors, with their three children: Tom, Carry and ';
         $string = $string.'Victoria.';
-        $correctedanswer = $lang->create_from_string($string, 'qtype_correctwriting_proccesedstring');
+        $correctedanswer = $lang->create_from_string($string, 'qtype_correctwriting_processed_string');
         // Test body.
         $temp= new qtype_correctwriting_enum_analyzer();
         $result = $temp->find_all_enum_orders_in_corrected_string($correctanswer->stream->tokens, $correctedanswer->stream->tokens,
@@ -521,10 +521,10 @@ class qtype_correctwriting_enum_analyzer_test extends PHPUnit_Framework_TestCase
         $enumdescription[] = array(new enum_element(13, 13), new enum_element(15, 15), new enum_element(17, 35));
         $string = 'I see a big group of people, which contains three parts: children, women and men, who was weared in blue ';
         $string = $string.'overall or strange suits with red and green line in front.';
-        $correctanswer = $lang->create_from_string($string, 'qtype_correctwriting_proccesedstring');
+        $correctanswer = $lang->create_from_string($string, 'qtype_correctwriting_processed_string');
         $string = 'I see a big group of people, which contains three parts: women, children and men, who was weared in blue ';
         $string = $string.'overall or strange suits with green and red line in front.';
-        $correctedanswer = $lang->create_from_string($string, 'qtype_correctwriting_proccesedstring');
+        $correctedanswer = $lang->create_from_string($string, 'qtype_correctwriting_processed_string');
         // Test body.
         $temp= new qtype_correctwriting_enum_analyzer();
         $result = $temp->find_all_enum_orders_in_corrected_string($correctanswer->stream->tokens, $correctedanswer->stream->tokens,
@@ -570,10 +570,10 @@ class qtype_correctwriting_enum_analyzer_test extends PHPUnit_Framework_TestCase
         $enumdescription[] = array(new enum_element(21, 21), new enum_element(23, 23), new enum_element(25, 25));
         $string = 'Today I meet my friends: Sam, Dine and Michel, and my neighbors, with their three children: Victoria, Carry ';
         $string = $string.'and Tom .';
-        $correctanswer = $lang->create_from_string($string, 'qtype_correctwriting_proccesedstring');
+        $correctanswer = $lang->create_from_string($string, 'qtype_correctwriting_processed_string');
         $string =  'Today I meet my friends: Sam, Dine, Victoria and Michel, and my neighbors, with their three children: Tom, ';
         $string = $string.'Carry, Sam and Victoria.';
-        $correctedanswer = $lang->create_from_string($string, 'qtype_correctwriting_proccesedstring');
+        $correctedanswer = $lang->create_from_string($string, 'qtype_correctwriting_processed_string');
         // Test body.
         $temp= new qtype_correctwriting_enum_analyzer();
         $result = $temp->find_all_enum_orders_in_corrected_string($correctanswer->stream->tokens, $correctedanswer->stream->tokens,
@@ -639,10 +639,10 @@ class qtype_correctwriting_enum_analyzer_test extends PHPUnit_Framework_TestCase
         $enumdescription[] = array(new enum_element(13, 13), new enum_element(15, 15), new enum_element(17, 35));
         $string = 'I see a big group of people, which contains three parts: children, women and men, who was weared in blue ';
         $string = $string.'overall or strange suits with red and green line in front.';
-        $correctanswer = $lang->create_from_string($string, 'qtype_correctwriting_proccesedstring');
+        $correctanswer = $lang->create_from_string($string, 'qtype_correctwriting_processed_string');
         $string =  'I see a big group of people, which contains three parts: women, children and women men, who was weared in ';
         $string = $string.'blue overall or strange suits with green and red line in front or green overall.';
-        $correctedanswer = $lang->create_from_string($string, 'qtype_correctwriting_proccesedstring');
+        $correctedanswer = $lang->create_from_string($string, 'qtype_correctwriting_processed_string');
         // Test body.
         $temp= new qtype_correctwriting_enum_analyzer();
         $result = $temp->find_all_enum_orders_in_corrected_string($correctanswer->stream->tokens, $correctedanswer->stream->tokens,
@@ -682,10 +682,10 @@ class qtype_correctwriting_enum_analyzer_test extends PHPUnit_Framework_TestCase
         $enumdescription[] = array(new enum_element(3, 4), new enum_element(6, 18));
         $enumdescription[] = array(new enum_element(14, 14), new enum_element(16, 16), new enum_element(18, 18));
         $string = 'Today I meet some friends and my neighbors, with their three children: Victoria, Carry and Tom.';
-        $correctanswer = $lang->create_from_string($string, 'qtype_correctwriting_proccesedstring');
+        $correctanswer = $lang->create_from_string($string, 'qtype_correctwriting_processed_string');
         $string =  'Today I meet my neighbors and my friends, with their three children: Victoria, Tom and Carry and some ';
         $string = $string.'children Tom.';
-        $correctedanswer = $lang->create_from_string($string, 'qtype_correctwriting_proccesedstring');
+        $correctedanswer = $lang->create_from_string($string, 'qtype_correctwriting_processed_string');
         // Test body.
         $temp= new qtype_correctwriting_enum_analyzer();
         $result = $temp->find_all_enum_orders_in_corrected_string($correctanswer->stream->tokens, $correctedanswer->stream->tokens,
@@ -707,7 +707,8 @@ class qtype_correctwriting_enum_analyzer_test extends PHPUnit_Framework_TestCase
         $lang = new block_formal_langs_language_simple_english;
         // Input data.
         $string = 'int k = j / h + t + o - r ; bool g = kill = live ;';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
+        $string = new qtype_poasquestion\utf8_string($string);
+        $correct = $lang->create_from_string($string, 'qtype_correctwriting_processed_string');
         $order = array(1, 0, 2, -1, 1, 0);
         $enumorder = array(0, 1);
         $enumdescription = array();
@@ -716,63 +717,80 @@ class qtype_correctwriting_enum_analyzer_test extends PHPUnit_Framework_TestCase
         $include[] = array(-1);
         $enumdescription[] = array(new enum_element(3, 5), new enum_element(7, 7), new enum_element(9, 11));
         $enumdescription[] = array(new enum_element(16, 16), new enum_element(18, 18));
-        $correct->enumerations = $enumdescription;
-        $pair = new qtype_correctwriting_string_pair($correct, $correct, null);
+        $corrected = clone $correct;
+        $pair = new qtype_correctwriting_string_pair($correct, $corrected, null);
+        $pair->correctstring()->enumerations = $enumdescription;
         // Expected result.
         $string = 'int k = t + j / h + o - r ; bool g = live = kill ;';
-        $newcorrect = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
-        $enumdescription = array();
-        $enumdescription[] = array(new enum_element(5, 7), new enum_element(3, 3), new enum_element(9, 11));
-        $enumdescription[] = array(new enum_element(18, 18), new enum_element(16, 16));
-        $newcorrect->enumerations = $enumdescription;
-        $newpair = new qtype_correctwriting_string_pair($newcorrect, $correct, null);
+        $string = new qtype_poasquestion\utf8_string($string);
+        $newcorrect = $lang->create_from_string($string , 'qtype_correctwriting_processed_string');
+        $enumdescription1 = array();
+        $enumdescription1[] = array(new enum_element(5, 7), new enum_element(3, 3), new enum_element(9, 11));
+        $enumdescription1[] = array(new enum_element(18, 18), new enum_element(16, 16));
+        $newpair = new qtype_correctwriting_string_pair($correct, $corrected, null);
         $indexesintable = array(0, 1, 2, 7, 6, 3, 4, 5, 8, 9, 10, 11, 12, 13, 14, 15, 18, 17, 16, 19);
-        $newpair->set_indexes_in_table($indexesintable);
-        // Test body.
-        $temp = new qtype_correctwriting_enum_analyzer();
+        $newpair->set_enum_correct_to_correct($indexesintable);
+        $newpair->correctstring()->enumerations = $enumdescription;
+        $newpair->set_enum_correct_string($newcorrect);
+        $newpair->enum_correct_string()->enumerations = $enumdescription1;
+        $newpair->correctstring()->stream = null;
+        $newpair->correctedstring()->stream = null;
+        $newpair->enum_correct_string()->stream = null;
+        $newpair->correctstring()->stream->tokens;
+        $newpair->correctedstring()->stream->tokens;
+         // Test body.
+        $temp = new qtype_correctwriting_enum_analyzer('q',$pair,$lang,true);
         $temp->change_enum_order($pair, $enumorder, $include, $order);
         $this->assertEquals($newpair, $pair, 'Error change order found!Without including');
     }
 
-    // Test for change_enum_order, two enumeration, one include in other.
-    public function testchange_enum_order_one_include_in_other() {
-        $lang = new block_formal_langs_language_simple_english;
-        // Input data.
-        $string = 'Today I meet some friends and my neighbors , with their three children : Victoria , Carry and Tom .';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
-        $order = array(1, 0, -1, 2, 0, 1);
-        $enumorder = array(1, 0);
-        $enumdescription = array();
-        $enumdescription[] = array(new enum_element(3, 4), new enum_element(6, 18));
-        $enumdescription[] = array(new enum_element(14, 14), new enum_element(16, 16), new enum_element(18, 18));
-        $include = array();
-        $include[] = array(1);
-        $include[] = array(-1);
-        $correct->enumerations = $enumdescription;
-        $pair = new qtype_correctwriting_string_pair($correct, $correct, null);
-        // Expected result.
-        $string = 'Today I meet my neighbors , with their three children : Tom , Victoria and Carry and some friends .';
-        $newcorrect = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
-        $enumdescription = array();
-        $enumdescription[] = array(new enum_element(17, 18), new enum_element(3, 15));
-        $enumdescription[] = array(new enum_element(13, 13), new enum_element(15, 15), new enum_element(11, 11));
-        $newcorrect->enumerations = $enumdescription;
-        $newpair = new qtype_correctwriting_string_pair($newcorrect, $correct, null);
-        $indexesintable = array(0, 1, 2, 6, 7, 8, 9, 10, 11, 12, 13, 18, 15, 14, 17, 16, 5, 3, 4, 19);
-        $newpair->set_indexes_in_table($indexesintable);
-        // Test body.
-        $temp = new qtype_correctwriting_enum_analyzer();
-        $temp->change_enum_order($pair, $enumorder, $include, $order);
-        $this->assertEquals($newpair, $pair, 'Error change order found!One include in other');
-    }
-
+        // Test for change_enum_order, two enumeration, one include in other.
+        public function testchange_enum_order_one_include_in_other() {
+            $lang = new block_formal_langs_language_simple_english;
+            // Input data.
+            $string = 'Today I meet some friends and my neighbors , with their three children : Victoria , Carry and Tom .';
+            $string = new qtype_poasquestion\utf8_string($string);
+            $correct = $lang->create_from_string($string, 'qtype_correctwriting_processed_string');
+            $order = array(1, 0, -1, 2, 0, 1);
+            $enumorder = array(1, 0);
+            $enumdescription = array();
+            $enumdescription[] = array(new enum_element(3, 4), new enum_element(6, 18));
+            $enumdescription[] = array(new enum_element(14, 14), new enum_element(16, 16), new enum_element(18, 18));
+            $include = array();
+            $include[] = array(1);
+            $include[] = array(-1);
+            $pair = new qtype_correctwriting_string_pair($correct, $correct, null);
+            $pair->correctstring()->enumerations = $enumdescription;
+            // Expected result.
+            $string = 'Today I meet my neighbors , with their three children : Tom , Victoria and Carry and some friends .';
+            $string = new qtype_poasquestion\utf8_string($string);
+            $newcorrect = $lang->create_from_string($string, 'qtype_correctwriting_processed_string');
+            $enumdescription1 = array();
+            $enumdescription1[] = array(new enum_element(17, 18), new enum_element(3, 15));
+            $enumdescription1[] = array(new enum_element(13, 13), new enum_element(15, 15), new enum_element(11, 11));
+            $newpair = new qtype_correctwriting_string_pair(clone $correct, clone $correct, null);
+            $indexesintable = array(0, 1, 2, 6, 7, 8, 9, 10, 11, 12, 13, 18, 15, 14, 17, 16, 5, 3, 4, 19);
+            $newpair->set_enum_correct_to_correct($indexesintable);
+            $newpair->correctstring()->enumerations = $enumdescription;
+            $newpair->set_enum_correct_string($newcorrect);
+            $newpair->enum_correct_string()->enumerations = $enumdescription1;
+            $newpair->correctstring()->stream = null;
+            $newpair->correctedstring()->stream = null;
+            $newpair->enum_correct_string()->stream = null;
+            $newpair->correctstring()->stream->tokens;
+            $newpair->correctedstring()->stream->tokens;
+            // Test body.
+            $temp = new qtype_correctwriting_enum_analyzer('1',$pair,$lang,true);
+            $temp->change_enum_order($pair, $enumorder, $include, $order);
+            $this->assertEquals($newpair, $pair, 'Error change order found!One include in other');
+        }
     // Test for change_enum_order, three enumeration, two include in other.
     public function testchange_enum_order_two_include_in_other() {
         $lang = new block_formal_langs_language_simple_english;
         // Input data.
         $string = 'Today I meet my friends : Sam , Dine and Michel , and my neighbors , with their three children : Victoria ,';
         $string = $string.' Carry and Tom .';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
+        $correct = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
         $order = array(1, 0, -1, 0, 2, 1, -1, 2, 1, 0);
         $enumorder = array(1, 2, 0);
         $enumdescription = array();
@@ -783,22 +801,32 @@ class qtype_correctwriting_enum_analyzer_test extends PHPUnit_Framework_TestCase
         $include[] = array(1, 2);
         $include[] = array(-1);
         $include[] = array(-1);
+        $corrected = clone $correct;
+        $pair = new qtype_correctwriting_string_pair(clone $correct, clone $corrected, null);
         $correct->enumerations = $enumdescription;
-        $pair = new qtype_correctwriting_string_pair($correct, $correct, null);
+        $pair->correctstring()->enumerations = $enumdescription;
         // Expected result.
         $string = 'Today I meet my neighbors , with their three children : Tom , Carry and Victoria , and my friends : Sam , ';
         $string = $string.'Michel and Dine .';
-        $newcorrect = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
+
+        $newpair = new qtype_correctwriting_string_pair(clone $correct, clone $corrected, null);
+        $newcorrect = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
         $enumdescription = array();
         $enumdescription[] = array(new enum_element(18, 25), new enum_element(3, 15));
         $enumdescription[] = array(new enum_element(21, 21), new enum_element(25, 25), new enum_element(23, 23));
         $enumdescription[] = array(new enum_element(15, 15), new enum_element(13, 13), new enum_element(11, 11));
-        $newcorrect->enumerations = $enumdescription;
-        $newpair = new qtype_correctwriting_string_pair($newcorrect, $correct, null);
         $indexesintable = array(0, 1, 2, 13, 14, 15, 16, 17, 18, 19 , 20, 25, 22, 23, 24, 21, 11, 12, 3, 4, 5, 6, 7, 10, 9, 8, 26);
-        $newpair->set_indexes_in_table($indexesintable);
+        $newpair->set_enum_correct_to_correct($indexesintable);
+        $newpair->set_enum_correct_string($newcorrect);
+        $newpair->correctstring()->enumerations = $correct->enumerations;
+        $newpair->enum_correct_string()->enumerations = $enumdescription;
+        $newpair->correctstring()->stream = null;
+        $newpair->correctedstring()->stream = null;
+        $newpair->enum_correct_string()->stream = null;
+        $newpair->correctstring()->stream->tokens;
+        $newpair->correctedstring()->stream->tokens;
         // Test body.
-        $temp = new qtype_correctwriting_enum_analyzer();
+        $temp = new qtype_correctwriting_enum_analyzer('q',null,$lang);
         $temp->change_enum_order($pair, $enumorder, $include, $order);
         $this->assertEquals($newpair, $pair, 'Error change order found!Two include in other');
     }
@@ -809,7 +837,7 @@ class qtype_correctwriting_enum_analyzer_test extends PHPUnit_Framework_TestCase
         // Input data.
         $string = 'I see a big group of people , which contains three parts : children , women and men , who was weared in blue ';
         $string = $string.'overall or strange suits with red and green line in front.';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
+        $correct = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
         $order = array(0, 1, -1, 1, 0, -1, 1, 2, 0);
         $enumorder = array(0, 1, 2);
         $enumdescription = array();
@@ -820,23 +848,32 @@ class qtype_correctwriting_enum_analyzer_test extends PHPUnit_Framework_TestCase
         $include[] = array(-1);
         $include[] = array(0);
         $include[] = array(0, 1);
-        $correct->enumerations = $enumdescription;
-        $pair = new qtype_correctwriting_string_pair($correct, $correct, null);
+        $pair = new qtype_correctwriting_string_pair(clone $correct, clone $correct, null);
+        $pair->correctstring()->enumerations = $enumdescription;
         // Expected result.
         $string = 'I see a big group of people , which contains three parts : women , men , who was weared in strange suits with';
         $string = $string.' red and green line in front or blue overall and children .';
-        $newcorrect = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
-        $enumdescription = array();
-        $enumdescription[] = array(new enum_element(24, 24), new enum_element(26, 26));
-        $enumdescription[] = array(new enum_element(31, 32), new enum_element(21, 29));
-        $enumdescription[] = array(new enum_element(34, 34), new enum_element(13, 13), new enum_element(15, 32));
+        $newcorrect = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
+        $enumdescription1 = array();
+        $enumdescription1[] = array(new enum_element(24, 24), new enum_element(26, 26));
+        $enumdescription1[] = array(new enum_element(31, 32), new enum_element(21, 29));
+        $enumdescription1[] = array(new enum_element(34, 34), new enum_element(13, 13), new enum_element(15, 32));
         $newcorrect->enumerations = $enumdescription;
-        $newpair = new qtype_correctwriting_string_pair($newcorrect, $correct, null);
+        $newpair = new qtype_correctwriting_string_pair(clone $correct, clone $correct, null);
         $indexesintable = array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 15, 14, 17, 18, 19, 20, 21, 22, 26, 27, 28, 29, 30, 31,
                                 32, 33, 34, 25, 23, 24, 16, 13, 35);
-        $newpair->set_indexes_in_table($indexesintable);
+        $newpair->set_enum_correct_to_correct($indexesintable);
+        $newpair->set_enum_correct_string($newcorrect);
+        $newpair->enum_correct_string()->enumerations = $enumdescription1;
+        $newpair->correctstring()->enumerations = $enumdescription;
+        $newpair->correctstring()->stream = null;
+        $newpair->correctedstring()->stream = null;
+        $newpair->enum_correct_string()->stream = null;
+        $newpair->correctstring()->stream->tokens;
+        $newpair->correctedstring()->stream->tokens;
+
         // Test body.
-        $temp = new qtype_correctwriting_enum_analyzer();
+        $temp = new qtype_correctwriting_enum_analyzer('q',null,$lang);
         $temp->change_enum_order($pair, $enumorder, $include, $order);
         $this->assertEquals($newpair, $pair, 'Error change order found!Matrioska');
     }
@@ -846,7 +883,7 @@ class qtype_correctwriting_enum_analyzer_test extends PHPUnit_Framework_TestCase
         $lang = new block_formal_langs_language_simple_english;
         // Input data.
         $string = 'int a = b + c * d * f + k * z * e , p = j + h + t * r * w ;';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
+        $correct = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
         $order = array(1, 0, -1, 1, 0, 2, -1, 2, 0, 1, -1, 0, 2, 1, -1, 0, 2, 1, -1, 2, 1, 0);
         $enumorder = array(3, 4, 5, 1, 2, 0);
         $enumdescription = array();
@@ -863,25 +900,33 @@ class qtype_correctwriting_enum_analyzer_test extends PHPUnit_Framework_TestCase
         $include[] = array(-1);
         $include[] = array(-1);
         $include[] = array(-1);
-        $correct->enumerations = $enumdescription;
-        $pair = new qtype_correctwriting_string_pair($correct, $correct, null);
+        $pair = new qtype_correctwriting_string_pair(clone $correct, clone $correct, null);
+        $pair->correctstring()->enumerations = $enumdescription;
         // Expected result.
         $string = 'int p = t * w * r + j + h , a = c * f * d + b + e * z * k ;';
-        $newcorrect = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
-        $enumdescription = array();
-        $enumdescription[] = array(new enum_element(13, 27), new enum_element(1, 11));
-        $enumdescription[] = array(new enum_element(21, 21), new enum_element(15, 19), new enum_element(23, 27));
-        $enumdescription[] = array(new enum_element(9, 9), new enum_element(11, 11), new enum_element(3, 7));
-        $enumdescription[] = array(new enum_element(15, 15), new enum_element(19, 19), new enum_element(17, 17));
-        $enumdescription[] = array(new enum_element(3, 3), new enum_element(7, 7), new enum_element(5, 5));
-        $enumdescription[] = array(new enum_element(27, 27), new enum_element(25, 25), new enum_element(23, 23));
+        $newcorrect = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
+        $enumdescription1 = array();
+        $enumdescription1[] = array(new enum_element(13, 27), new enum_element(1, 11));
+        $enumdescription1[] = array(new enum_element(21, 21), new enum_element(15, 19), new enum_element(23, 27));
+        $enumdescription1[] = array(new enum_element(9, 9), new enum_element(11, 11), new enum_element(3, 7));
+        $enumdescription1[] = array(new enum_element(15, 15), new enum_element(19, 19), new enum_element(17, 17));
+        $enumdescription1[] = array(new enum_element(3, 3), new enum_element(7, 7), new enum_element(5, 5));
+        $enumdescription1[] = array(new enum_element(27, 27), new enum_element(25, 25), new enum_element(23, 23));
         $newcorrect->enumerations = $enumdescription;
-        $newpair = new qtype_correctwriting_string_pair($newcorrect, $correct, null);
+        $newpair = new qtype_correctwriting_string_pair(clone $correct, clone $correct, null);
         $indexesintable = array(0, 17, 18, 23, 24, 27, 26, 25, 20, 19, 22, 21, 16, 1, 2, 5, 6, 9, 8, 7, 4, 3, 10, 15, 12, 13, 14,
                                 11, 28);
-        $newpair->set_indexes_in_table($indexesintable);
+        $newpair->correctstring()->enumerations = $enumdescription;
+        $newpair->set_enum_correct_to_correct($indexesintable);
+        $newpair->set_enum_correct_string($newcorrect);
+        $newpair->enum_correct_string()->enumerations = $enumdescription1;
+        $newpair->correctstring()->stream = null;
+        $newpair->correctedstring()->stream = null;
+        $newpair->enum_correct_string()->stream = null;
+        $newpair->correctstring()->stream->tokens;
+        $newpair->correctedstring()->stream->tokens;
         // Test body.
-        $temp = new qtype_correctwriting_enum_analyzer();
+        $temp = new qtype_correctwriting_enum_analyzer("q",null,$lang);
         $temp->change_enum_order($pair, $enumorder, $include, $order);
         $this->assertEquals($newpair, $pair, 'Error change order found!Six enumerations');
     }
@@ -892,20 +937,36 @@ class qtype_correctwriting_enum_analyzer_test extends PHPUnit_Framework_TestCase
         $lang = new block_formal_langs_language_simple_english;
         $string = 'Billy was like the other rich kids had a nurse , swimming pool and bicycle , but he never played in the street';
         $string = $string.' , did not talk to poor people .';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
+        $correct = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
         $string = 'Billy was like the other rich kids had a nurse , pool and bicycle , but he never played in street , did not ';
         $string = $string.'talk to poor people .';
-        $corrected = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
+        $corrected = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
         $enumdescription = array();
         $enumdescription[] = array(new enum_element(8, 9), new enum_element(11, 12), new enum_element(14, 14));
         $enumdescription[] = array(new enum_element(17, 22), new enum_element(24, 29));
-        $correct->enumerations = $enumdescription;
-        $pair = new qtype_correctwriting_string_pair($correct, $corrected, null);
+        $enumdescription1 = array();
+        $enumdescription1[] = array(new enum_element(8, 9), new enum_element(11, 12), new enum_element(14, 14));
+        $enumdescription1[] = array(new enum_element(17, 22), new enum_element(24, 29));
+        $pair = new qtype_correctwriting_string_pair(clone $correct, clone $corrected, null);
+        $pair->correctstring()->enumerations = $enumdescription;
+        $temp = new qtype_correctwriting_enum_analyzer('q',$pair,$lang,true);
+        $temp->fill_string_as_text_in_corrected_string($pair->correctedstring());
+        $indexesintable = array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26,
+            27, 28, 29, 30);
+        $newpair = clone $pair;
+        $newpair->set_enum_correct_to_correct($indexesintable);
+        $newpair->set_enum_correct_string(clone $correct);
+        $newpair->enum_correct_string()->enumerations = $enumdescription1;
+        $temp->fill_string_as_text_in_corrected_string($newpair->correctedstring());
+        $newpair->correctstring()->stream = null;
+        $newpair->correctedstring()->stream = null;
+        $newpair->correctstring()->stream->tokens;
+        $newpair->correctedstring()->stream->tokens;
         // Expected result.
         $pairs = array();
-        $pairs[] = $pair;
+        $pairs[] = $newpair;
         // Test body.
-        $temp = new qtype_correctwriting_enum_analyzer('q',$pair,null,false);
+        $temp = new qtype_correctwriting_enum_analyzer('q',clone $pair,$lang,false);
         $this->assertEquals($pairs, $temp->result_pairs(), 'Error in work found!One LCS');
     }
 
@@ -914,248 +975,241 @@ class qtype_correctwriting_enum_analyzer_test extends PHPUnit_Framework_TestCase
         $lang = new block_formal_langs_language_simple_english;
         $string = 'Billy was like the other rich kids had nurse a , bicycle and or swimming , but he never played in the street ,';
         $string = $string.' did to poor people not talk .';
-        $corrected = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
+        $corrected = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
         // Expected result.
         $string = 'Billy was like the other rich kids had a nurse , bicycle and swimming pool , but he never played in the street';
         $string = $string.' , did not talk to poor people .';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
-        $enumdescription = array();
-        $enumdescription[] = array(new enum_element(8, 9), new enum_element(13, 14), new enum_element(11, 11));
-        $enumdescription[] = array(new enum_element(17, 22), new enum_element(24, 29));
-        $correct->enumerations = $enumdescription;
-        $pair = new qtype_correctwriting_string_pair($correct, $corrected, null);
-        $indexesintable = array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 14, 13, 11, 12, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26,
-                                27, 28, 29, 30);
-        $pair->set_indexes_in_table($indexesintable);
-        $pairs = array();
-        $pairs[] = $pair;
-        // Input data.
-        $string = 'Billy was like the other rich kids had a nurse , swimming pool and bicycle , but he never played in the street';
-        $string = $string.' , did not talk to poor people .';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
+        $enumcorrect = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
+        $enumdescription1 = array();
+        $enumdescription1[] = array(new enum_element(8, 9), new enum_element(13, 14), new enum_element(11, 11));
+        $enumdescription1[] = array(new enum_element(17, 22), new enum_element(24, 29));
         $enumdescription = array();
         $enumdescription[] = array(new enum_element(8, 9), new enum_element(11, 12), new enum_element(14, 14));
         $enumdescription[] = array(new enum_element(17, 22), new enum_element(24, 29));
-        $correct->enumerations = $enumdescription;
-        $pair = new qtype_correctwriting_string_pair($correct, $corrected, null);
-        // Test body.
-        $temp = new qtype_correctwriting_enum_analyzer('q',$pair,null,false);
-        $this->assertEquals($pairs, $temp->result_pairs(), 'Error in work found!Several LCS');
-    }
-
-    // Test for construct, same tokens in diffrent enumerations.
-    public function test__construct_same_tokens() {
-        $lang = new block_formal_langs_language_simple_english;
-        $string = 'Today I meet my friends : Sam , Dine and Sam , and my Sam , with their three friends : Sam , Carry and  Sam .';
-        $corrected = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
-        // Expected result.
-        $string = 'Today I meet my friends : Michel , Dine and Sam , and my neighbors , with their three children : Victoria ,';
-        $string = $string.' Carry and Sam .';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
-        $enumdescription = array();
-        $enumdescription[] = array(new enum_element(10, 10), new enum_element(8, 8), new enum_element(6, 6));
-        $enumdescription[] = array(new enum_element(3, 10), new enum_element(13, 25));
-        $enumdescription[] = array(new enum_element(21, 21), new enum_element(23, 23), new enum_element(25, 25));
-        $correct->enumerations = $enumdescription;
-        $pair = new qtype_correctwriting_string_pair($correct, $corrected, null);
-        $indexesintable = array(0, 1, 2, 3, 4, 5, 10, 7, 8, 9, 6, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26);
-        $pair->set_indexes_in_table($indexesintable);
-        $pairs = array();
-        $pairs[] = $pair;
-
-        $string = 'Today I meet my friends : Michel , Dine and Sam , and my neighbors , with their three children : Sam ,';
-        $string = $string.' Carry and Victoria .';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
-        $enumdescription = array();
-        $enumdescription[] = array(new enum_element(10, 10), new enum_element(8, 8), new enum_element(6, 6));
-        $enumdescription[] = array(new enum_element(3, 10), new enum_element(13, 25));
-        $enumdescription[] = array(new enum_element(25, 25), new enum_element(23, 23), new enum_element(21, 21));
-        $correct->enumerations = $enumdescription;
-        $pair = new qtype_correctwriting_string_pair($correct, $corrected, null);
-        $indexesintable = array(0, 1, 2, 3, 4, 5, 10, 7, 8, 9, 6, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 25, 22, 23, 24, 21, 26);
-        $pair->set_indexes_in_table($indexesintable);
-        $pairs[] = $pair;
-
-        $string = 'Today I meet my friends : Sam , Dine and Michel , and my neighbors , with their three children : Victoria ,';
-        $string = $string.' Carry and Sam .';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
-        $enumdescription = array();
-        $enumdescription[] = array(new enum_element(6, 6), new enum_element(8, 8), new enum_element(10, 10));
-        $enumdescription[] = array(new enum_element(3, 10), new enum_element(13, 25));
-        $enumdescription[] = array(new enum_element(21, 21), new enum_element(23, 23), new enum_element(25, 25));
-        $correct->enumerations = $enumdescription;
-        $pair = new qtype_correctwriting_string_pair($correct, $corrected, null);
-        $indexesintable = array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26);
-        $pair->set_indexes_in_table($indexesintable);
-        $pairs[] = $pair;
-
-        $string = 'Today I meet my friends : Sam , Dine and Michel , and my neighbors , with their three children : Sam ,';
-        $string = $string.' Carry and Victoria .';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
-        $enumdescription = array();
-        $enumdescription[] = array(new enum_element(6, 6), new enum_element(8, 8), new enum_element(10, 10));
-        $enumdescription[] = array(new enum_element(3, 10), new enum_element(13, 25));
-        $enumdescription[] = array(new enum_element(25, 25), new enum_element(23, 23), new enum_element(21, 21));
-        $correct->enumerations = $enumdescription;
-        $pair = new qtype_correctwriting_string_pair($correct, $corrected, null);
-        $indexesintable = array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 25, 22, 23, 24, 21, 26);
-        $pair->set_indexes_in_table($indexesintable);
-        $pairs[] = $pair;
+        //$enumcorrect->enumerations = $enumdescription1;
         // Input data.
-        $string = 'Today I meet my friends : Sam , Dine and Michel , and my neighbors , with their three children : Victoria ,';
-        $string = $string.' Carry and Sam .';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
-        $enumdescription = array();
-        $enumdescription[] = array(new enum_element(6, 6), new enum_element(8, 8), new enum_element(10, 10));
-        $enumdescription[] = array(new enum_element(3, 10), new enum_element(13, 25));
-        $enumdescription[] = array(new enum_element(21, 21), new enum_element(23, 23), new enum_element(25, 25));
-        $correct->enumerations = $enumdescription;
-        $pair = new qtype_correctwriting_string_pair($correct, $corrected, null);
+        $string = 'Billy was like the other rich kids had a nurse , swimming pool and bicycle , but he never played in the street';
+        $string = $string.' , did not talk to poor people .';
+        $correct = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
+
+        //$correct->enumerations = $enumdescription;
+        $pair = new qtype_correctwriting_string_pair(clone $correct, clone $corrected, null);
+        $pair->correctstring()->enumerations = $enumdescription;
+        $temp = new qtype_correctwriting_enum_analyzer('q',$pair,$lang,true);
+        $temp->fill_string_as_text_in_corrected_string($pair->correctedstring());
         // Test body.
-        $temp = new qtype_correctwriting_enum_analyzer('q',$pair,null,false);
-        $this->assertEquals($pairs, $temp->result_pairs(), 'Error in work found!Same tokens');
+        $temp = new qtype_correctwriting_enum_analyzer('q',$pair,$lang,false);
+        $newpair = new qtype_correctwriting_string_pair(clone $correct, clone $corrected, null);
+        $indexesintable = array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 14, 13, 11, 12, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26,
+            27, 28, 29, 30);
+        $newpair->set_enum_correct_to_correct($indexesintable);
+        $newpair->set_enum_correct_string($enumcorrect);
+        $newpair->correctstring()->enumerations = $enumdescription;
+        $newpair->enum_correct_string()->enumerations = $enumdescription1;
+        $temp->fill_string_as_text_in_corrected_string($newpair->correctedstring());
+        $newpair->correctstring()->stream = null;
+        $newpair->correctedstring()->stream = null;
+        $newpair->correctstring()->stream->tokens;
+        $newpair->correctedstring()->stream->tokens;
+        $pairs = array();
+        $pairs[] = $newpair;
+        $this->assertEquals($pairs, $temp->result_pairs(), 'Error in work found!Several LCS');
     }
 
     // Test for construct, gap of elements.
     public function test__construct_elements_gaps() {
         $lang = new block_formal_langs_language_simple_english;
+        // Input data.
         $string = 'Billy was like the other rich kids had nurse a , bicycle and or swimming , but he never played in the street ,';
         $string = $string.' did to poor people not talk .';
-        $corrected = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
+        $corrected = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
+        $string = 'Billy was like the other rich kids had a nurse , swimming pool and fast bicycle , but he never played in the';
+        $string = $string.' street , did not talk to poor people .';
+        $correct = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
+        $enumdescription = array();
+        $enumdescription[] = array(new enum_element(8, 9), new enum_element(11, 12), new enum_element(14, 15));
+        $enumdescription[] = array(new enum_element(18, 23), new enum_element(25, 30));
+        $pair = new qtype_correctwriting_string_pair(clone $correct, clone $corrected, null);
+        $pair->correctstring()->enumerations = $enumdescription;
+        $temp = new qtype_correctwriting_enum_analyzer('q',$pair,$lang,true);
+        $temp->fill_string_as_text_in_corrected_string($pair->correctedstring());
         // Expected result.
         $string = 'Billy was like the other rich kids had a nurse , fast bicycle and swimming pool , but he never played in the';
         $string = $string.' street , did not talk to poor people .';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
+        $newcorrect = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
         $enumdescription = array();
         $enumdescription[] = array(new enum_element(8, 9), new enum_element(14, 15), new enum_element(11, 12));
         $enumdescription[] = array(new enum_element(18, 23), new enum_element(25, 30));
         $correct->enumerations = $enumdescription;
-        $pair = new qtype_correctwriting_string_pair($correct, $corrected, null);
+        //$newpair = new qtype_correctwriting_string_pair(clone $correct, clone $corrected, null);
         $indexesintable = array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 14, 15, 13, 11, 12, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26,
                                 27, 28, 29, 30, 31);
-        $pair->set_indexes_in_table($indexesintable);
+        $newpair = clone $pair;
+        $newpair->set_enum_correct_to_correct($indexesintable);
+        $newpair->set_enum_correct_string($newcorrect);
+        $newpair->enum_correct_string()->enumerations = $enumdescription;
+        $temp->fill_string_as_text_in_corrected_string($newpair->correctedstring());
+        $newpair->correctstring()->stream = null;
+        $newpair->correctedstring()->stream = null;
+        $newpair->correctstring()->stream->tokens;
+        $newpair->correctedstring()->stream->tokens;
+        $pairs[] = $newpair;
         $pairs = array();
-        $pairs[] = $pair;
-        // Input data.
-        $string = 'Billy was like the other rich kids had a nurse , swimming pool and fast bicycle , but he never played in the';
-        $string = $string.' street , did not talk to poor people .';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
-        $enumdescription = array();
-        $enumdescription[] = array(new enum_element(8, 9), new enum_element(11, 12), new enum_element(14, 15));
-        $enumdescription[] = array(new enum_element(18, 23), new enum_element(25, 30));
-        $correct->enumerations = $enumdescription;
-        $pair = new qtype_correctwriting_string_pair($correct, $corrected, null);
+        $pairs[] = $newpair;
         // Test body.
-        $temp = new qtype_correctwriting_enum_analyzer('q',$pair,null,false);
+        $temp = new qtype_correctwriting_enum_analyzer('q',$pair,$lang,false);
         $this->assertEquals($pairs, $temp->result_pairs(), 'Error in work found!Gaps of elements');
     }
 
     // Test for construct, no lCS.
     public function test__construct_without_lcs() {
         $lang = new block_formal_langs_language_simple_english;
-        $string = 'Cat mouse walk in garden';
-        $corrected = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
-        // Expected result.
-        $pairs = array();
         // Input data.
         $string = 'Billy was like the other rich kids had a nurse , swimming pool and bicycle .';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
+        $correct = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
         $enumdescription = array();
         $enumdescription[] = array(new enum_element(8, 9), new enum_element(11, 12), new enum_element(14, 14));
-        $correct->enumerations = $enumdescription;
-        $pair = new qtype_correctwriting_string_pair($correct, $corrected, null);
+        $string = 'Cat mouse walk in garden';
+        $corrected = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
+        $pair = new qtype_correctwriting_string_pair( $correct, $corrected, null);
+        $pair->correctstring()->enumerations = $enumdescription;
+        $temp = new qtype_correctwriting_enum_analyzer('q',$pair,$lang,true);
+        $temp->fill_string_as_text_in_corrected_string($pair->correctedstring());
+        // Expected result.
+        $pairs = array();
+        $string = 'Billy was like the other rich kids had a nurse , swimming pool and bicycle .';
+        $newcorrect = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
+        $enumdescription = array();
+        $enumdescription[] = array(new enum_element(8, 9), new enum_element(11, 12), new enum_element(14, 14));
+        $newpair = clone $pair;
+        $indexesintable = array(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15);
+        $newpair->set_enum_correct_to_correct($indexesintable);
+        $newpair->set_enum_correct_string($newcorrect);
+        $newpair->enum_correct_string()->enumerations = $enumdescription;
+        $temp->fill_string_as_text_in_corrected_string($newpair->correctedstring());
+        $newpair->correctstring()->stream = null;
+        $newpair->correctedstring()->stream = null;
+        $newpair->correctstring()->stream->tokens;
+        $newpair->correctedstring()->stream->tokens;
+        $pairs[] = $newpair;
         // Test body.
-        $temp = new qtype_correctwriting_enum_analyzer('q',$pair,null,false);
+        $temp = new qtype_correctwriting_enum_analyzer('q',$pair,$lang,false);
         $this->assertEquals($pairs, $temp->result_pairs(), 'Error in work found!No LCS');
     }
 
     // Test for construct, some include enumeration tokens in wrong order, that take must to keep elements completely.
     public function test__construct_enum_include_some_tokens_wrong_order() {
         $lang = new block_formal_langs_language_simple_english;
-        $string = '( b - t ) * ( с / e ) + a . q';
-        $corrected = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
-        // Expected result.
-        $string = '( c - t ) * ( b / e ) + a . q ';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
-        $enumdescription = array();
-        $enumdescription[] = array(new enum_element(12, 14), new enum_element(0, 10));
-        $enumdescription[] = array(new enum_element(6, 10), new enum_element(0, 4));
-        $correct->enumerations = $enumdescription;
-        $pair = new qtype_correctwriting_string_pair($correct, $corrected, null);
-        $indexesintable = array(10, 11, 12, 13, 14, 9, 4, 5, 6, 7, 8, 3, 0, 1, 2);
-        $pair->set_indexes_in_table($indexesintable);
-        $pairs = array();
-        $pairs[] = $pair;
         // Input data.
         $string = 'a . q + ( b / e ) * ( c - t )';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
+        $correct = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
         $enumdescription = array();
         $enumdescription[] = array(new enum_element(0, 2), new enum_element(4, 14));
         $enumdescription[] = array(new enum_element(4, 8), new enum_element(10, 14));
-        $correct->enumerations = $enumdescription;
+        $string = '( b - t ) * ( с / e ) + a . q';
+        $corrected = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
         $pair = new qtype_correctwriting_string_pair($correct, $corrected, null);
+        $pair->correctstring()->enumerations = $enumdescription;
+        $temp = new qtype_correctwriting_enum_analyzer('q',$pair,$lang,true);
+        $temp->fill_string_as_text_in_corrected_string($pair->correctedstring());
+        // Expected result.
+        $string = '( c - t ) * ( b / e ) + a . q ';
+        $newcorrect = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
+        $enumdescription = array();
+        $enumdescription[] = array(new enum_element(12, 14), new enum_element(0, 10));
+        $enumdescription[] = array(new enum_element(6, 10), new enum_element(0, 4));
+        $newpair = clone $pair;
+        $indexesintable = array(10, 11, 12, 13, 14, 9, 4, 5, 6, 7, 8, 3, 0, 1, 2);
+        $newpair->set_enum_correct_to_correct($indexesintable);
+        $newpair->set_enum_correct_string($newcorrect);
+        $newpair->enum_correct_string()->enumerations = $enumdescription;
+        $temp->fill_string_as_text_in_corrected_string($newpair->correctedstring());
+        $newpair->correctstring()->stream = null;
+        $newpair->correctedstring()->stream = null;
+        $newpair->correctstring()->stream->tokens;
+        $newpair->correctedstring()->stream->tokens;
+
+        $pairs = array();
+        $pairs[] = $newpair;
         // Test body.
-        $temp = new qtype_correctwriting_enum_analyzer('q',$pair,null,false);
+        $temp = new qtype_correctwriting_enum_analyzer('q',$pair,$lang,false);
         $this->assertEquals($pairs, $temp->result_pairs(), 'Error in work found!Include enumeration tokens wrong order');
     }
 
     // Test for construct, some include enumeration tokens are missed, that take must to keep elements completely.
     public function test__construct_enums_include_some_tokens_missed() {
         $lang = new block_formal_langs_language_simple_english;
-        $string = 't - ) * ( / e ) + a .';
-        $corrected = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
-        // Expected result.
-        $string = '( c - t ) * ( b / e ) + a . q ';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
-        $enumdescription = array();
-        $enumdescription[] = array(new enum_element(12, 14), new enum_element(0, 10));
-        $enumdescription[] = array(new enum_element(6, 10), new enum_element(0, 4));
-        $correct->enumerations = $enumdescription;
-        $pair = new qtype_correctwriting_string_pair($correct, $corrected, null);
-        $indexesintable = array(10, 11, 12, 13, 14, 9, 4, 5, 6, 7, 8, 3, 0, 1, 2);
-        $pair->set_indexes_in_table($indexesintable);
-        $pairs = array();
-        $pairs[] = $pair;
         // Input data.
         $string = 'a . q + ( b / e ) * ( c - t )';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
+        $correct = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
         $enumdescription = array();
         $enumdescription[] = array(new enum_element(0, 2), new enum_element(4, 14));
         $enumdescription[] = array(new enum_element(4, 8), new enum_element(10, 14));
-        $correct->enumerations = $enumdescription;
-        $pair = new qtype_correctwriting_string_pair($correct, $corrected, null);
+        $string = 't - ) * ( / e ) + a .';
+        $corrected = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
+        $pair = new qtype_correctwriting_string_pair(clone $correct, clone $corrected, null);
+        $pair->correctstring()->enumerations = $enumdescription;
+        $temp = new qtype_correctwriting_enum_analyzer('q',$pair,$lang,true);
+        $temp->fill_string_as_text_in_corrected_string($pair->correctedstring());
+        // Expected result.
+        $string = '( c - t ) * ( b / e ) + a . q ';
+        $newcorrect = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
+        $enumdescription = array();
+        $enumdescription[] = array(new enum_element(12, 14), new enum_element(0, 10));
+        $enumdescription[] = array(new enum_element(6, 10), new enum_element(0, 4));
+        $newpair = clone $pair;
+        $indexesintable = array(10, 11, 12, 13, 14, 9, 4, 5, 6, 7, 8, 3, 0, 1, 2);
+        $newpair->set_enum_correct_to_correct($indexesintable);
+        $newpair->set_enum_correct_string($newcorrect);
+        $newpair->enum_correct_string()->enumerations = $enumdescription;
+        $temp->fill_string_as_text_in_corrected_string($newpair->correctedstring());
+        $newpair->correctstring()->stream = null;
+        $newpair->correctedstring()->stream = null;
+        $newpair->correctstring()->stream->tokens;
+        $newpair->correctedstring()->stream->tokens;
+        $pairs = array();
+        $pairs[] = $newpair;
         // Test body.
-        $temp = new qtype_correctwriting_enum_analyzer('q',$pair,null,false);
+        $temp = new qtype_correctwriting_enum_analyzer('q',$pair,$lang,false);
         $this->assertEquals($pairs, $temp->result_pairs(), 'Error in work found!Include enumeration some tokens are missed');
     }
 
     // Test for construct, include enumeration tokens in wrong order, that take must to keep elements completely.
     public function test__construct_enum_include_tokens_wrong_order() {
         $lang = new block_formal_langs_language_simple_english;
-        $string = '( / e b ) * c t - ) + a . q';
-        $corrected = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
-        // Expected result.
-        $string = '( b / e ) * ( c - t ) + a . q ';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
-        $enumdescription = array();
-        $enumdescription[] = array(new enum_element(12, 14), new enum_element(0, 10));
-        $enumdescription[] = array(new enum_element(0, 4), new enum_element(6, 10));
-        $correct->enumerations = $enumdescription;
-        $pair = new qtype_correctwriting_string_pair($correct, $corrected, null);
-        $indexesintable = array(4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 3, 0, 1, 2);
-        $pair->set_indexes_in_table($indexesintable);
-        $pairs = array();
-        $pairs[] = $pair;
         // Input data.
         $string = 'a . q + ( b / e ) * ( c - t )';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
+        $correct = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
         $enumdescription = array();
         $enumdescription[] = array(new enum_element(0, 2), new enum_element(4, 14));
         $enumdescription[] = array(new enum_element(4, 8), new enum_element(10, 14));
-        $correct->enumerations = $enumdescription;
+        $string = '( / e b ) * c t - ) + a . q';
+        $corrected = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
         $pair = new qtype_correctwriting_string_pair($correct, $corrected, null);
+        $pair->correctstring()->enumerations = $enumdescription;
+        $temp = new qtype_correctwriting_enum_analyzer('q',$pair,$lang,true);
+        $temp->fill_string_as_text_in_corrected_string($pair->correctedstring());
+
+        // Expected result.
+        $string = '( b / e ) * ( c - t ) + a . q ';
+        $newcorrect = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
+        $enumdescription = array();
+        $enumdescription[] = array(new enum_element(12, 14), new enum_element(0, 10));
+        $enumdescription[] = array(new enum_element(0, 4), new enum_element(6, 10));
+        $newpair = clone $pair;
+        $indexesintable = array(4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 3, 0, 1, 2);
+        $newpair->set_enum_correct_to_correct($indexesintable);
+        $newpair->set_enum_correct_string($newcorrect);
+        $newpair->enum_correct_string()->enumerations = $enumdescription;
+        $temp->fill_string_as_text_in_corrected_string($newpair->correctedstring());
+        $newpair->correctstring()->stream = null;
+        $newpair->correctedstring()->stream = null;
+        $newpair->correctstring()->stream->tokens;
+        $newpair->correctedstring()->stream->tokens;
+        $pairs = array();
+        $pairs[] = $newpair;
         // Test body.
-        $temp = new qtype_correctwriting_enum_analyzer('q',$pair,null,false);
+        $temp = new qtype_correctwriting_enum_analyzer('q',$pair,$lang,false);
         $this->assertEquals($pairs, $temp->result_pairs(), 'Error in work found!Include enumeration some tokens are missed');
     }
 
@@ -1163,154 +1217,118 @@ class qtype_correctwriting_enum_analyzer_test extends PHPUnit_Framework_TestCase
     public function test__construct_enum_tokens_wrong_order_one_lcs() {
         $lang = new block_formal_langs_language_simple_english;
         $string = '( a / e ( b t c - ) + . q';
-        $corrected = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
+        $corrected = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
+        // Input data.
+        $string = 'a . q + ( b / e ) % ( c - t )';
+        $correct = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
+        $enumdescription = array();
+        $enumdescription[] = array(new enum_element(0, 2), new enum_element(4, 14));
+        $pair = new qtype_correctwriting_string_pair($correct, $corrected, null);
+        $pair->correctstring()->enumerations = $enumdescription;
+        $temp = new qtype_correctwriting_enum_analyzer('q',$pair,$lang,true);
+        $temp->fill_string_as_text_in_corrected_string($pair->correctedstring());
         // Expected result.
         $string = '( b / e ) % ( c - t ) + a . q ';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
+        $newcorrect = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
         $enumdescription = array();
         $enumdescription[] = array(new enum_element(12, 14), new enum_element(0, 10));
         $correct->enumerations = $enumdescription;
-        $pair = new qtype_correctwriting_string_pair($correct, $corrected, null);
+        $newpair = clone $pair;
         $indexesintable = array(4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 3, 0, 1, 2);
-        $pair->set_indexes_in_table($indexesintable);
+        $newpair->set_enum_correct_to_correct($indexesintable);
+        $newpair->set_enum_correct_string($newcorrect);
+        $newpair->enum_correct_string()->enumerations = $enumdescription;
+        $temp->fill_string_as_text_in_corrected_string($newpair->correctedstring());
+        $newpair->correctstring()->stream = null;
+        $newpair->correctedstring()->stream = null;
+        $newpair->correctstring()->stream->tokens;
+        $newpair->correctedstring()->stream->tokens;
         $pairs = array();
-        $pairs[] = $pair;
-        // Input data.
-        $string = 'a . q + ( b / e ) % ( c - t )';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
-        $enumdescription = array();
-        $enumdescription[] = array(new enum_element(0, 2), new enum_element(4, 14));
-        $correct->enumerations = $enumdescription;
-        $pair = new qtype_correctwriting_string_pair($correct, $corrected, null);
+        $pairs[] = $newpair;
         // Test body.
-        $temp = new qtype_correctwriting_enum_analyzer('q',$pair,null,false);
+        $temp = new qtype_correctwriting_enum_analyzer('q',$pair,$lang,false);
         $this->assertEquals($pairs, $temp->result_pairs(), 'Error in work found!Enumeration tokens in wrong order. One LCS');
     }
 
     // Test for construct, enumeration tokens in wrong order, that take must to keep elements completely.Some LCS.
     public function test__construct_enum_tokens_wrong_order_some_lcs() {
         $lang = new block_formal_langs_language_simple_english;
-        $string = 'e * q b / . ) + ( t ) a -c (';
-        $corrected = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
-        // Expected result.
-        $string = '( b / e ) % ( c - t ) + a . q ';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
-        $enumdescription = array();
-        $enumdescription[] = array(new enum_element(12, 14), new enum_element(0, 10));
-        $correct->enumerations = $enumdescription;
-        $pair = new qtype_correctwriting_string_pair($correct, $corrected, null);
-        $indexesintable = array(4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 3, 0, 1, 2);
-        $pair->set_indexes_in_table($indexesintable);
-        $pairs[] = $pair;
         // Input data.
         $string = 'a . q + ( b / e ) % ( c - t ) ';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
+        $correct = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
         $enumdescription = array();
         $enumdescription[] = array(new enum_element(0, 2), new enum_element(4, 14));
-        $correct->enumerations = $enumdescription;
+        $string = 'e * q b / . ) + ( t ) a -c (';
+        $corrected = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
         $pair = new qtype_correctwriting_string_pair($correct, $corrected, null);
-        $pairs[] = $pair;
-        // Test body.
-        $temp = new qtype_correctwriting_enum_analyzer('q',$pair,null,false);
-        $this->assertEquals($pairs, $temp->result_pairs(), 'Error in work found!Enumeration tokens in wrong order. Some LCS');
-    }
-
-    // Test for construct, six enumerations.
-    public function test__construct_six_enums() {
-        $lang = new block_formal_langs_language_simple_english;
-        $string = 'int q = z * w * r + j + h , p = * f * d + b + e * r * z ;';
-        $corrected = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
+        $pair->correctstring()->enumerations = $enumdescription;
+        $temp = new qtype_correctwriting_enum_analyzer('q',$pair,$lang,true);
+        $temp->fill_string_as_text_in_corrected_string($pair->correctedstring());
+        $newpair1 = clone $pair;
+        $indexesintable = array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14);
+        $newpair1->set_enum_correct_to_correct($indexesintable);
+        $newpair1->set_enum_correct_string(clone $pair->correctstring());
+        $temp->fill_string_as_text_in_corrected_string($newpair1->correctedstring());
+        //$newpair1->enum_correct_string()->enumerations = $enumdescription;
+        $newpair1->correctstring()->stream = null;
+        $newpair1->correctedstring()->stream = null;
+        $newpair1->correctstring()->stream->tokens;
+        $newpair1->correctedstring()->stream->tokens;
         // Expected result.
-        $string = 'int p = t * w * r + j + h , a = c * f * d + b + e * k * z ;';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
+        $string = '( b / e ) % ( c - t ) + a . q ';
+        $newcorrect = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
         $enumdescription = array();
-        $enumdescription[] = array(new enum_element(13, 27), new enum_element(1, 11));
-        $enumdescription[] = array(new enum_element(21, 21), new enum_element(15, 19), new enum_element(23, 27));
-        $enumdescription[] = array(new enum_element(9, 9), new enum_element(11, 11), new enum_element(3, 7));
-        $enumdescription[] = array(new enum_element(15, 15), new enum_element(19, 19), new enum_element(17, 17));
-        $enumdescription[] = array(new enum_element(3, 3), new enum_element(7, 7), new enum_element(5, 5));
-        $enumdescription[] = array(new enum_element(25, 25), new enum_element(27, 27), new enum_element(23, 23));
-        $correct->enumerations = $enumdescription;
-        $pair = new qtype_correctwriting_string_pair($correct, $corrected, null);
-        $indexesintable = array(0, 17, 18, 23, 24, 27, 26, 25, 20, 19, 22, 21, 16, 1, 2, 5, 6, 9, 8, 7, 4, 3, 10, 15, 12, 11, 14,
-                                13, 28);
-        $pair->set_indexes_in_table($indexesintable);
-        $pairs = array();
-        $pairs[] = $pair;
-        // Input data.
-        $string = 'int a = b + c * d * f + k * z * e , p = j + h + t * r * w ;';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
-        $enumdescription = array();
-        $enumdescription[] = array(new enum_element(1, 15), new enum_element(17, 27));
-        $enumdescription[] = array(new enum_element(3, 3), new enum_element(5, 9), new enum_element(11, 15));
-        $enumdescription[] = array(new enum_element(19, 19), new enum_element(21, 21), new enum_element(23, 27));
-        $enumdescription[] = array(new enum_element(5, 5), new enum_element(7, 7), new enum_element(9, 9));
-        $enumdescription[] = array(new enum_element(23, 23), new enum_element(25, 25), new enum_element(27, 27));
-        $enumdescription[] = array(new enum_element(11, 11), new enum_element(13, 13), new enum_element(15, 15));
-        $correct->enumerations = $enumdescription;
-        $pair = new qtype_correctwriting_string_pair($correct, $corrected, null);
+        $enumdescription[] = array(new enum_element(12, 14), new enum_element(0, 10));
+        $newpair = clone $pair;
+        $indexesintable = array(4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 3, 0, 1, 2);
+        $newpair->set_enum_correct_to_correct($indexesintable);
+        $temp->fill_string_as_text_in_corrected_string($newpair->correctedstring());
+        $newpair->set_enum_correct_string($newcorrect);
+        $newpair->enum_correct_string()->enumerations = $enumdescription;
+        $newpair->correctstring()->stream = null;
+        $newpair->correctedstring()->stream = null;
+        $newpair->correctstring()->stream->tokens;
+        $newpair->correctedstring()->stream->tokens;
+        $pairs[] = $newpair;
+        $pairs[] = $newpair1;
         // Test body.
-        $temp = new qtype_correctwriting_enum_analyzer('q',$pair,null,false);
-        $this->assertEquals($pairs, $temp->result_pairs(), 'Error in work found!Six enumerations');
+        $temp = new qtype_correctwriting_enum_analyzer('q',$pair,$lang,false);
+        $this->assertEquals($pairs, $temp->result_pairs(), 'Error in work found!Enumeration tokens in wrong order. Some LCS');
     }
 
     // Test for construct, enumeration elements are missed.
     public function test__construct_enum_elems_are_missed() {
         $lang = new block_formal_langs_language_simple_english;
-        $string = 'Billy was like the other rich kids had bicycle , nurse and .';
-        $corrected = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
-        // Expected result.
-        $string = 'Billy was like the other rich kids had bicycle , a nurse and swimming pool .';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
-        $enumdescription = array();
-        $enumdescription[] = array(new enum_element(10, 11), new enum_element(13, 14), new enum_element(8, 8));
-        $correct->enumerations = $enumdescription;
-        $pair = new qtype_correctwriting_string_pair($correct, $corrected, null);
-        $indexesintable = array(0, 1, 2, 3, 4, 5, 6, 7, 14, 10, 8, 9, 13, 11, 12, 15);
-        $pair->set_indexes_in_table($indexesintable);
-        $pairs = array();
-        $pairs[] = $pair;
         // Input data.
+        $string = 'Billy was like the other rich kids had bicycle , nurse and .';
+        $corrected = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
         $string = 'Billy was like the other rich kids had a nurse , swimming pool and bicycle .';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
+        $correct = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
         $enumdescription = array();
         $enumdescription[] = array(new enum_element(8, 9), new enum_element(11, 12), new enum_element(14, 14));
-        $correct->enumerations = $enumdescription;
-        $pair = new qtype_correctwriting_string_pair($correct, $corrected, null);
-        // Test body.
-        $temp = new qtype_correctwriting_enum_analyzer('q',$pair,null,false);
-        $this->assertEquals($pairs, $temp->result_pairs(), 'Error in work found!Enumeration elements are missed');
-    }
-
-	/**
-	 *  Test for all fuctions. 
-	 *  Max count of analyze orders 0.
-	 */
-    public function test_analyze_zero_orders_count() {
-		global $CFG;
-        $lang = new block_formal_langs_language_simple_english;
-        $string = 'Billy was like the other rich kids had bicycle , nurse and .';
-        $corrected = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
+        $pair = new qtype_correctwriting_string_pair(clone $correct, clone $corrected, null);
+        $pair->correctstring()->enumerations = $enumdescription;
+        $temp = new qtype_correctwriting_enum_analyzer('q',$pair,$lang,true);
+        $temp->fill_string_as_text_in_corrected_string($pair->correctedstring());
         // Expected result.
         $string = 'Billy was like the other rich kids had bicycle , a nurse and swimming pool .';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
+        $newcorrect = $lang->create_from_string(new qtype_poasquestion\utf8_string($string), 'qtype_correctwriting_processed_string');
         $enumdescription = array();
         $enumdescription[] = array(new enum_element(10, 11), new enum_element(13, 14), new enum_element(8, 8));
-        $correct->enumerations = $enumdescription;
-        $pair = new qtype_correctwriting_string_pair($correct, $corrected, null);
+        $newpair = clone $pair;
+        $temp->fill_string_as_text_in_corrected_string($newpair->correctedstring());
         $indexesintable = array(0, 1, 2, 3, 4, 5, 6, 7, 14, 10, 8, 9, 13, 11, 12, 15);
-        $pair->set_indexes_in_table($indexesintable);
+        $newpair->set_enum_correct_to_correct($indexesintable);
+        $newpair->set_enum_correct_string($newcorrect);
+        $newpair->enum_correct_string()->enumerations = $enumdescription;
+        $newpair->correctstring()->stream = null;
+        $newpair->correctedstring()->stream = null;
+        $newpair->correctstring()->stream->tokens;
+        $newpair->correctedstring()->stream->tokens;
         $pairs = array();
-        // Input data.
-        $string = 'Billy was like the other rich kids had a nurse , swimming pool and bicycle .';
-        $correct = $lang->create_from_string(new qtype_poasquestion_string($string), 'qtype_correctwriting_proccesedstring');
-        $enumdescription = array();
-        $enumdescription[] = array(new enum_element(8, 9), new enum_element(11, 12), new enum_element(14, 14));
-        $correct->enumerations = $enumdescription;
-        $pair = new qtype_correctwriting_string_pair($correct, $corrected, null);
-		$CFG->qtype_correctwriting_maxorderscount = 0;
+        $pairs[] = $newpair;
         // Test body.
-        $temp = new qtype_correctwriting_enum_analyzer('q',$pair,null,false);
+        $temp = new qtype_correctwriting_enum_analyzer('q',$pair,$lang,false);
         $this->assertEquals($pairs, $temp->result_pairs(), 'Error in work found!Enumeration elements are missed');
     }
 }

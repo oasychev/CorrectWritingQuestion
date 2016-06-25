@@ -88,6 +88,28 @@ class qtype_correctwriting extends qtype_shortanswer implements qtype_correctwri
 
         return $result;
     }
+
+    /**
+     * Returns true if extra answer fields for answer with the $key is empty
+     * in the question data and should not be saved in DB.
+     *
+     * Questions where extra answer fields are optional will want to overload this.
+     * @param object $questiondata This holds the information from the question editing form or import.
+     * @param int $key A key of the answer in question.
+     * @return bool True if extra answer data shouldn't be saved in DB.
+     */
+    protected function is_extra_answer_fields_empty($questiondata, $key) {
+        return !isset($questiondata->enumerations) || trim($questiondata->enumerations[$key]) == '';
+    }
+
+    /**
+     * A special fields for support of enumerations
+     * @return array
+     */
+    public function extra_answer_fields() {
+        return array ('qtype_correctwriting_enums', 'enumerations');
+    }
+
     /** Returns a name of foreign key columns for question type
         @return string name of foreign key, that points to question table
      */

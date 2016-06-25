@@ -156,6 +156,11 @@ class qtype_correctwriting_question extends question_graded_automatically
      */
     public $matchedgradestate = null;
 
+    /**
+        * A stored enumerations for question
+        * @var array
+    */
+    public $enumerations = array();
     // Returns expected data from form
     public function get_expected_data() {
         return array('answer' => PARAM_RAW_TRIMMED);

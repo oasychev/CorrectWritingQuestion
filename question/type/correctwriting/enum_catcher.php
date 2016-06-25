@@ -28,7 +28,7 @@ class qtype_correctwriting_enum_catcher {
      */
     public function __construct($tree) {
         $this->enums = array();
-        $empty = []; // Array of empty enumeration keys.
+        $empty = array(); // Array of empty enumeration keys.
         // Find enumeration on 2 levels statement and expression.
         $this->find_stmt($tree);
         $this->find_enum_decl($tree);
@@ -62,7 +62,7 @@ class qtype_correctwriting_enum_catcher {
         // if variable declaration find, parse it,
         // else search it in childs of current node.
         if (!is_array($node) && $node->type()== "variable_declaration" && 
-            $node->childs()[1]->type() == "lvalue_or_assignment_list") {
+            $node->childs()[1]->type() == "definition_list") {
             $this->parse_var_decl($node->childs()[1], count($this->enums));
         } else {
             // get childs of current node
@@ -95,15 +95,13 @@ class qtype_correctwriting_enum_catcher {
         // if node has childs
         if ($childs != null) {
             foreach($childs as $value) {
-                if ($value->type() == "lvalue_or_assignment_list") {
-                    $this->parse_var_decl($value,$enum_number);
-                } else if ($value->type() != "comma") {
+                if ($value->type() != "comma") {
                     if (!in_array($enum_number, $this->enums)) {
                         $enum_number = $enum_number == -1 ? count($enums):$enum_number;
-                        $this->enums[] = [];
+                        $this->enums[] = array();
                     }
                     $position = $this->get_element_position($value);
-                    $this->enums[$enum_number][] = [reset($position),end($position)];
+                    $this->enums[$enum_number][] = array(reset($position),end($position));
                 } 
             }
         }
@@ -115,6 +113,7 @@ class qtype_correctwriting_enum_catcher {
      */
     protected function find_struct_decl($node) {
         $childs = NULL;
+        $bodies = array("struct_body","union_body","class_body","function_body");
         // get childs of current node
         if(is_array($node))
             $childs = $node;
@@ -123,8 +122,9 @@ class qtype_correctwriting_enum_catcher {
         // if node has childs
         if($childs != null) {
             foreach ($childs as $key => $value) {
-                if ($value->type() == "structure_body") {
+                if (in_array($value->type(), $bodies)) {
                     $this->analyze_struct($value);
+                    $this->find_stmt($value);
                 } else {
                     $this->find_struct_decl($value);
                 }
@@ -137,12 +137,72 @@ class qtype_correctwriting_enum_catcher {
      * @param $node - node of syntax tree for correct answer.
      */
     protected function analyze_struct($node) {
-        $types = ["stmt_or_visibility_spec_list"];
-        foreach($types as $type) {
-            $this->find_enumeration_by_operator_type($node, $type, -1);
+        $types = array("variable_declaration","struct_definition","union_definition","class_definition","function_definition");
+        $this->find_enumeration_in_childs($node, $types, -1);
+    }
+    /**
+     * Find enumerations in elements struct/unin/struct body
+     * @param $node - node of syntax tree for correct answer.
+     */
+    protected function find_enumeration_in_childs($node, $types, $enum_number) {
+        // if current node is not array, analyze it
+        // else analyze its elements.
+        if (!is_array($node)) {
+            // get childs of current node.
+            $childs = $node->childs();
+            // if current node is searching operator its analyze childs
+            // else if current node has childs, append in enumeration as element and search 
+            // enumerations in they, else if enumeration is already find append element in it
+            if (in_array($node->type(), $types)) {
+                if(!in_array($enum_number, $this->enums)) {
+                    $enum_number = $enum_number == -1 ? count($this->enums):$enum_number;
+                    $this->enums[] = array();
+                }
+                $pos = $this->get_element_position($node);
+                $this->enums[$enum_number][] = array(reset($pos), end($pos));
+            } else if (is_array($childs)){
+                $need = false;
+                foreach($childs as $value) {
+                    $need = in_array($value->type(), $types) || $need;
+                }
+                if ($need) {
+                    if(!in_array($enum_number, array_keys($this->enums))) {
+                        $enum_number = $enum_number == -1 ? count($this->enums):$enum_number;
+                        $this->enums[] = array();
+                    }
+                }
+                $positions = array(0);
+                foreach($childs as $key=>$value) {
+                    $enum_number = $value->type() == "visibility_specifier" ?  count($this->enums): $enum_number;
+                    $this->find_enumeration_in_childs($value,$types, $need?$enum_number:-1);
+                    if ($value->type() == "visibility_specifier") {
+                        $positions[] = $key;
+                    }
+                }
+                $positions[] = count($childs) - 1;
+                $positions = array_unique($positions);
+                if (count($positions) > 2 ) {
+                    $enum_number = count($this->enums);
+                    $this->enums[] = array();
+                    $element = array();
+                    foreach ($positions as $key => $value) {
+                        $position = $this->get_element_position($childs[$value]);
+                        if (count($element) != 0) {
+                                $element[] = ($key == (count($positions) -1)) ? (reset($position) - 1) : end($position);
+                                $this->enums[$enum_number][] = $element;
+                                $element = array();
+                        }
+                        $element[] = reset($position);
+                        
+                    }
+                }
+            }
+        } else {
+            foreach($node as $value) {
+                $this->find_enumeration_in_childs($value,$types,-1);
+            }
         }
     }
-
     /**
      * Search enumeration declaration in given node.
      * @param object $node of syntax tree for correct answer.
@@ -161,7 +221,7 @@ class qtype_correctwriting_enum_catcher {
         if($childs != null)
             // find enum keyword and enumeration body and update enumeration array.
             foreach ($childs as $key => $value) {
-                if ($value->type() == "enum_definition_start" && $value->childs()[0]->value() == "enum") {
+                if ($value->type() == "enum_header" && $value->childs()[0]->value() == "enum") {
                     $enumword = true;
                     $excluded_keys[] = $key;
                 } else if ($enumword && $value->type() == "enum_body") {
@@ -170,7 +230,6 @@ class qtype_correctwriting_enum_catcher {
                     $this->analyze_enum($value);
                 }
             }
-
         //if enumeration not find, analize node for others enumeration rules
         if(!($enumbody&&$enumword) && $childs != null) {
             foreach ($childs as $key => $value) {
@@ -197,10 +256,9 @@ class qtype_correctwriting_enum_catcher {
             // else if current node has childs, append in enumeration as element and search 
             // enumerations in they, else if enumeration is already find append element in it
             if ($node->type() == $type) {
-
                 if(!in_array($enum_number, $this->enums)) {
                     $enum_number = $enum_number == -1 ? count($this->enums):$enum_number;
-                    $this->enums[] = [];
+                    $this->enums[] = array();
                 }
                 $this->find_enumeration_by_operator_type(reset($childs), $type, $enum_number);
                 $this->find_enumeration_by_operator_type(end($childs), $type, $enum_number);
@@ -214,7 +272,7 @@ class qtype_correctwriting_enum_catcher {
                 }
             } else if ($enum_number != -1) {
                 $pos = $this->get_element_position($node);
-                $this->enums[$enum_number][] = [reset($pos), end($pos)];
+                $this->enums[$enum_number][] = array(reset($pos), end($pos));
             }
         } else {
             foreach($node as $value) {
@@ -228,7 +286,7 @@ class qtype_correctwriting_enum_catcher {
      * @param object $node of syntax tree for correct answer.
      */
     protected function find_logic_expr($node) {
-        $types = ["expr_logical_or","expr_logical_and","expr_equal","expr_notequal"];
+        $types = array("expr_logical_or","expr_logical_and","expr_equal","expr_notequal");
         foreach($types as $type) {
             $this->find_enumeration_by_operator_type($node,$type,-1);
         }
@@ -239,7 +297,7 @@ class qtype_correctwriting_enum_catcher {
      * @param object $node of syntax tree for correct answer.
      */
     protected function find_assign_expr($node) {
-        $types = ["expr_assign"];
+        $types = array("expr_assign");
         $count = count($this->enums);
         foreach ($types as $type) {
             $this->find_enumeration_by_operator_type($node,$type,-1);
@@ -264,7 +322,7 @@ class qtype_correctwriting_enum_catcher {
      * @param object $node of syntax tree for correct answer.
      */
     protected function find_positive_math_expr($node) {
-        $types = ["expr_plus","expr_multiply"];
+        $types = array("expr_plus","expr_multiply");
         foreach($types as $type) {
             $this->find_enumeration_by_operator_type($node,$type,-1);
         }
@@ -275,7 +333,7 @@ class qtype_correctwriting_enum_catcher {
      * @param object $node of syntax tree for correct answer.
      */
     protected function find_negative_math_expr($node) {
-        $types = ["expr_minus","expr_division","expr_modulosign"];
+        $types = array("expr_minus","expr_division","expr_modulosign");
         $count = count($this->enums);
         foreach ($types as $type) {
             $this->find_enumeration_by_operator_type($node,$type,-1);
@@ -300,7 +358,7 @@ class qtype_correctwriting_enum_catcher {
      * @param object $node of syntax tree for correct answer.
      */
     protected function find_bit_expr($node) {
-        $types = ["expr_binary_or","expr_binary_and","expr_binary_xor"];
+        $types = array("expr_binary_or","expr_binary_and","expr_binary_xor");
         foreach($types as $type) {
             $this->find_enumeration_by_operator_type($node,$type,-1);
         }
@@ -346,7 +404,8 @@ class qtype_correctwriting_enum_catcher {
     protected function find_stmt($node) {
         $childs = null;// childs of current node.
         $is_find = false;// boolean value show find stmt node or no.
-
+        $definitions = array("struct_definition","union_definition","class_definition","function_definition");
+        $statements = array("stmt","variable_declaration","expression_statement");
         //Get childs of current node and search stmt in it.
         if(is_array($node))
             $childs = $node;
@@ -354,11 +413,12 @@ class qtype_correctwriting_enum_catcher {
         {
             // if current node stmt? analaze it,
             // else get childs
-            if ($node != NULL && $node->type() == "stmt") {
+            if ($node != NULL && in_array($node->type(),$statements)) {
                 $this->analyze_stmt($node);
                 $is_find = true;
-            } else if ( $node != NULL && $node->type() == "class_or_union_or_struct") {
+            } else if ( $node != NULL && in_array($node->type(), $definitions)) {
                 $this->find_struct_decl($node);
+                
             } else if ($node != NULL) {
                 $childs = $node->childs();
             }
@@ -426,14 +486,14 @@ class qtype_correctwriting_enum_catcher {
                 // else append token position to array
                 if ($value->type() == "enum_value") {
                     $enum_elem = $this->get_element_position($value);
-                    $enum[] = [reset($enum_elem),end($enum_elem)];
+                    $enum[] = array(reset($enum_elem),end($enum_elem));
                     $enum_elem = array();
                 }
             }
         }
         // append element to enumeration if it exist.
         if (count($enum_elem)!=0) {
-            $enum[] = [reset($enum_elem),end($enum_elem)];
+            $enum[] = array(reset($enum_elem),end($enum_elem));
             $enum_elem = array();
         }
     }

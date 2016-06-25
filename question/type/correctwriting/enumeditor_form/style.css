@@ -1,0 +1,66 @@
+@font-face{
+    font-family: ptmono;
+    src: url(./PTM55FT.ttf);
+}
+.vline {
+    width: 3px;
+    position: absolute;
+    height: 15px;
+    cursor: wait;
+}
+
+.gline {
+    width: 10px;
+    position: absolute;
+    height: 3px;
+}
+
+.show {
+    font-family: ptmono, monospace;
+    display: inline-block;
+    resize: none;
+    line-height: 50px;
+    font-size: 30px;
+    white-space: nowrap;
+}
+
+.img {
+    cursor: ew-resize;
+}
+.text {
+    width: 50em;
+}
+.setting {
+    background: url("/theme/image.php/clean/core/1410350174/t/block");
+}
+
+.black-color {
+  background: "#000000";
+}
+.green-color {
+  background: "#00FF66";
+}
+.blue-color {
+  background: "#336699";
+}
+.red-color {
+  background: "#990000";
+}
+.pink-color {
+  background: "#CC3366";
+}
+.yellow-color {
+  background: "#CCFF33";
+}
+.peach-color {
+  background: "#FF6666";
+}
+.water-color {
+  background: "#6666FF";
+}
+.orange-color {
+  background: "#FF6633";
+}
+.salad-color {
+  background: "#33FF00";
+}
