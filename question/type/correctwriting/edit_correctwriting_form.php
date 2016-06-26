@@ -613,7 +613,7 @@ require_once($CFG->dirroot . '/blocks/formal_langs/block_formal_langs.php');
      * @return block_formal_langs_node_position
      */
     protected function get_position_for_token_in_tree($root, $first) {
-        $children = $root->childs();
+        $children = $root->children();
         $result = null;
         if (count($children)  == 0) {
             $result = $root->position();

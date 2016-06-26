@@ -62,14 +62,14 @@ class qtype_correctwriting_enum_catcher {
         // if variable declaration find, parse it,
         // else search it in childs of current node.
         if (!is_array($node) && $node->type()== "variable_declaration" && 
-            $node->childs()[1]->type() == "definition_list") {
-            $this->parse_var_decl($node->childs()[1], count($this->enums));
+            $node->children()[1]->type() == "definition_list") {
+            $this->parse_var_decl($node->children()[1], count($this->enums));
         } else {
             // get childs of current node
             if(is_array($node))
                 $childs = $node;
             else
-                $childs = $node->childs();
+                $childs = $node->children();
 
             // if node has childs search variable declaration in they
             if ($childs != null) {
@@ -91,7 +91,7 @@ class qtype_correctwriting_enum_catcher {
         if(is_array($node))
             $childs = $node;
         else if ($node != NULL)
-            $childs = $node->childs();
+            $childs = $node->children();
         // if node has childs
         if ($childs != null) {
             foreach($childs as $value) {
@@ -118,7 +118,7 @@ class qtype_correctwriting_enum_catcher {
         if(is_array($node))
             $childs = $node;
         else if ($node != NULL)
-            $childs = $node->childs();
+            $childs = $node->children();
         // if node has childs
         if($childs != null) {
             foreach ($childs as $key => $value) {
@@ -149,7 +149,7 @@ class qtype_correctwriting_enum_catcher {
         // else analyze its elements.
         if (!is_array($node)) {
             // get childs of current node.
-            $childs = $node->childs();
+            $childs = $node->children();
             // if current node is searching operator its analyze childs
             // else if current node has childs, append in enumeration as element and search 
             // enumerations in they, else if enumeration is already find append element in it
@@ -216,12 +216,12 @@ class qtype_correctwriting_enum_catcher {
         if(is_array($node))
             $childs = $node;
         else if ($node != NULL)
-            $childs = $node->childs();
+            $childs = $node->children();
         // if node has childs
         if($childs != null)
             // find enum keyword and enumeration body and update enumeration array.
             foreach ($childs as $key => $value) {
-                if ($value->type() == "enum_header" && $value->childs()[0]->value() == "enum") {
+                if ($value->type() == "enum_header" && $value->children()[0]->value() == "enum") {
                     $enumword = true;
                     $excluded_keys[] = $key;
                 } else if ($enumword && $value->type() == "enum_body") {
@@ -251,7 +251,7 @@ class qtype_correctwriting_enum_catcher {
         // else analyze its elements.
         if (!is_array($node)) {
             // get childs of current node.
-            $childs = $node->childs();
+            $childs = $node->children();
             // if current node is searching operator its analyze childs
             // else if current node has childs, append in enumeration as element and search 
             // enumerations in they, else if enumeration is already find append element in it
@@ -376,7 +376,7 @@ class qtype_correctwriting_enum_catcher {
         if (method_exists($node, "token_index")) {
             $position[] = $node->token_index();
         } else {
-            $childs = $node->childs();
+            $childs = $node->children();
             $reset = reset($childs);
             $end = end($childs);
             $childs = ($this->get_element_position($reset));
@@ -420,7 +420,7 @@ class qtype_correctwriting_enum_catcher {
                 $this->find_struct_decl($node);
                 
             } else if ($node != NULL) {
-                $childs = $node->childs();
+                $childs = $node->children();
             }
         }
 
@@ -452,7 +452,7 @@ class qtype_correctwriting_enum_catcher {
     protected function analyze_enum($node) {
         $enumbody = null; // enumeration body
         // Search enumeration body
-        foreach ($node->childs() as $value) {
+        foreach ($node->children() as $value) {
             if ($value->type() == "enum_value_list")
                 $enumbody = $value;
         }
@@ -473,14 +473,14 @@ class qtype_correctwriting_enum_catcher {
         $excluded_keys = array(); // array of excluded keys
         $enum_elem = array(); // array to keep enumeration element position
         // Search enumeration body
-        foreach ($node->childs() as $key => $value) {
+        foreach ($node->children() as $key => $value) {
             if ($value->type() == "enum_value_list") {
                 $this->parse_enum_value_list($value,$enum);
                 $excluded_keys[] = $key;
             }
         }
         // Append element to enumeration
-        foreach ($node->childs() as $key => $value) {
+        foreach ($node->children() as $key => $value) {
             if (!in_array($key, $excluded_keys)) {
                 // if element end append it to enumeration
                 // else append token position to array
