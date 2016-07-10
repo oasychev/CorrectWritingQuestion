@@ -126,7 +126,7 @@ M.question_type_correctwriting.Form = function() {
         };
 
         var hintgradeborderchanged = function() {
-            var gradeborder = parseFloat($(this).val());
+            var gradeborder = parseFloat($("input[name=hintgradeborder]").val());
             var fraction, descriptions, text;
             if (!isNaN(gradeborder)) {
                 for(var i = 0; i < M.question_type_correctwriting.form.answer_count; i++)
@@ -152,6 +152,9 @@ M.question_type_correctwriting.Form = function() {
                 $("textarea[name=\'answer[" + i +"]\']").keyup(event_handler);
                 $("select[name=\'fraction[" + i +"]\']").change(event_handler);
                 $("input[name=hintgradeborder]").focusout(hintgradeborderchanged);
+                $("select[name=isenumanalyzerenabled]").change(hintgradeborderchanged);
+                $("select[name=issyntaxanalyzerenabled]").change(hintgradeborderchanged);
+                $("select[name=allowinvalidsyntaxanswers]").change(hintgradeborderchanged);
             }
         }.bind(this);
         $(document).ready(readyhandler);
@@ -211,20 +214,32 @@ M.question_type_correctwriting.Form = function() {
         var editabletextarea = $("#id_lexemedescriptions_" + number);
         var currentlanguage = $("#id_langid").val();
         var answerfield = $("textarea[name=\'answer[" + number+ "]\']");
+        var isenumanalyzerenabled = $("select[name='isenumanalyzerenabled']").val();
+        var issyntaxanalyzerenabled = 0;
+        var el = $("select[name='issyntaxanalyzerenabled']");
+        if (el.length != 0) {
+            issyntaxanalyzerenabled = el.val();
+        }
+        var allowinvalidsyntaxanswers = $("select[name='allowinvalidsyntaxanswers']").val();
         var me = this;
         $.ajax({
             "url": this.lexerurl,
             "type": "POST",
             "data": {
                 "scannedtext" : text,
-                "lang" : currentlanguage
+                "lang" : currentlanguage,
+                'isenumanalyzerenabled' : isenumanalyzerenabled,
+                'issyntaxanalyzerenabled' : issyntaxanalyzerenabled,
+                'allowinvalidsyntaxanswers' : allowinvalidsyntaxanswers
             },
             "dataType": "json",
             "success": function(data) {
                 if (typeof(data) ==  "object" && data != null) {
                     if (!("tokens" in data)) {
                         //noinspection JSPotentiallyInvalidConstructorUsage
-                        new M.core.ajaxException(data);
+                        Y.use('moodle-core-notification-ajaxexception', function() {
+                            return new M.core.ajaxException({'name' : 'Error when fetching AJAX request', 'error': JSON.stringify(data), 'reproductionlink': window.location.href});
+                        });
                         return;
                     }
                     var cols  = 0;

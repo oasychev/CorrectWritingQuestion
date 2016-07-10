@@ -134,6 +134,12 @@ class qtype_correctwriting_question extends question_graded_automatically
      */
     public $issyntaxanalyzerenabled = 0;
 
+    /**
+     * Whether we allow invalid syntax in answers, when language allows it
+     * @var int
+     */
+    public $allowinvalidsyntaxanswers = 0;
+
 
     /** Whether cache is valid
      *  @var boolean

@@ -84,8 +84,7 @@ class qtype_correctwriting extends qtype_shortanswer implements qtype_correctwri
 
         //Penalty for "how to fix pic" picture hint.
         $result[] = 'howtofixpichintpenalty';
-
-
+        
         return $result;
     }
 

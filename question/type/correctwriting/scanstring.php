@@ -41,6 +41,9 @@ require_login();
 $langid  =  required_param('lang', PARAM_INT);
 $text = required_param('scannedtext', PARAM_RAW);
 $shouldperformparse = optional_param('parse', 0, PARAM_INT);
+$isyntaxanalyzerenabled = optional_param('issyntaxanalyzerenabled', 0, PARAM_INT);
+$isenumanalyzerenabled = optional_param('isenumanalyzerenabled', 0, PARAM_INT);
+$allowinvalidsyntaxanswers = optional_param('allowinvalidsyntaxanswers', 0, PARAM_INT);
 
 $language = block_formal_langs::lang_object($langid);
 
@@ -50,19 +53,40 @@ if ($language == null) {
     $string = $language->create_from_string($text);
     $stream = $string->stream;
     $tokens = $stream->tokens;
+    $form = 'qtype_correctwriting_edit_form';
     if(count($tokens)) {
         $tokenvalues = array();
-        $form = 'qtype_correctwriting_edit_form';
-        $errormessages = $form::convert_tokenstream_errors_to_formatted_messages($text, $stream);
-        if (!$shouldperformparse || $language->could_parse() == false) {
+        $errormessages = $form::convert_tokenstream_errors_to_formatted_messages($string);
+        // If we already have mistakes - do not ignore them
+        if (!$isyntaxanalyzerenabled || $language->could_parse() == false || core_text::strlen($errormessages) != 0) {
             foreach($tokens as $token) {
                 $tokenvalues[] = (string)($token->value());
             }
-        } else {
-            $tree = $string->syntaxtree;
-            if (count($tree) > 1) {
-                $errormessages[] = get_string('parseerror', 'qtype_correctwiriting');
+            if ($isenumanalyzerenabled && $language->could_parse() && core_text::strlen($errormessages) == 0) {
+                $tree = $string->syntax_tree(false);
+                if (count($tree) > 1) {
+                    $errormessages = $form::make_enum_analyzer_required_valid_answer_error($string);
+                }
             }
+        } else {
+            $tree = $string->syntax_tree(!$allowinvalidsyntaxanswers);
+            $filter = function($o) { return is_a($o, 'block_formal_langs_parsing_error'); };
+            $errors = array_filter($string->errors, $filter);
+            $treeisinvalid = count($tree) > 1;
+            if ($isenumanalyzerenabled) {
+                if ($allowinvalidsyntaxanswers) {
+                    if ($treeisinvalid) {
+                        $errormessages = $form::make_enum_analyzer_required_valid_answer_error($string);
+                    }
+                } else {
+                    $errormessages = $form::parsing_errors_to_formatted_messages($string);
+                }
+            } else {
+                if (!$allowinvalidsyntaxanswers) {
+                    $errormessages = $form::parsing_errors_to_formatted_messages($string);
+                }
+            }
+
             $treelist = $string->tree_to_list();
             foreach($treelist as $node) {
                 /** @var block_formal_langs_ast_node_base $node */

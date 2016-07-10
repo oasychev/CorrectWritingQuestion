@@ -28,24 +28,6 @@ function xmldb_qtype_correctwriting_upgrade($oldversion=0) {
     global $CFG, $DB;
     $dbman = $DB->get_manager();
 
-    if ($oldversion < 2015071000) {
-        $table = new xmldb_table('qtype_correctwriting_enums');
-        $idfield = new xmldb_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null, null);
-        $answeridfield = new xmldb_field('answerid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, 0, $idfield);
-        $enumerationsfield = new xmldb_field('enumerations', XMLDB_TYPE_TEXT, null, null, XMLDB_NOTNULL, null, null, $answeridfield);
-
-        $table->addField($idfield);
-        $table->addField($answeridfield, $idfield);
-        $table->addField($enumerationsfield, $answeridfield);
-
-        $key = new xmldb_key('primary', XMLDB_KEY_PRIMARY, array('id'));
-        $table->addKey($key);
-
-        if (!$dbman->table_exists($table)) {
-            $dbman->create_table($table);
-        }
-    }
-
     if ($oldversion < 2013011500) {
 
         // Define field whatishintpenalty to be added to qtype_correctwriting
@@ -165,6 +147,47 @@ function xmldb_qtype_correctwriting_upgrade($oldversion=0) {
 
         // correctwriting savepoint reached
         upgrade_plugin_savepoint(true, 2015071000, 'qtype', 'correctwriting');
+    }
+
+    if ($oldversion < 2015101000) {
+        $table = new xmldb_table('qtype_correctwriting_enums');
+        $idfield = new xmldb_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null, null);
+        $answeridfield = new xmldb_field('answerid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, 0, $idfield);
+        $enumerationsfield = new xmldb_field('enumerations', XMLDB_TYPE_TEXT, null, null, XMLDB_NOTNULL, null, null, $answeridfield);
+
+        $table->addField($idfield);
+        $table->addField($answeridfield, $idfield);
+        $table->addField($enumerationsfield, $answeridfield);
+
+        $key = new xmldb_key('primary', XMLDB_KEY_PRIMARY, array('id'));
+        $table->addKey($key);
+
+        if (!$dbman->table_exists($table)) {
+            $dbman->create_table($table);
+        }
+
+        // correctwriting savepoint reached
+        upgrade_plugin_savepoint(true, 2015101000, 'qtype', 'correctwriting');
+    }
+
+    if ($oldversion < 2016070000) {
+        $table = new xmldb_table('qtype_correctwriting');
+        $fieldnames = array(
+            'allowinvalidsyntaxanswers' => 'howtofixpichintpenalty'
+        );
+
+        foreach($fieldnames as $name => $previous) {
+            $defaultvalue = '0';
+            $field = new xmldb_field($name, XMLDB_TYPE_INTEGER, '4', null ,XMLDB_NOTNULL, null, $defaultvalue, $previous);
+            if (!$dbman->field_exists($table, $field)) {
+                $dbman->add_field($table, $field);
+            }
+        }
+
+        $updateanalyzersenables();
+
+        // correctwriting savepoint reached
+        upgrade_plugin_savepoint(true, 2016070000, 'qtype', 'correctwriting');
     }
 
 

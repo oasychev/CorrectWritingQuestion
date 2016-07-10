@@ -157,6 +157,14 @@ require_once($CFG->dirroot . '/blocks/formal_langs/block_formal_langs.php');
             $mform->setType('confirmed', PARAM_BOOL);
         }
 
+        $name = 'allowinvalidsyntaxanswers';
+        $mform->addElement('selectyesno', $name, get_string($name, 'qtype_correctwriting'), array('size' => 1));
+        $mform->setType($name, PARAM_BOOL);
+        $mform->setDefault($name, '0');
+        $mform->addRule($name, null, 'required', null, 'client');
+        $mform->addHelpButton($name, $name, 'qtype_correctwriting');
+        $mform->setAdvanced($name);
+
 
 
 
@@ -578,16 +586,40 @@ require_once($CFG->dirroot . '/blocks/formal_langs/block_formal_langs.php');
         return $question;
     }
     /** Converts errors from the stream to HTML formatted mistakes
-     *  @param string $value a parsed string
-     *  @param block_formal_langs_token_stream  $stream a tokenized stream
+     *  @param block_formal_langs_processed_string $processedstring a parsed string
      *  @return string of error representation
      */
-    static public function convert_tokenstream_errors_to_formatted_messages($value, $stream) {
+    static public function convert_tokenstream_errors_to_formatted_messages($processedstring) {
+        $errors = $processedstring->stream->errors;
+        return self::errors_to_formatted_messages($processedstring, 'foundlexicalerrors', $errors);
+    }
+
+     /** Converts errors from the stream to HTML formatted mistakes
+      *  @param block_formal_langs_processed_string $processedstring a parsed string
+      *  @return string of error representation
+      */
+    static public function parsing_errors_to_formatted_messages($processedstring) {
+        $errors = $processedstring->errors;
+        $filter = function($o) { return is_a($o, 'block_formal_langs_parsing_error'); };
+        $errors = array_filter($errors, $filter);
+        return self::errors_to_formatted_messages($processedstring, 'foundsyntaxerrors', $errors);
+    }
+
+     /**
+      * Convert errors to formatted messages
+      * @param block_formal_langs_processed_string $processedstring a processed string
+      * @param string $label a label for it
+      * @param array $errors a list of errors
+      * @return string string of error representation
+      */
+    static public function errors_to_formatted_messages($processedstring, $label, $errors) {
+        $stream = $processedstring->stream;
+        $value = $processedstring->string;
         $result = '';
         $br = html_writer::empty_tag('br');
-        if (count($stream->errors) != 0) {
-            $errormessages = array(get_string('foundlexicalerrors', 'qtype_correctwriting'));
-            foreach($stream->errors as $error) {
+        if (count($errors) != 0) {
+            $errormessages = array(get_string($label, 'qtype_correctwriting'));
+            foreach($errors as $error) {
                 /** @var block_formal_langs_token_base $token */
                 $token = $stream->tokens[$error->tokenindex];
                 /** @var block_formal_langs_node_position $tokenpos */
@@ -612,7 +644,7 @@ require_once($CFG->dirroot . '/blocks/formal_langs/block_formal_langs.php');
      * @param bool $first whether we should take first token (or last if false)
      * @return block_formal_langs_node_position
      */
-    protected function get_position_for_token_in_tree($root, $first) {
+    protected static function get_position_for_token_in_tree($root, $first) {
         $children = $root->children();
         $result = null;
         if (count($children)  == 0) {
@@ -635,7 +667,7 @@ require_once($CFG->dirroot . '/blocks/formal_langs/block_formal_langs.php');
      * @param block_formal_langs_node_position $position2 position of second node
      * @return string error part
      */
-    protected function format_string_for_parse_error($text, $position1, $position2) {
+    protected static function format_string_for_parse_error($text, $position1, $position2) {
         $e = function($a) {
             $a = htmlspecialchars($a);
             $t = str_repeat('&nbsp;', 4);
@@ -783,23 +815,47 @@ require_once($CFG->dirroot . '/blocks/formal_langs/block_formal_langs.php');
                     && ($isenumanalyzerenabled || $issyntaxanalyzerenabled)
                     && $lang->could_parse()
                 ) {
-                    $syntaxtree = $processedstring->syntaxtree;
-                    if (count($syntaxtree) > 1) {
-                        $position1 = self::get_position_for_token_in_tree($syntaxtree[0], false);
-                        $position2 = self::get_position_for_token_in_tree($syntaxtree[1], true);
-                        $text = self::format_string_for_parse_error($value, $position1, $position2);
-                        $errors["answer[$key]"] = get_string(
-                            'analyzersrequirevalidsyntaxtree',
-                            'qtype_correctwriting',
-                            $text
-                        );
+                    $allowinvalidsyntaxanswersfromdata = $data['allowinvalidsyntaxanswers'];
+                    $allowinvalidsyntaxanswers = false;
+                    if (!is_array($allowinvalidsyntaxanswersfromdata) && !is_object($allowinvalidsyntaxanswersfromdata)) {
+                        $allowinvalidsyntaxanswers = boolval($allowinvalidsyntaxanswersfromdata);
                     }
+                    $syntaxtree = $processedstring->syntax_tree(!$allowinvalidsyntaxanswers);
+                    if (!$issyntaxanalyzerenabled) {
+                        if ($isenumanalyzerenabled) {
+                            if (count($syntaxtree) > 1) {
+                                $errors["answer[$key]"] = self::make_enum_analyzer_required_valid_answer_error($processedstring);
+                            }
+                        }
+                    } else {
+                        $treeisinvalid = count($syntaxtree) > 1;
+                        if ($isenumanalyzerenabled) {
+                            if ($allowinvalidsyntaxanswers) {
+                                if ($treeisinvalid) {
+                                    $errors["answer[$key]"] = self::make_enum_analyzer_required_valid_answer_error($processedstring);
+                                }
+                            } else {
+                                $errormessages = self::parsing_errors_to_formatted_messages($processedstring);
+                                if (core_text::strlen($errormessages)) {
+                                    $errors["answer[$key]"] = $errormessages;
+                                }
+                            }
+                        } else {
+                            if (!$allowinvalidsyntaxanswers) {
+                                $errormessages = self::parsing_errors_to_formatted_messages($processedstring);
+                                if (core_text::strlen($errormessages)) {
+                                    $errors["answer[$key]"] = $errormessages;
+                                }
+                            }
+                        }
+                    }
+
                 }
             }
 
             if (count($stream->errors) != 0) {
                 $form = 'qtype_correctwriting_edit_form';
-                $errormessages = $form::convert_tokenstream_errors_to_formatted_messages($value, $stream);
+                $errormessages = $form::convert_tokenstream_errors_to_formatted_messages($processedstring);
                 $errors["answer[$key]"] = $errormessages;
             }
         }
@@ -816,6 +872,7 @@ require_once($CFG->dirroot . '/blocks/formal_langs/block_formal_langs.php');
                     $tree = $processedstring->syntaxtree;
                     $treelist = $processedstring->tree_to_list();
                     $tokens = $treelist;
+                    /* 10.07.16 Mamontov commented this, now this is checked, when scanning for errors
                     if (count($tree) > 1) {
                         $fieldkey =  "answer[$key]";
                         if (array_key_exists($fieldkey, $errors) == false) {
@@ -828,6 +885,7 @@ require_once($CFG->dirroot . '/blocks/formal_langs/block_formal_langs.php');
                             }
                         }
                     }
+                    */
                 } else {
                     $tokens = $stream->tokens;
                 }
@@ -859,6 +917,24 @@ require_once($CFG->dirroot . '/blocks/formal_langs/block_formal_langs.php');
             }
         }
         return $errors;
+    }
+
+     /**
+      * Returns value for error when processed string returns value
+      * @param block_formal_langs_processed_string $processedstring string
+      * @return mixed|string
+      */
+    public static function make_enum_analyzer_required_valid_answer_error($processedstring) {
+        $syntaxtree = $processedstring->syntaxtree;
+        $value = $processedstring->string;
+        $position1 = self::get_position_for_token_in_tree($syntaxtree[0], false);
+        $position2 = self::get_position_for_token_in_tree($syntaxtree[1], true);
+        $text = self::format_string_for_parse_error($value, $position1, $position2);
+        return get_string(
+            'analyzersrequirevalidsyntaxtree',
+            'qtype_correctwriting',
+            $text
+        );
     }
 
     public function qtype() {

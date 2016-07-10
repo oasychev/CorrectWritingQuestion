@@ -296,5 +296,9 @@ class qtype_correctwriting_syntax_analyzer extends qtype_correctwriting_abstract
     public function require_analyzers() {
         return array("qtype_correctwriting_sequence_analyzer");
     }
+
+    public function extra_question_fields() {
+        return array('allowinvalidsyntaxanswers');
+    }
 }
 ?>

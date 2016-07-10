@@ -25,7 +25,8 @@
         <FIELD NAME="isenumanalyzerenabled" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Whether enum analyzer is enabled" PREVIOUS="islexicalanalyzerenabled" NEXT="issequenceanalyzerenabled"/>
         <FIELD NAME="issequenceanalyzerenabled" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="1" SEQUENCE="false" COMMENT="Whether sequence analyzer is enabled" PREVIOUS="isenumanalyzerenabled" NEXT="issyntaxanalyzerenabled"/>
         <FIELD NAME="issyntaxanalyzerenabled" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Whether syntax analyzer is enabled" PREVIOUS="issequenceanalyzerenabled" NEXT="howtofixpichintpenalty"/>
-        <FIELD NAME="howtofixpichintpenalty" TYPE="number" LENGTH="4" NOTNULL="true" DEFAULT="1.1" SEQUENCE="false" DECIMALS="2" COMMENT="Penalty for picture &quot;how to fix&quot; hint" PREVIOUS="issyntaxanalyzerenabled"  />
+        <FIELD NAME="howtofixpichintpenalty" TYPE="number" LENGTH="4" NOTNULL="true" DEFAULT="1.1" SEQUENCE="false" DECIMALS="2" COMMENT="Penalty for picture &quot;how to fix&quot; hint" PREVIOUS="issyntaxanalyzerenabled" NEXT="allowinvalidsyntaxanswers" />
+        <FIELD NAME="allowinvalidsyntaxanswers" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Whether invalid syntax is allowed in answers, when syntax analyzer is enabled" PREVIOUS="howtofixpichintpenalty" />
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id" NEXT="questionid"/>
