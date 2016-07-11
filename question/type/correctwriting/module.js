@@ -185,7 +185,7 @@ M.question_type_correctwriting.Form = function() {
                 $(span).insertBefore($(element.parentNode.firstChild));
                 errorSpan = $('#id_error_' + cssEscapedName);
                 errorSpan.attr('TabIndex', 0);
-                errorSpan.focus();
+                //errorSpan.focus();
             }
 
             errorSpan.html(message);
