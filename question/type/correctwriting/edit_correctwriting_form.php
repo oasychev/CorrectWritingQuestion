@@ -818,7 +818,7 @@ require_once($CFG->dirroot . '/blocks/formal_langs/block_formal_langs.php');
                     $allowinvalidsyntaxanswersfromdata = $data['allowinvalidsyntaxanswers'];
                     $allowinvalidsyntaxanswers = false;
                     if (!is_array($allowinvalidsyntaxanswersfromdata) && !is_object($allowinvalidsyntaxanswersfromdata)) {
-                        $allowinvalidsyntaxanswers = boolval($allowinvalidsyntaxanswersfromdata);
+                        $allowinvalidsyntaxanswers = (bool)($allowinvalidsyntaxanswersfromdata);
                     }
                     $syntaxtree = $processedstring->syntax_tree(!$allowinvalidsyntaxanswers);
                     if (!$issyntaxanalyzerenabled) {
