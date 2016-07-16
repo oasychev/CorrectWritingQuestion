@@ -184,8 +184,6 @@ function xmldb_qtype_correctwriting_upgrade($oldversion=0) {
             }
         }
 
-        $updateanalyzersenables();
-
         // correctwriting savepoint reached
         upgrade_plugin_savepoint(true, 2016070000, 'qtype', 'correctwriting');
     }
