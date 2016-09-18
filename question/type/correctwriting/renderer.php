@@ -28,6 +28,10 @@ defined('MOODLE_INTERNAL') || die();
 require_once($CFG->dirroot . '/question/type/shortanswer/renderer.php');
 require_once($CFG->dirroot . '/question/type/correctwriting/mistakesimage.php');
 require_once($CFG->dirroot . '/blocks/formal_langs/block_formal_langs.php');
+
+global $PAGE;
+$PAGE->requires->jquery();
+
 /**
  * Generates the output for short answer questions.
  *
@@ -143,7 +147,7 @@ class qtype_correctwriting_renderer extends qtype_shortanswer_renderer {
 
    //This wil be shown only if show right answer is setup
    public function correct_response(question_attempt $qa) {
-       global $CFG;
+       global $CFG, $PAGE;
        /** @var qtype_correctwriting_question $question */
        $question = $qa->get_question();
        $resulttext  = html_writer::empty_tag('br');
@@ -154,8 +158,16 @@ class qtype_correctwriting_renderer extends qtype_shortanswer_renderer {
                $image = new qtype_correctwriting_image_generator($results, $question);
                $imagebinary = $image->produce_image();
                $imagetext  = 'data:image/png;base64,' . base64_encode($imagebinary);
-               $imagesrc = html_writer::empty_tag('image', array('src' => $imagetext));
+               $imagesrc = html_writer::start_tag('div', array('class' => 'img_panzoom'));
+               $imagesrc .= html_writer::empty_tag('image', array('src' => $imagetext));
+               $imagesrc .= html_writer::end_tag('div');
                $resulttext = $imagesrc . $resulttext;
+               $jsmodule = array(
+                    'name' => 'panzoomtools',
+                    'fullpath' => '/question/type/correctwriting/panzoomtools/panzoomtools.js'
+               );
+               $PAGE->requires->js( new moodle_url($CFG->wwwroot . '/question/type/correctwriting/panzoomtools/jquery.panzoom.js') );
+               $PAGE->requires->js_init_call('M.panzoomtools', array(), false, $jsmodule);
            }
        }
        // TODO: Uncomment if we need original shortanswer hint
