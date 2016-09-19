@@ -115,6 +115,9 @@ class qtype_correctwriting_lexical_analyzer extends qtype_correctwriting_abstrac
                 $this->convert_non_covered_tokens_to_mistakes($pair);
             }
             $pair->append_mistakes($lexmistakes);
+            if (count($lexicalmistakes)) {
+                $pair->append_mistakes($lexicalmistakes);
+            }
         }
     }
 
@@ -279,6 +282,8 @@ class qtype_correctwriting_lexical_analyzer extends qtype_correctwriting_abstrac
                 $mistake = new qtype_correctwriting_scanning_mistake(null);
 
                 $message =  $error->errormessage;
+                // Strip line number from a message
+                $message = preg_replace("/[0-9]:/", "", $message);
                 $mistake->languagename = $this->question->get_used_language()->name();
                 /** @var block_formal_langs_token_base $token */
                 $token = $this->basestringpair->comparedstring()->stream->tokens[$error->tokenindex];
@@ -301,6 +306,18 @@ class qtype_correctwriting_lexical_analyzer extends qtype_correctwriting_abstrac
                     $a->value = $token->value();
                     $message = get_string($mistakecustomhandling[$error->errorkind],  'qtype_correctwriting', $a);
                 }
+                $value = (string)($this->basestringpair->comparedstring()->string);
+                $tokenpos = $token->position();
+                $br = html_writer::empty_tag('br');
+                $message .= $br;
+                $left = $tokenpos->colstart();
+                $message .= ($left <= 0) ? '' : core_text::substr($value, 0, $left);
+                $left =  $tokenpos->colend() -  $tokenpos->colstart() + 1;
+                $middlepart = ($left <= 0) ? '' : core_text::substr($value,  $tokenpos->colstart() , $left);
+                $message .= '<b>' . $middlepart . '</b>';
+                $message .= core_text::substr($value, $tokenpos->colend() + 1);
+
+
                 $mistake->mistakemsg = $message;
                 $mistakes[] = $mistake;
             }

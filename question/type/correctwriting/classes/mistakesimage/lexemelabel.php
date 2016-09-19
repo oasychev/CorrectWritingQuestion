@@ -52,8 +52,13 @@ class qtype_correctwriting_lexeme_label extends qtype_correctwriting_abstract_la
         // As a default we assume the lexeme is correct
         $this->text = $text;
         // List of operations to be filled
-        $this->operations = array_fill(0, core_text::strlen($text), 'normal');
-
+        $length = core_text::strlen($text);
+        if ($length != 0) {
+            $this->operations = array_fill(0, core_text::strlen($text), 'normal');
+        } else {
+            $this->operations = array('normal');
+            $this->text = ' '; // Add space to ensure, that anything will be drawn
+        }
         $this->sizefixed = false;
     }
 
