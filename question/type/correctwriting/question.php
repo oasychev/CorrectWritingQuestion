@@ -327,12 +327,11 @@ class qtype_correctwriting_question extends question_graded_automatically
     }
 
     /** Checks, whether student answer matches non-exact match answer and if matches, grades it
-      *  @param string $response student response
-      *  @param array  $answers  array of exact match answers
-      *  @return bool  whether it was matched
-      */
-
-      public function check_match_answers($response, $answers) {
+     *  @param string $response student response
+     *  @param array  $answers  array of exact match answers
+     *  @return bool  whether it was matched
+     */
+    public function check_match_answers($response, $answers) {
         // Don't scan if no need for this
         if (count($answers) == 0) {
             return false;
@@ -345,37 +344,76 @@ class qtype_correctwriting_question extends question_graded_automatically
         $fraction = -1;
         // Get language
         $language = $this->get_used_language();
-        // Scan answers for match
+        $maxnonexactfraction = 0;
+        // First of all, we can optimize scanning for matches, by using exact scan to make sure, that we don't run
+        // into problems with exact match
+        $language = $this->get_used_language();
+        $responsestring = $language->create_from_string($response);
+        $isnonexact = false;
         foreach($answers as $id => $answer) {
-            $results = $this->compare($answer, $response);
-            //Get lexeme count from answer
-            $answerstring = $language->create_from_string($answer->answer);
-            $answerstream= $answerstring->stream;
+
+            $answerstring = $language->create_from_db('question_answers', $answer->id, $answer->answer);
+            $string = new qtype_correctwriting_string_pair($answerstring, $responsestring, null);
 
             $nonexact = ($answer->fraction >= $this->hintgradeborder);
-            // Exact match methods
-            $checkmethod = 'matches_exact';
-            $fractionmethod = 'compute_exact_match_fraction';
-            // Change if non-exact
-            if ($nonexact) {
-                $checkmethod = 'matches_non_exact';
-                $fractionmethod = 'compute_nonexact_match_fraction';
-            }
-            // Check, whether answer is partially correct
-            $currentmatched = $this->$checkmethod($results, $answerstream);
-            if (($currentmatched == true) && (!$nonexact || !$foundexactmatch)) {
-                $answerfraction = $this->$fractionmethod($answer, $results);
-                $firstexact =  (!$foundexactmatch && !$nonexact);
-                if (($fraction <= $answerfraction) || ($matched == false) || $firstexact) {
-                    $fraction = $answerfraction;
-                    $matchedresults = $results;
-                    $matchedid = $id;
+            $answerfraction = $answer->fraction;
 
-                    if (!$nonexact) {
-                        $foundexactmatch = true;
-                    }
+            if ($this->are_lexeme_sequences_equal($string)) {
+                if (($fraction <= $answerfraction) || ($matched == false)) {
+                    $fraction = $answerfraction;
+                    $matchedresults = $string;
+                    $matchedid = $id;
+                    $isnonexact = $nonexact;
                 }
-                $matched = true;
+            }
+            if ($nonexact) {
+                $maxnonexactfraction = max($maxnonexactfraction, $answerfraction);
+            }
+        }
+        // Check, whether we should perform full scan
+        $shouldperformfullscan = true;
+        if ($matched) {
+            // We already found non-exact match, which suits us perfectly, do not proceed further
+            if (!$isnonexact) {
+                $shouldperformfullscan = false;
+            } else {
+                $shouldperformfullscan = $fraction < $maxnonexactfraction;
+            }
+        }
+
+        // Scan answers for match, using deep analysis, if needed
+        if ($shouldperformfullscan) {
+            foreach ($answers as $id => $answer) {
+                $results = $this->compare($answer, $response);
+                //Get lexeme count from answer
+                $answerstring = $language->create_from_string($answer->answer);
+                $answerstream = $answerstring->stream;
+
+                $nonexact = ($answer->fraction >= $this->hintgradeborder);
+                // Exact match methods
+                $checkmethod = 'matches_exact';
+                $fractionmethod = 'compute_exact_match_fraction';
+                // Change if non-exact
+                if ($nonexact) {
+                    $checkmethod = 'matches_non_exact';
+                    $fractionmethod = 'compute_nonexact_match_fraction';
+                }
+                // Check, whether answer is partially correct
+                $currentmatched = $this->$checkmethod($results, $answerstream);
+                if (($currentmatched == true) && (!$nonexact || !$foundexactmatch)) {
+                    $answerfraction = $this->$fractionmethod($answer, $results);
+                    $firstexact = (!$foundexactmatch && !$nonexact);
+                    if (($fraction <= $answerfraction) || ($matched == false) || $firstexact) {
+                        $fraction = $answerfraction;
+                        $matchedresults = $results;
+                        $matchedid = $id;
+
+                        if (!$nonexact) {
+                            $foundexactmatch = true;
+                        }
+                    }
+                    $matched = true;
+                }
             }
         }
 

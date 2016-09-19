@@ -31,13 +31,13 @@ require_once($CFG->dirroot.'/question/type/correctwriting/question.php');
 require_once($CFG->dirroot.'/blocks/formal_langs/language_simple_english.php');
  
 
- /**
-  * This class contains the test cases for grade response function from question.
-  */
- class qtype_correctwriting_grade_response_test extends PHPUnit_Framework_TestCase {
- 
+/**
+ * This class contains the test cases for grade response function from question.
+ */
+class qtype_correctwriting_grade_response_test extends PHPUnit_Framework_TestCase {
+
     /** Used question
-        @var qtype_correctwriting_question
+     *  @var qtype_correctwriting_question
      */
     private $question;
     
@@ -111,6 +111,19 @@ require_once($CFG->dirroot.'/blocks/formal_langs/language_simple_english.php');
         $state = $question->grade_response(array('answer' => 'a data'));
         $this->assertEquals($state[0],0.78);
     }
- }
+
+     // Test when one non-exact match is preferred over another
+     public function test_non_exact_over_exact_match_2() {
+         $question = clone $this->question;
+         $question->hintgradeborder = 0.7;
+         $answers = array();
+         $answers[] = (object)array('id' => 1, 'answer' => 'a data', 'fraction' => 0.78);
+         $answers[] = (object)array('id' => 2, 'answer' => 'a data a', 'fraction' => 1.0);
+         $question->answers = $answers;
+         $state = $question->grade_response(array('answer' => 'a data'));
+         $this->assertEquals($state[0], 0.89);
+     }
+
+}
  
  ?>
