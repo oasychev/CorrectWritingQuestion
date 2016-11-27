@@ -158,9 +158,12 @@ class qtype_correctwriting_renderer extends qtype_shortanswer_renderer {
                $image = new qtype_correctwriting_image_generator($results, $question);
                $imagebinary = $image->produce_image();
                $imagetext  = 'data:image/png;base64,' . base64_encode($imagebinary);
-               $imagesrc = html_writer::start_tag('div', array('class' => 'img_panzoom'));
+               $imagesrc = html_writer::start_tag('div', array('class' => 'qtype_correctwriting_panzoom_holder'));
+               $imagesrc .= html_writer::start_tag('div', array('class' => 'img_panzoom'));
                $imagesrc .= html_writer::empty_tag('image', array('src' => $imagetext));
                $imagesrc .= html_writer::end_tag('div');
+               $imagesrc .= html_writer::end_tag('div');
+  
                $resulttext = $imagesrc . $resulttext;
                $jsmodule = array(
                     'name' => 'panzoomtools',

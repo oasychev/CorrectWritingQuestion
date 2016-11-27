@@ -79,3 +79,9 @@ body#page-question-type-correctwriting div[id^=fitem_id_fraction_] + .fitem {
 body#page-question-type-correctwriting textarea[name*=lexemedescriptions]{
     margin-top: 5px;
 }
+
+
+.qtype_correctwriting_panzoom_holder {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
