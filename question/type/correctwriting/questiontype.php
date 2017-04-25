@@ -347,13 +347,12 @@ class qtype_correctwriting extends qtype_shortanswer implements qtype_correctwri
      * @return array of token values
      */
     public static function lexical_analyzer_special_tokens_list() {
-        global $CFG;
         // TODO Biryukova: Fill this list with special tokens
         $own = "
 
         ";
 
-        $resultfromsettings = $own . "\n\n" . $CFG->qtype_correctwriting_special_tokens_list;
+        $resultfromsettings = $own . "\n\n" . get_config('qtype_correctwriting', 'special_tokens_list');
         $result = array();
         $lines = explode("\n", $resultfromsettings);
         if (count($lines)) {

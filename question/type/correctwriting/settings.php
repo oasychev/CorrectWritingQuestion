@@ -32,13 +32,13 @@ if($ADMIN->fulltree) {
 
     $settings->add(new admin_setting_heading('questioneditingheading', get_string('questioneditingheading', 'qtype_correctwriting'), ''));
     $a = get_string('objectname', 'qtype_correctwriting');
-    $settings->add(new block_formal_langs_admin_setting_language('qtype_correctwriting_defaultlang',
+    $settings->add(new block_formal_langs_admin_setting_language('qtype_correctwriting/defaultlang',
                     get_string('defaultlanglabel', 'block_formal_langs'), get_string('defaultlangdescription', 'block_formal_langs', $a), '1', null));
 
-    $settings->add(new admin_setting_configtext('qtype_correctwriting_maxorderscount', get_string('maxorderscountlabel', 'qtype_correctwriting'),
+    $settings->add(new admin_setting_configtext('qtype_correctwriting/maxorderscount', get_string('maxorderscountlabel', 'qtype_correctwriting'),
                     get_string('maxorderscount', 'qtype_correctwriting'), 5000, PARAM_INT));
     $settings->add(new admin_setting_configtextarea(
-        'qtype_correctwriting_special_tokens_list',
+        'qtype_correctwriting/special_tokens_list',
         get_string('lexicalanalyzerlistsettingname', 'qtype_correctwriting'),
         get_string('lexicalanalyzerlistsettingdescription', 'qtype_correctwriting'),
         "",
@@ -48,7 +48,7 @@ if($ADMIN->fulltree) {
     ));
 
     $settings->add(new admin_setting_configtext(
-        'qtype_correctwriting_max_temp_lcs',
+        'qtype_correctwriting/max_temp_lcs',
         get_string('maxtemplcssettingname', 'qtype_correctwriting'),
         get_string('maxtemplcssettingdescription', 'qtype_correctwriting'),
         30000,

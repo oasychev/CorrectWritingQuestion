@@ -138,7 +138,7 @@ require_once($CFG->dirroot . '/blocks/formal_langs/block_formal_langs.php');
         $currentlanguages = block_formal_langs::available_langs( $context, $pickedlanguage );
         $languages = $currentlanguages;
         $mform->addElement('select', 'langid', get_string('langid', 'qtype_correctwriting'), $languages);
-        $mform->setDefault('langid', $CFG->qtype_correctwriting_defaultlang);
+        $mform->setDefault('langid', get_config('qtype_correctwriting', 'defaultlang'));
         $mform->addHelpButton('langid', 'langid', 'qtype_correctwriting');
 
         // Determine whether this is first time, second time or another time form.
