@@ -80,6 +80,34 @@ body#page-question-type-correctwriting textarea[name*=lexemedescriptions]{
     margin-top: 5px;
 }
 
+@media (max-width: 1199px) {
+    body#page-question-type-correctwriting #region-main .mform .fcontainer div[id*=fitem_id_lexemedescriptions] div.fitemtitle {
+        float: left;
+        width: 25%;
+        padding-top: 5px;
+        margin-top: 0;
+        padding-right: 10px;
+        text-align: left;
+        display: inline-block;
+    }
+
+    body#page-question-type-correctwriting #region-main .mform .fcontainer div[id*=fitem_id_lexemedescriptions] div.fitemtitle label {
+        width: 95%;
+    }
+
+    body#page-question-type-correctwriting #region-main .mform .fcontainer div[id*=fitem_id_lexemedescriptions] div.fitemtitle textarea {
+        width: 100%;
+    }
+
+    body#page-question-type-correctwriting #region-main .mform .fcontainer div[id*=fitem_id_lexemedescriptions] div.felement {
+        width: 70%;
+    }
+
+    body#page-question-type-correctwriting #region-main .mform .fcontainer div[id*=fitem_id_lexemedescriptions] div.felement  textarea {
+        width: 100%;
+    }
+}
+
 
 .qtype_correctwriting_panzoom_holder {
     padding-top: 20px;
