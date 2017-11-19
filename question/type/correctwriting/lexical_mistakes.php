@@ -106,7 +106,7 @@ class qtype_correctwriting_lexical_mistake extends qtype_correctwriting_response
     }
 
     public function token_descriptions_as_mistake($andvalue = false) {
-        return parent::token_descriptions($andvalue);
+        return $this->tokenpair->tokendescriptiontext;
     }
 }
 
