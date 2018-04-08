@@ -104,6 +104,7 @@ $string['syntaxanalyzerrequiresequenceanalyzer'] = 'Tree coverage analysis requi
 $string['syntaxanalyzerisincompatiblewithlang'] = 'Tree coverage analysis requires language, that can be parsed. Please, try another language';
 $string['syntax_analyzer'] = 'Tree coverage analysis';
 $string['syntax_analyzer_help'] = 'Tree coverage analysis can be used if language supports parsing for reducing amount of mistakes, shown to student. Note, that it would not be ran, if language does not support parsing';
+$string['systemmayfreeze'] = 'System may freeze while processing typos if answer contains more than 6 very similar words. Turn off typos analysis or lower lexical error threshold!';
 $string['questioneditingheading'] = 'Question editing settings';
 $string['tokens'] = 'Tokens';
 $string['toobigfloatvalue'] = 'This value should be no more than {$a}';

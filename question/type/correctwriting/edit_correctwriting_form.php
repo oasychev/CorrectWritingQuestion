@@ -25,6 +25,8 @@
 defined('MOODLE_INTERNAL') || die();
 require_once($CFG->dirroot . '/question/type/shortanswer/edit_shortanswer_form.php');
 require_once($CFG->dirroot . '/blocks/formal_langs/block_formal_langs.php');
+require_once($CFG->dirroot . '/blocks/formal_langs/classes/comparing_options.php');
+require_once($CFG->dirroot . '/blocks/formal_langs/tokens_base.php');
 
 //require_once($CFG->dirroot . '/question/type/correctwriting/enumeditor_form/correctwriting_text_and_button.php');
 /**
@@ -898,6 +900,14 @@ require_once($CFG->dirroot . '/blocks/formal_langs/block_formal_langs.php');
                         if (count($tokens) > count($descriptions)) {
                             $mesg = get_string('writemoredescriptions', 'qtype_correctwriting');
                         }
+                        //If lexical analyzer is enabled.
+                        if ($islexicalanalyzerenabled) {
+                            $similarwords = $this->has_many_similar_words($tokens, $data['usecase'], $data['lexicalerrorthreshold']);
+                            //If system may freeze
+                            if($similarwords == true){
+                                $mesg = get_string('systemmayfreeze', 'qtype_correctwriting');
+                            }
+                        }
                         if (count($tokens) < count($descriptions)) {
                             $mesg = get_string('writelessdescriptions', 'qtype_correctwriting');
                         }
@@ -917,6 +927,38 @@ require_once($CFG->dirroot . '/blocks/formal_langs/block_formal_langs.php');
             }
         }
         return $errors;
+    }
+
+    /**
+     * Function returns boolean value if response contains too much similar words.
+     *
+     * @param array $tokens Response, array of block_formal_langs_token_base objects
+     * @param boolean $usecase Boolean flag is true, if case is important
+     * @param float $lexicalerrorthreshold Max threshold for typos (the ratio of similar 
+     * words' length to Damerau-Levenshtein distance between similar words
+     * @return true, if the tokens array have many identical tokens, or false if don't have.
+     */
+    public function has_many_similar_words($tokens, $usecase, $lexicalerrorthreshold) {
+        // Is case important or not.
+        $options = new block_formal_langs_comparing_options();
+        $options->usecase = $usecase; 
+        // For each token in array.
+        for ($i = 0; $i < count($tokens); $i++) {
+            $similarwordscounter = 0;
+            for ($j = 0; $j < count($tokens); $j++) {
+                $distance = block_formal_langs_token_base::damerau_levenshtein($tokens[$i]->value(), $tokens[$j]->value(), $options);
+                $max = $lexicalerrorthreshold * core_text::strlen($tokens[$i]->value());
+                // If tokens are very similar.
+                if ($distance <= $max) {
+                    $similarwordscounter++;
+                }
+            }
+            // If there are 6 and more similar tokens in array.
+            if ($similarwordscounter >= 6) {
+                return true;
+            }
+        }
+        return false;
     }
 
      /**
