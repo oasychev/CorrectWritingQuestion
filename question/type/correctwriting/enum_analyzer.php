@@ -682,8 +682,8 @@ class  qtype_correctwriting_enum_analyzer extends qtype_correctwriting_abstract_
         $includedenums = $forstd->includedenums;
         // Find expected orders for all enumeration.
         $allfindorders = $this->find_all_enum_orders_in_corrected_string($correcttokens, $correctedtokens, $enumdescription);
-        if (count($allfindorders) > $CFG->qtype_correctwriting_maxorderscount) {
-            array_splice($allfindorders,-0,count($allfindorders) - $CFG->qtype_correctwriting_maxorderscount);
+        if (count($allfindorders) > get_config('qtype_correctwriting', 'maxorderscount')) {
+            array_splice($allfindorders, -0, count($allfindorders) - get_config('qtype_correctwriting', 'maxorderscount')); 
         }
         foreach ($allfindorders as $currentorder) {
             // Change enumeration elements order.

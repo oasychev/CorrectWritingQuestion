@@ -70,11 +70,10 @@ class  qtype_correctwriting_sequence_analyzer extends qtype_correctwriting_abstr
      * @return int
      */
     protected function lcs_count_threshold() {
-        global $CFG;
-        if (intval($CFG->qtype_correctwriting_max_temp_lcs) <= 0) {
+        if (intval(get_config('qtype_correctwriting', 'max_temp_lcs')) <= 0) {
             return 0;
         }
-        return intval($CFG->qtype_correctwriting_max_temp_lcs);
+        return intval(get_config('qtype_correctwriting', 'max_temp_lcs'));
     }
 
     protected function analyze() {

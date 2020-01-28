@@ -25,9 +25,9 @@
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'qtype_correctwriting';
-$plugin->version  = 2017111900;
+$plugin->version  = 2020012801;
 $plugin->requires = 2016052305;
-$plugin->release = 'Correct Writing 3.1';
+$plugin->release = 'Correct Writing 3.2';
 $plugin->maturity = MATURITY_STABLE;
 
 $plugin->dependencies = array(

@@ -154,7 +154,7 @@ function xmldb_qtype_correctwriting_upgrade($oldversion=0) {
         $idfield = new xmldb_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null, null);
         $answeridfield = new xmldb_field('answerid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, 0, $idfield);
         $enumerationsfield = new xmldb_field('enumerations', XMLDB_TYPE_TEXT, null, null, XMLDB_NOTNULL, null, null, $answeridfield);
-
+	
         $table->addField($idfield);
         $table->addField($answeridfield, $idfield);
         $table->addField($enumerationsfield, $answeridfield);
@@ -175,7 +175,7 @@ function xmldb_qtype_correctwriting_upgrade($oldversion=0) {
         $fieldnames = array(
             'allowinvalidsyntaxanswers' => 'howtofixpichintpenalty'
         );
-
+		
         foreach($fieldnames as $name => $previous) {
             $defaultvalue = '0';
             $field = new xmldb_field($name, XMLDB_TYPE_INTEGER, '4', null ,XMLDB_NOTNULL, null, $defaultvalue, $previous);
@@ -187,7 +187,32 @@ function xmldb_qtype_correctwriting_upgrade($oldversion=0) {
         // correctwriting savepoint reached
         upgrade_plugin_savepoint(true, 2016070000, 'qtype', 'correctwriting');
     }
+    
+	if ($oldversion < 2017032300) {
+        $DB->execute(
+            "DELETE FROM {config_log} WHERE " . $DB->sql_like('name', ':name'),
+            array('name' => 'qtype_correctwriting%')
+        );
+        $configs = $DB->get_records_sql(
+            "SELECT * from {config} WHERE " . $DB->sql_like('name', ':name'),
+            array('name' => 'qtype_correctwriting%')
+        );
 
+        $newconfigs = array_map(function ($config) {
+            return (object)array(
+                'plugin' => 'qtype_correctwriting',
+                'name' => str_replace('qtype_correctwriting_', '', $config->name),
+                'value' => $config->value,
+            );
+        }, $configs);
+        $DB->insert_records('config_plugins', $newconfigs);
+
+        $DB->execute(
+            "DELETE FROM {config} WHERE " . $DB->sql_like('name', ':name'),
+            array('name' => 'qtype_correctwriting%')
+        );
+        upgrade_plugin_savepoint(true, 2017032300, 'qtype', 'correctwriting');
+    }
 
     return true;
 }

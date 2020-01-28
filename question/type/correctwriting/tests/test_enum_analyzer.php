@@ -1327,6 +1327,7 @@ class qtype_correctwriting_enum_analyzer_test extends PHPUnit_Framework_TestCase
         $newpair->correctedstring()->stream->tokens;
         $pairs = array();
         $pairs[] = $newpair;
+        set_config('maxorderscount', 0, 'qtype_correctwriting');
         // Test body.
         $temp = new qtype_correctwriting_enum_analyzer('q',$pair,$lang,false);
         $this->assertEquals($pairs, $temp->result_pairs(), 'Error in work found!Enumeration elements are missed');
