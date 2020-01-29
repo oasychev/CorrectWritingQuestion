@@ -73,7 +73,8 @@ define('TINY_SPACE', 2);
 /**
  * This style of require_once is used intentionally, due to non-availability of Moodle here
  */
-require_once(dirname(__FILE__) . '/textimagerenderer.php');
+
+require_once('../../../blocks/formal_langs/textimagerenderer.php');
 /**
  * A simple label for placing it and determining it's size
  */
@@ -91,7 +92,7 @@ class qtype_correctwriting_label {
 
     public function __construct($text) {
         $this->text = $text;
-        $this->rect = qtype_correctwriting_get_text_bounding_box($text);
+        $this->rect = get_text_bounding_box($text);
         $this->rect->x = 0;
         $this->rect->y = 0;
     }
@@ -123,7 +124,7 @@ class qtype_correctwriting_label {
         // Set color according to fixed parameter
         $color = $palette['black'];
         // Paint a string
-        qtype_correctwriting_render_text($im, $this->rect->x, $this->rect->y, $this->text, $color);
+        render_text($im, $this->rect->x, $this->rect->y, $this->text, $color);
     }
 }
 

@@ -25,12 +25,15 @@
 /**
  * This style of require_once is used intentionally, due to non-availability of Moodle here
  */
-require_once(dirname(__FILE__) . '/textimagerenderer.php');
-require_once(dirname(__FILE__) . '/classes/mistakesimage/defines.php');
-require_once(dirname(__FILE__) . '/classes/mistakesimage/abstractlabel.php');
-require_once(dirname(__FILE__) . '/classes/mistakesimage/emptylabel.php');
-require_once(dirname(__FILE__) . '/classes/mistakesimage/lexemelabel.php');
-require_once(dirname(__FILE__) . '/classes/mistakesimage/imageblock.php');
+
+defined('MOODLE_INTERNAL') || die();
+global $CFG;
+
+require_once($CFG->dirroot . '/blocks/formal_langs/textimagerenderer.php');
+require_once($CFG->dirroot . '/blocks/formal_langs/classes/mistakesimage/defines.php');
+require_once($CFG->dirroot . '/blocks/formal_langs/classes/mistakesimage/abstract_label.php');
+require_once($CFG->dirroot . '/blocks/formal_langs/classes/mistakesimage/empty_label.php');
+require_once($CFG->dirroot . '/blocks/formal_langs/classes/mistakesimage/lexeme_label.php');
 
 /** A table cell consists of two rows - answer and response. Answer is placed in the top of image,
     response is placed in bottom of image. It can paint itself to image and must return
@@ -303,8 +306,8 @@ class qtype_correctwriting_table
      */
    private $mistakes;
    /** Builds a new table, using following parameters
-    *  @param array $answer array of qtype_correctwriting_lexeme_label, representing an answer part of question
-    *  @param array $response array of qtype_correctwriting_lexeme_label, representing a student response
+    *  @param array $answer array of block_formal_langs_lexeme_label, representing an answer part of question
+    *  @param array $response array of block_formal_langs_lexeme_label, representing a student response
     *  @param qtype_correctwriting_lcs_extractor $lcs lcs data for building lcs result
     *  @param qtype_correctwriting_mistake_container $mistakes a mistake container, used to maintain mistakes
     *  @param bool $usesimplealignment whether we should simply store answers, without aligning them
@@ -315,8 +318,8 @@ class qtype_correctwriting_table
        // Create a labels for table
        $this->mistakes = $mistakes;
        $this->table = array();
-       $answerlabel = new qtype_correctwriting_lexeme_label(get_string('imageanswer', 'qtype_correctwriting'));
-       $responselabel = new qtype_correctwriting_lexeme_label(get_string('imageresponse', 'qtype_correctwriting'));
+       $answerlabel = new block_formal_langs_lexeme_label(get_string('imageanswer', 'qtype_correctwriting'));
+       $responselabel = new block_formal_langs_lexeme_label(get_string('imageresponse', 'qtype_correctwriting'));
        $this->table[] = new qtype_correctwriting_table_cell($answerlabel, $responselabel);
 
        // Build table
@@ -348,8 +351,8 @@ class qtype_correctwriting_table
 
     /**
      * Builds simple table, without any alignment
-     * @param array $answer array of qtype_correctwriting_lexeme_label, representing an answer part of question
-     * @param array $response array of qtype_correctwriting_lexeme_label, representing a student response
+     * @param array $answer array of block_formal_langs_lexeme_label, representing an answer part of question
+     * @param array $response array of block_formal_langs_lexeme_label, representing a student response
      */
     private function build_simple_table($answer, $response) {
         $min = min(count($answer), count($response));
@@ -370,8 +373,8 @@ class qtype_correctwriting_table
         }
     }
     /** Builds a new table, using LCS
-     * @param array $answer array of qtype_correctwriting_lexeme_label, representing an answer part of question
-     * @param array $response array of qtype_correctwriting_lexeme_label, representing a student response
+     * @param array $answer array of block_formal_langs_lexeme_label, representing an answer part of question
+     * @param array $response array of block_formal_langs_lexeme_label, representing a student response
      * @param array of stdClass $lcs lcs data for building lcs result
      * @internal param qtype_correctwriting_mistake_container $mistakes a mistake container, used to maintain mistakes
      */
@@ -408,8 +411,8 @@ class qtype_correctwriting_table
    }
 
     /** Builds a new table, without LCS use
-     * @param array $answer array of qtype_correctwriting_lexeme_label, representing an answer part of question
-     * @param array $response array of qtype_correctwriting_lexeme_label, representing a student response
+     * @param array $answer array of block_formal_langs_lexeme_label, representing an answer part of question
+     * @param array $response array of block_formal_langs_lexeme_label, representing a student response
      * @internal param qtype_correctwriting_mistake_container $mistakes a mistake container, used to maintain mistakes
      */
    private function build_table_without_lcs($answer, $response) {
@@ -457,9 +460,9 @@ class qtype_correctwriting_table
        $cell = $this->table[$this->answertable[$answerindex]];
        $rect = $cell->get_answer_rect();
        $label = $cell->answer();
-       /** @var qtype_correctwriting_lexeme_label $label */
-       if (!is_a($label, 'qtype_correctwriting_lexeme_label')) {
-           throw new Exception("Not a qtype_correctwriting_lexeme_label");
+       /** @var block_formal_langs_lexeme_label $label */
+       if (!is_a($label, 'block_formal_langs_lexeme_label')) {
+           throw new Exception("Not a block_formal_langs_lexeme_label");
        }
        return $label->get_label_rect($rect);
    }
@@ -492,9 +495,9 @@ class qtype_correctwriting_table
         $cell = $this->table[$this->responsetable[$responseindex]];
         $rect = $cell->get_response_rect();
         $label = $cell->response();
-        /** @var qtype_correctwriting_lexeme_label $label */
-        if (!is_a($label, 'qtype_correctwriting_lexeme_label')) {
-            throw new Exception("Not a qtype_correctwriting_lexeme_label");
+        /** @var block_formal_langs_lexeme_label $label */
+        if (!is_a($label, 'block_formal_langs_lexeme_label')) {
+            throw new Exception("Not a block_formal_langs_lexeme_label");
         }
         return $label->get_label_rect($rect);
     }
@@ -1152,7 +1155,7 @@ class qtype_correctwriting_image_generator
                if (is_object($value)) {
                    $value = $value->string();
                }
-               $answer[] = new qtype_correctwriting_lexeme_label($value);
+               $answer[] = new block_formal_langs_lexeme_label($value);
            }
        }
 
@@ -1168,7 +1171,7 @@ class qtype_correctwriting_image_generator
                if (is_object($value)) {
                    $value = $value->string();
                }
-               $response[] = new qtype_correctwriting_lexeme_label($value);
+               $response[] = new block_formal_langs_lexeme_label($value);
            }
        }
 
@@ -1213,9 +1216,9 @@ class qtype_correctwriting_image_generator
            $ops = $typomatch->operations;
            $comparedpos = 0;
            $correctpos = 0;
-           /** @var qtype_correctwriting_lexeme_label $correctlabel */
+           /** @var block_formal_langs_lexeme_label $correctlabel */
            $correctlabel = $answer[$correctindex];
-           /** @var qtype_correctwriting_lexeme_label $comparedlabel */
+           /** @var block_formal_langs_lexeme_label $comparedlabel */
            $comparedlabel = $response[$comparedindex];
            $label = $comparedlabel;
            for($i = 0; $i < core_text::strlen($ops); $i++) {
@@ -1282,11 +1285,11 @@ class qtype_correctwriting_image_generator
            $correctindex1 = $pair->map_from_correct_string_to_enum_correct_string($match->correcttokens[0]);
            $correctindex2 = $pair->map_from_correct_string_to_enum_correct_string($match->correcttokens[1]);
 
-           /** @var qtype_correctwriting_lexeme_label $correctlabel */
+           /** @var block_formal_langs_lexeme_label $correctlabel */
            $correctlabel = $answer[$correctindex1];
 
-           $newcorrectlabel = new qtype_correctwriting_image_block(array($correctlabel, $answer[$correctindex2]));
-           /** @var qtype_correctwriting_lexeme_label $comparedlabel */
+           $newcorrectlabel = new block_formal_langs_image_block(array($correctlabel, $answer[$correctindex2]));
+           /** @var block_formal_langs_lexeme_label $comparedlabel */
            $comparedlabel = $response[$comparedindex];
 
            $answer[$correctindex1] = $newcorrectlabel;
@@ -1303,8 +1306,8 @@ class qtype_correctwriting_image_generator
            $comparedindex1 = $match->comparedtokens[0];
            $comparedindex2 = $match->comparedtokens[1];
 
-           /** @var qtype_correctwriting_lexeme_label $comparedlabel1 */
-           /** @var qtype_correctwriting_lexeme_label $comparedlabel2 */
+           /** @var block_formal_langs_lexeme_label $comparedlabel1 */
+           /** @var block_formal_langs_lexeme_label $comparedlabel2 */
 
            $comparedlabel1 = $response[$comparedindex1];
            $comparedlabel2 = $response[$comparedindex2];
