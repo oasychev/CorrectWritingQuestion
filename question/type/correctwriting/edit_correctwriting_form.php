@@ -862,70 +862,71 @@ require_once($CFG->dirroot . '/blocks/formal_langs/tokens_base.php');
             }
         }
 
-        if ($this->secondtimeform) {//Second time form is a unique case: first appearance of token descriptions before user.
-            $mesg = get_string('enterlexemedescriptions', 'qtype_correctwriting');
-            $errors['descriptionslabel[0]'] = $mesg;
-        } else {//More than second time form, so check descriptions count.
-            $fractions = $data['fraction'];
-            foreach($data['answer'] as $key => $value) {
-                $processedstring = $lang->create_from_string($value);
-                $stream = $processedstring->stream;
-                if ($lang->could_parse() && $data['issyntaxanalyzerenabled']) {
-                    $tree = $processedstring->syntaxtree;
-                    $treelist = $processedstring->tree_to_list();
-                    $tokens = $treelist;
-                    /* 10.07.16 Mamontov commented this, now this is checked, when scanning for errors
-                    if (count($tree) > 1) {
-                        $fieldkey =  "answer[$key]";
-                        if (array_key_exists($fieldkey, $errors) == false) {
+        // Now "Second time form" are replaced with ajax autoloading, old case commented out.
+        //if ($this->secondtimeform) {//Second time form is a unique case: first appearance of token descriptions before user.
+        //    $mesg = get_string('enterlexemedescriptions', 'qtype_correctwriting');
+        //    $errors['descriptionslabel[0]'] = $mesg;
+        //} else {//More than second time form, so check descriptions count.
+        $fractions = $data['fraction'];
+        foreach($data['answer'] as $key => $value) {
+            $processedstring = $lang->create_from_string($value);
+            $stream = $processedstring->stream;
+            if ($lang->could_parse() && $data['issyntaxanalyzerenabled']) {
+                $tree = $processedstring->syntaxtree;
+                $treelist = $processedstring->tree_to_list();
+                $tokens = $treelist;
+                /* 10.07.16 Mamontov commented this, now this is checked, when scanning for errors
+                if (count($tree) > 1) {
+                    $fieldkey =  "answer[$key]";
+                    if (array_key_exists($fieldkey, $errors) == false) {
+                        $errors[$fieldkey] = get_string('parseerror', 'qtype_correctwriting');
+                    } else {
+                        if (core_text::strlen($errors[$fieldkey]) == 0) {
                             $errors[$fieldkey] = get_string('parseerror', 'qtype_correctwriting');
                         } else {
-                            if (core_text::strlen($errors[$fieldkey]) == 0) {
-                                $errors[$fieldkey] = get_string('parseerror', 'qtype_correctwriting');
-                            } else {
-                                $errors[$fieldkey] .= $br . get_string('parseerror', 'qtype_correctwriting');
-                            }
+                            $errors[$fieldkey] .= $br . get_string('parseerror', 'qtype_correctwriting');
                         }
                     }
-                    */
-                } else {
-                    $tokens = $stream->tokens;
                 }
-                if (count($tokens) > 0 && $fractions[$key] >= $data['hintgradeborder']) {//Token descriptions needed for this answer.
-                    $descriptionstring = $data['lexemedescriptions'][$key];
-                    if (trim($value) != '' /*&& trim($descriptionstring) != ''*/) {//Uncomment if empty descriptions will be good as "no descriptions" variant.
-                        $descriptions = explode(PHP_EOL, $descriptionstring);
-                        $fieldkey =  "answer[$key]";
-                        $mesg = null;
-                        if (count($tokens) > count($descriptions)) {
-                            $mesg = get_string('writemoredescriptions', 'qtype_correctwriting');
+                */
+            } else {
+                $tokens = $stream->tokens;
+            }
+            if (count($tokens) > 0 && $fractions[$key] >= $data['hintgradeborder']) {//Token descriptions needed for this answer.
+                $descriptionstring = $data['lexemedescriptions'][$key];
+                if (trim($value) != '' /*&& trim($descriptionstring) != ''*/) {//Uncomment if empty descriptions will be good as "no descriptions" variant.
+                    $descriptions = explode(PHP_EOL, $descriptionstring);
+                    $fieldkey =  "answer[$key]";
+                    $mesg = null;
+                    if (count($tokens) > count($descriptions)) {
+                        $mesg = get_string('writemoredescriptions', 'qtype_correctwriting');
+                    }
+                    //If lexical analyzer is enabled.
+                    if ($islexicalanalyzerenabled) {
+                        $similarwords = $this->has_many_similar_words($tokens, $data['usecase'], $data['lexicalerrorthreshold']);
+                        //If system may freeze
+                        if($similarwords == true){
+                            $mesg = get_string('systemmayfreeze', 'qtype_correctwriting');
                         }
-                        //If lexical analyzer is enabled.
-                        if ($islexicalanalyzerenabled) {
-                            $similarwords = $this->has_many_similar_words($tokens, $data['usecase'], $data['lexicalerrorthreshold']);
-                            //If system may freeze
-                            if($similarwords == true){
-                                $mesg = get_string('systemmayfreeze', 'qtype_correctwriting');
-                            }
-                        }
-                        if (count($tokens) < count($descriptions)) {
-                            $mesg = get_string('writelessdescriptions', 'qtype_correctwriting');
-                        }
-                        if ($mesg) {
-                            if (array_key_exists($fieldkey, $errors) == false) {
+                    }
+                    if (count($tokens) < count($descriptions)) {
+                        $mesg = get_string('writelessdescriptions', 'qtype_correctwriting');
+                    }
+                    if ($mesg) {
+                        if (array_key_exists($fieldkey, $errors) == false) {
+                            $errors[$fieldkey] = $mesg;
+                        } else {
+                            if (core_text::strlen($errors[$fieldkey]) == 0) {
                                 $errors[$fieldkey] = $mesg;
                             } else {
-                                if (core_text::strlen($errors[$fieldkey]) == 0) {
-                                    $errors[$fieldkey] = $mesg;
-                                } else {
-                                    $errors[$fieldkey] .= $br . $mesg;
-                                }
+                                $errors[$fieldkey] .= $br . $mesg;
                             }
                         }
                     }
                 }
             }
         }
+        //}
         return $errors;
     }
 
