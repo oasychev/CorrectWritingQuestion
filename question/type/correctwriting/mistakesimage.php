@@ -539,7 +539,7 @@ class qtype_correctwriting_table
     *  @param  int   $answerindex index of lexeme, which is added
     */
    protected function create_answer_cell($answer, $answerindex) {
-       $entry = new qtype_correctwriting_empty_label();
+       $entry = new block_formal_langs_empty_label();
        $this->table[] = new qtype_correctwriting_table_cell($answer[$answerindex], $entry);
        $this->answertable[$answerindex] = count($this->table) - 1 ;
    }
@@ -548,7 +548,7 @@ class qtype_correctwriting_table
     *  @param  int   $responseindex index of lexeme, which is added
     */
    protected function create_response_cell($response, $responseindex) {
-       $entry = new qtype_correctwriting_empty_label();
+       $entry = new block_formal_langs_empty_label();
        /*
        if (array_key_exists($responseindex, $response) == false) {
            echo "<pre>";

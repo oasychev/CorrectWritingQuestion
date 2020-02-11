@@ -165,12 +165,7 @@ class qtype_correctwriting_renderer extends qtype_shortanswer_renderer {
                $imagesrc .= html_writer::end_tag('div');
   
                $resulttext = $imagesrc . $resulttext;
-               $jsmodule = array(
-                    'name' => 'panzoomtools',
-                    'fullpath' => '/question/type/poasquestion/jquery/jquerymodule/panzoomtools.js'
-               );
-               $PAGE->requires->js( new moodle_url($CFG->wwwroot . '/question/type/poasquestion/jquery/jquerymodule/jquery.panzoom.js') );
-               $PAGE->requires->js_init_call('M.panzoomtools', array(), false, $jsmodule);
+               $this->page->requires->js_call_amd('qtype_poasquestion/panzoomtools', 'panzoomtools');
            }
        }
        // TODO: Uncomment if we need original shortanswer hint
