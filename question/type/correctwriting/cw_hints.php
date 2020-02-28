@@ -101,7 +101,7 @@ class qtype_correctwriting_hintwhatis extends qtype_poasquestion\hint {
                 $hinttext = new qtype_poasquestion\utf8_string($this->mistake->token_descriptions(true));
             }
             // Capitalize first letter.
-            $hinttext[0] = core_text::strtoupper($hinttext[0]);
+            $hinttext = core_text::strtoupper(core_text::substr($hinttext, 0, 1)) . core_text::substr($hinttext, 1);
             return $hinttext;
         }
     }
