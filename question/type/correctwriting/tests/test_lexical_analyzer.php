@@ -33,7 +33,7 @@ require_once($CFG->dirroot.'/question/type/correctwriting/string_pair.php');
 require_once($CFG->dirroot.'/blocks/formal_langs/language_simple_english.php');
 require_once($CFG->dirroot.'/blocks/formal_langs/language_c_language.php');
 
-class qtype_correctwriting_lexical_analyzer_test extends PHPUnit_Framework_TestCase {
+class qtype_correctwriting_lexical_analyzer_test extends PHPUnit\Framework\TestCase {
 	//нет ошибок
 	public function test_lexical_analyzer1() {
 		$language1 = new block_formal_langs_language_simple_english();

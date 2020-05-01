@@ -24,7 +24,7 @@ require_once($CFG->dirroot.'/question/type/correctwriting/processed_string.php')
 require_once($CFG->dirroot.'/blocks/formal_langs/language_cpp_parseable_language.php');
 require_once($CFG->dirroot.'/question/type/poasquestion/classes/utf8_string.php');
 
-class qtype_correctwriting_enum_catcher_test extends PHPUnit_Framework_TestCase {
+class qtype_correctwriting_enum_catcher_test extends PHPUnit\Framework\TestCase {
 
     /**
      *  Test for find enumerations in definition list.

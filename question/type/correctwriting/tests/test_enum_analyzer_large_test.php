@@ -22,7 +22,7 @@ require_once($CFG->dirroot.'/blocks/formal_langs/language_base.php');
 require_once($CFG->dirroot.'/question/type/correctwriting/processed_string.php');
 require_once($CFG->dirroot.'/blocks/formal_langs/language_simple_english.php');
 
-class qtype_correctwriting_enum_analyzer_large_test extends PHPUnit_Framework_TestCase {
+class qtype_correctwriting_enum_analyzer_large_test extends PHPUnit\Framework\TestCase {
 
       // Test for construct, same tokens in diffrent enumerations.
       public function test__construct_same_tokens() {

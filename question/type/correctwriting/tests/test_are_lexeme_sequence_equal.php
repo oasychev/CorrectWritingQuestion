@@ -71,7 +71,7 @@ class qtype_correctwriting_are_lexeme_sequence_equal_test_utils {
 /**
  * This class contains the test cases for @see  qtype_correctwriting_question::are_lexeme_sequence_equal.
  */
-class qtype_correctwriting_are_lexeme_sequence_equal_test extends PHPUnit_Framework_TestCase {
+class qtype_correctwriting_are_lexeme_sequence_equal_test extends PHPUnit\Framework\TestCase {
 
     /**
      *  Test equal sensitive with insensitiive case

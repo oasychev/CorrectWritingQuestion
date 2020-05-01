@@ -37,7 +37,7 @@ require_once($CFG->dirroot.'/blocks/formal_langs/language_c_language.php');
  * in various hints. Should be used to test various problems with obtaining data
  * from other combination
  */
-class qtype_correctwriting_test_mistake_descriptions extends PHPUnit_Framework_TestCase {
+class qtype_correctwriting_test_mistake_descriptions extends PHPUnit\Framework\TestCase {
 
     /**
      * Used question

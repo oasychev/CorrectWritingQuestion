@@ -34,7 +34,7 @@ require_once($CFG->dirroot.'/blocks/formal_langs/language_simple_english.php');
 /**
  * This class contains the test cases for grade response function from question.
  */
-class qtype_correctwriting_grade_response_test extends PHPUnit_Framework_TestCase {
+class qtype_correctwriting_grade_response_test extends PHPUnit\Framework\TestCase {
 
     /** Used question
      *  @var qtype_correctwriting_question

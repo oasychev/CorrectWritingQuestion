@@ -36,7 +36,7 @@ require_once($CFG->dirroot.'/blocks/formal_langs/language_c_language.php');
 /**
  * A main class for testing mapping functions between different string pairs
  */
-class qtype_correctwriting_test_map extends PHPUnit_Framework_TestCase {
+class qtype_correctwriting_test_map extends PHPUnit\Framework\TestCase {
 
     /**
      * Sets an environment for tests

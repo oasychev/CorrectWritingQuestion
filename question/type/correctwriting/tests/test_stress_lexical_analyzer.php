@@ -38,7 +38,7 @@ require_once($CFG->dirroot.'/blocks/formal_langs/language_cpp_parseable_language
  * @class qtype_correctwriting_lexical_analyzer_stress_test
  * A stress test for lexical analyzer
  */
-class qtype_correctwriting_lexical_analyzer_stress_test extends PHPUnit_Framework_TestCase {
+class qtype_correctwriting_lexical_analyzer_stress_test extends PHPUnit\Framework\TestCase {
     /**
      * Used language
      * @var block_formal_langs_language_cpp_parseable_language

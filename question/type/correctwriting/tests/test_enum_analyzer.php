@@ -23,7 +23,7 @@ require_once($CFG->dirroot.'/question/type/correctwriting/processed_string.php')
 require_once($CFG->dirroot.'/blocks/formal_langs/language_simple_english.php');
 
 
-class qtype_correctwriting_enum_analyzer_test extends PHPUnit_Framework_TestCase {
+class qtype_correctwriting_enum_analyzer_test extends PHPUnit\Framework\TestCase {
     /**
      *  Test for get_enum_change_order function.
      *  Two enumerations without include one to another.
