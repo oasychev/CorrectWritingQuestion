@@ -46,7 +46,7 @@ class qtype_correctwriting_are_lexeme_sequence_equal_test_utils {
      * Creates an utils with test
      * @param qtype_correctwriting_are_lexeme_sequence_equal_test $test a test
      */
-    public function __construct($test) {
+    public function setUp($test) {
         $this->test = $test;
     }
     /**
