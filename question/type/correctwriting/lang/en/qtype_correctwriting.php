@@ -125,3 +125,6 @@ $string['wheretxthintpenalty'] = 'Penalty for "where" text hint';
 $string['wheretxthintpenalty_help'] = '"Where" text hint shows student a text message about a place (between what tokens?) should be placed a missing or misplaced token. Token descriptions are used when possible, token value otherwise. Setting penalty above 1 will disable the hint.';
 $string['writelessdescriptions']  = 'Supplied amount of descriptions are more than amount of tokens';
 $string['writemoredescriptions']  = 'Supplied amount of descriptions are less than amount of tokens';
+
+// privacy
+$string['privacy:metadata'] = 'The \'Correct writing\' do not store user data.';
