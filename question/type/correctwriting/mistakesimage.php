@@ -800,7 +800,8 @@ class qtype_correctwriting_arrow_builder {
 
 
        // Draw moved lexemes arrows
-       if (count($this->table->mistakes()->get_moves()) != 0) {
+       $moves = $this->table->mistakes()->get_moves();
+       if (is_array($moves) && count($moves) != 0) {
            if ($groupmovements) {
                $moves = $this->table->mistakes()->get_moves();
                $groups = array();
