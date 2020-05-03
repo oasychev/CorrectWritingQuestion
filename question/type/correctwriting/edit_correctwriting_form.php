@@ -81,13 +81,10 @@ require_once($CFG->dirroot . '/blocks/formal_langs/tokens_base.php');
     protected function definition_inner($mform) {
         global $CFG, $PAGE, $COURSE, $DB;
 
-        $PAGE->requires->jquery();
-        $PAGE->requires->js_init_call(
-            'M.question_type_correctwriting.form.init_require_answer_message',
-            array( get_string('pleaseenterananswer', 'qtype_correctwriting') ),
-            false,
-            $this->jsmodule
-        );
+        $PAGE->requires->js_call_amd(
+            'qtype_correctwriting/module',
+            'init_require_answer_message',
+            [get_string('pleaseenterananswer', 'qtype_correctwriting')]);
         // Note: rolled-out own error-span-generating function. to prevent nasty things with data
 
         // Create global floating fields before changing array.
@@ -401,22 +398,18 @@ require_once($CFG->dirroot . '/blocks/formal_langs/tokens_base.php');
      protected function init_text_input($count) {
          global $PAGE;
          $lexerurl = new moodle_url('/question/type/correctwriting/scanstring.php');
-         $PAGE->requires->js_init_call(
-             'M.question_type_correctwriting.form.init_text_input',
-             array( $count, $lexerurl->out(true) ),
-             false,
-             $this->jsmodule
-         );
+         $PAGE->requires->js_call_amd(
+             'qtype_correctwriting/module',
+             'init_text_input',
+             [$count, $lexerurl->out(true)]);
      }
 
      protected function hide_answer_lexeme_description($i) {
         global $PAGE;
-        $PAGE->requires->js_init_call(
-             'M.question_type_correctwriting.form.hide_description_field',
-             array( (string)$i ),
-             false,
-             $this->jsmodule
-        );
+        $PAGE->requires->js_call_amd(
+             'qtype_correctwriting/module',
+             'hide_description_field',
+             [(string)$i]);
      }
 
      /**
@@ -448,15 +441,10 @@ require_once($CFG->dirroot . '/blocks/formal_langs/tokens_base.php');
 
      public function print_javascript_for_hiding_and_changing_text() {
          global $PAGE;
-         $params = array(
-             $this->hiddendescriptions
-         );
-         $PAGE->requires->js_init_call(
-             'M.question_type_correctwriting.form.hide_descriptions',
-             $params,
-             false,
-             $this->jsmodule
-         );
+         $PAGE->requires->js_call_amd(
+             'qtype_correctwriting/module',
+             'hide_descriptions',
+             [$this->hiddendescriptions]);
      }
 
     function get_per_answer_fields($mform, $label, $gradeoptions,
