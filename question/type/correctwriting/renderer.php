@@ -29,9 +29,6 @@ require_once($CFG->dirroot . '/question/type/shortanswer/renderer.php');
 require_once($CFG->dirroot . '/question/type/correctwriting/mistakesimage.php');
 require_once($CFG->dirroot . '/blocks/formal_langs/block_formal_langs.php');
 
-global $PAGE;
-$PAGE->requires->jquery();
-
 /**
  * Generates the output for short answer questions.
  *

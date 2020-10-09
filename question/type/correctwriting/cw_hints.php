@@ -381,6 +381,9 @@ class qtype_correctwriting_hintwherepic extends qtype_poasquestion\hint {
         $selmistake = $this->mistake;
         $result = new stdClass();
         $lcs = $selmistake->lcs();
+        if ($lcs == null) {
+            $lcs = array();
+        }
         if (count($lcs) == 0) {
             $result->position = 0;
             $result->relative = 'before';
