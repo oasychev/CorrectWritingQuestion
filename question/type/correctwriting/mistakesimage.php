@@ -30,6 +30,7 @@ defined('MOODLE_INTERNAL') || die();
 global $CFG;
 
 require_once($CFG->dirroot . '/blocks/formal_langs/textimagerenderer.php');
+require_once($CFG->dirroot . '/blocks/formal_langs/classes/mistakesimage/imageblock.php');
 require_once($CFG->dirroot . '/blocks/formal_langs/classes/mistakesimage/defines.php');
 require_once($CFG->dirroot . '/blocks/formal_langs/classes/mistakesimage/abstract_label.php');
 require_once($CFG->dirroot . '/blocks/formal_langs/classes/mistakesimage/empty_label.php');
