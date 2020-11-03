@@ -35,7 +35,6 @@ require_once($CFG->dirroot . '/blocks/formal_langs/classes/mistakesimage/defines
 require_once($CFG->dirroot . '/blocks/formal_langs/classes/mistakesimage/abstract_label.php');
 require_once($CFG->dirroot . '/blocks/formal_langs/classes/mistakesimage/empty_label.php');
 require_once($CFG->dirroot . '/blocks/formal_langs/classes/mistakesimage/lexeme_label.php');
-require_once($CFG->dirroot . '/blocks/formal_langs/classes/mistakesimage/imageblock.php');
 
 /** A table cell consists of two rows - answer and response. Answer is placed in the top of image,
     response is placed in bottom of image. It can paint itself to image and must return
